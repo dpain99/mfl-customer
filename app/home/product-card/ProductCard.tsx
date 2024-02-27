@@ -1,17 +1,36 @@
+"use client";
 import Link from "next/link";
 import "./style.scss";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import imgProduct from "@/public/images/sleepwell.png";
+import Image from "next/image";
 
 type ICardProductProps = {
   title: string;
 };
 const CardProduct = ({ title }: ICardProductProps) => {
+  const isOpen = useSelector((state: any) => state.showCart.isOpen);
+  const dispatch = useDispatch();
+  const currentProductInfo =
+    useSelector((state: any) => state.showCart.infoProduct) || [];
+  const handleClickAddCart = () => {
+    dispatch(openCart());
+    const newProductInfo = {
+      img: "",
+      title: title,
+      price: 123,
+    };
+    const updatedProductInfo = [...currentProductInfo, newProductInfo];
+    dispatch(setProductInfo(updatedProductInfo));
+  };
   return (
     <>
       <div className="card">
         <Link href={`/detail-product/${title}`}>
           <div className="card-img">
-            <div className="img"></div>
+            <Image src={imgProduct} alt={`${title}`} />
           </div>
           <div className="card-title">{title}</div>
           <div className="card-subtitle">
@@ -25,7 +44,7 @@ const CardProduct = ({ title }: ICardProductProps) => {
           <div className="card-price">
             <span>$</span> 123.45
           </div>
-          <button className="card-btn">
+          <button className="card-btn" onClick={handleClickAddCart}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path d="m397.78 316h-205.13a15 15 0 0 1 -14.65-11.67l-34.54-150.48a15 15 0 0 1 14.62-18.36h274.27a15 15 0 0 1 14.65 18.36l-34.6 150.48a15 15 0 0 1 -14.62 11.67zm-193.19-30h181.25l27.67-120.48h-236.6z"></path>
               <path d="m222 450a57.48 57.48 0 1 1 57.48-57.48 57.54 57.54 0 0 1 -57.48 57.48zm0-84.95a27.48 27.48 0 1 0 27.48 27.47 27.5 27.5 0 0 0 -27.48-27.47z"></path>

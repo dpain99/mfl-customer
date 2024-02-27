@@ -1,0 +1,48 @@
+.cart-bar-container {
+  height: 100vh;
+  background-color: bisque;
+  position: absolute;
+  right: 0;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    position: relative;
+    height: 100%;
+    .cart-header {
+      width: 100%;
+      background-color: rgba(211, 111, 123, 0.5);
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-body {
+      padding: 0 20px;
+      overflow: scroll;
+      height: 85%;
+    }
+    .cart-footer {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      .total-price {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .cancel-btn {
+        background-color: red;
+        padding: 20px;
+      }
+      .payment-btn {
+        background-color: yellow;
+        padding: 20px;
+      }
+    }
+  }
+}
