@@ -15,7 +15,11 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
-
+:root{
+    --text-color-highlight: #004280;
+    --text-color-default: #fff;
+    --bg-color-default: #012d57;
+}
 body {
   background: linear-gradient(to bottom,
       transparent,
@@ -27,7 +31,6 @@ body {
     text-wrap: balance;
   }
 }
-
 ::-webkit-scrollbar {
   width: 6px;
 }
