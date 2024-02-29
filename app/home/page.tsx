@@ -1,47 +1,28 @@
 import { getData } from "@/lib/api";
-import SlideCarousel from "../components/slides/page";
+import imgCate1 from "@/public/images/first.png";
+import Banner from "./banner/Banner";
 import CategoryCard from "./category-card/CategoryCart";
 import CardProduct from "./product-card/ProductCard";
-import imgCate1 from "@/public/images/first.png";
-
-async function getDatas() {
-  const res = await fetch(
-    "https://medifastlinkbe-production.up.railway.app/api/customer/product"
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import { IBanner } from "./type";
+import ProductCarosel from "./product-carousel/ProductCarosel";
+import CategoryCards from "./category-cards/CategoryCards";
+import imgCate from "@/public/images/second.png";
 
 export default async function HomePage() {
-  const data = await getDatas();
+  const data = await getData("product");
+  const dataImg: IBanner[] = await getData("banner");
   return (
-    <div className="flex flex-col items-center pt-24">
-      <SlideCarousel />
-      <div className="container flex flex-col justify-center items-center gap-10">
-        <h1 className="text-4xl font-semibold">Sữa Bột</h1>
-        <span>Order It</span>
-        <div className="flex flex-wrap flex-row">
-          <div className="basis-1/4">
-            <CardProduct title={"San pham 1"} />
-          </div>
-          <div className="basis-1/4">
-            <CardProduct title={"San pham 2"} />
-          </div>
-          <div className="basis-1/4">
-            <CardProduct title={"San pham 3"} />
-          </div>
-          <div className="basis-1/4">
-            <CardProduct title={"San pham 4"} />
-          </div>
+    <div className="flex flex-col items-center pt-8 lg:pt-24">
+      <Banner dataImg={dataImg} />
+      <div className="container flex flex-col justify-center items-center gap-14">
+        <div className="w-full" style={{ height: "500px" }}>
+          <ProductCarosel />
         </div>
+
         <div className="flex flex-row gap-12">
-          <CategoryCard title={"Sữa bột"} des={"lorem"} img={imgCate1} />
-          <CategoryCard title={"Mỹ phẩm"} des={"lorem"} img={imgCate1} />
-          <CategoryCard title={"Vitamin"} des={"lorem"} img={imgCate1} />
+          <CategoryCards title={"Sữa Oz Farm"} img={imgCate} />
+          <CategoryCards title={"Mỹ Phẩm"} img={imgCate} />
+          <CategoryCards title={"Vitamin"} img={imgCate} />
         </div>
       </div>
     </div>
