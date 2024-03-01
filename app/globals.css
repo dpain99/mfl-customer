@@ -19,6 +19,8 @@
     --text-color-highlight: #004280;
     --text-color-default: #fff;
     --bg-color-default: #012d57;
+    --color-border:#eae4e8;
+
 }
 body {
   background: linear-gradient(to bottom,
