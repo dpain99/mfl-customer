@@ -1,0 +1,22 @@
+.category-menu-container {
+  transition: 0.2s linear;
+  overflow: scroll;
+  background-color: bisque;
+  .span-cate {
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .span-cate:hover + .sub-cate {
+    display: block;
+  }
+  .sub-cate {
+    display: flex;
+    position: absolute;
+    left: 100%;
+  }
+}
