@@ -4,6 +4,11 @@ import imgProduct from "@/public/images/sleepwell.png";
 import Image from "next/image";
 import './style.scss';
 import MyBtn2 from "@/app/components/button-2/page";
+import IBox from "@/public/icon/IBox/page";
+import ILike from "@/public/icon/ILike/page";
+import IAround from "@/public/icon/IAround/page";
+import IPhone from "@/public/icon/IPhone/page";
+
 export default function DetailProduct({
                                           params,
                                       }: {
@@ -12,7 +17,7 @@ export default function DetailProduct({
     return (
         <>
             <div className="flex justify-center pt-52">
-                <div className="detail-product ">
+                <div className="detail-product container mx-auto px-4">
                     <Row>
                         <Col span={8}>
                             <div className="image-detail">
@@ -58,7 +63,8 @@ export default function DetailProduct({
                                     </div>
                                     <div className="addcart-area">
                                         <MyBtn2/>
-                                        <button type="button" id="buy-now" className="buy-now cursor-pointer" name="add">
+                                        <button type="button" id="buy-now" className="buy-now cursor-pointer"
+                                                name="add">
                                             Mua ngay
                                         </button>
                                     </div>
@@ -66,27 +72,27 @@ export default function DetailProduct({
                                 <div className="product-delivery">
                             <span className="info-delivery">
                                 <span>
-                                    <CodeSandboxOutlined/>
+                                    <IBox width="20px" height="20px"/>
                                 </span>
                                 <span>Cam kết chất lượng chính hãng</span>
                             </span>
                                     <span className="info-delivery">
                                 <span>
-                                    <CodeSandboxOutlined/>
+                                    <ILike width="20px" height="20px"/>
                                 </span>
-                                <span>Cam kết chất lượng chính hãng</span>
+                                        <span><strong>ĐỒNG KIỂM</strong> với Shipper</span>
                             </span>
                                     <span className="info-delivery">
                                 <span>
-                                    <CodeSandboxOutlined/>
+                                    <IAround width="20px" height="20px"/>
                                 </span>
-                                <span>Cam kết chất lượng chính hãng</span>
+                                        <span>Hỗ trợ đổi hàng trong <strong>48 giờ</strong></span>
                             </span>
                                     <span className="info-delivery">
                                 <span>
-                                    <CodeSandboxOutlined/>
+                                    <IPhone width="20px" height="20px"/>
                                 </span>
-                                <span>Cam kết chất lượng chính hãng</span>
+                                        <span>Hotline <strong>0123456789</strong></span>
                             </span>
 
                                 </div>
