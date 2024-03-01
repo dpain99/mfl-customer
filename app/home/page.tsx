@@ -1,12 +1,9 @@
 import { getData } from "@/lib/api";
-import imgCate1 from "@/public/images/first.png";
-import Banner from "./banner/Banner";
-import CategoryCard from "./category-card/CategoryCart";
-import CardProduct from "./product-card/ProductCard";
-import { IBanner } from "./type";
-import ProductCarosel from "./product-carousel/ProductCarosel";
-import CategoryCards from "./category-cards/CategoryCards";
 import imgCate from "@/public/images/second.png";
+import Banner from "./banner/Banner";
+import CategoryCards from "./category-cards/CategoryCards";
+import ProductCarosel from "./product-carousel/ProductCarosel";
+import { IBanner } from "./type";
 
 export default async function HomePage() {
   const data = await getData("product");

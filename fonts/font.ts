@@ -1,9 +1,10 @@
 import {
-  Inter,
   Comfortaa,
-  Martel,
-  Shantell_Sans,
+  Inter,
   Marhey,
+  Martel,
+  Rubik_Vinyl,
+  Saira_Stencil_One,
 } from "next/font/google";
 
 export const inter = Inter({
@@ -22,12 +23,37 @@ export const martel = Martel({
   weight: ["200", "300", "400", "600"],
 });
 
-export const shantelSans = Shantell_Sans({
-  subsets: ["latin"],
-  display: "swap",
-});
+// export const shantelSans = Shantell_Sans({
+//   subsets: ["latin"],
+//   display: "swap",
+//   weight: ["300", "400", "600"],
+// });
 
 export const marhey = Marhey({
   subsets: ["latin"],
   display: "swap",
+});
+
+// export const rock3d = Rock_3D({
+//   subsets: ["latin"],
+//   display: "swap",
+//   weight: ["400", "400"],
+// });
+
+// export const rubikMap = Rubik_Maps({
+//   subsets: ["latin"],
+//   display: "swap",
+//   weight: ["400", "400"],
+// });
+
+export const rubikVinyl = Rubik_Vinyl({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "400"],
+});
+
+export const sairaStencilOne = Saira_Stencil_One({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "400"],
 });

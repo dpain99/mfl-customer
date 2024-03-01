@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./style.scss";
 
 import Image from "next/image";
@@ -17,7 +18,9 @@ export default function CategoryCards({ title, img }: CategoryCardProps) {
         <p className="text-title">{title}</p>
         <p className="text-body">Here are the details of the card</p>
       </div>
-      <button className="card-button">Xem Thêm</button>
+      <Link href={"/list-product"}>
+        <button className="card-button">Xem Thêm</button>
+      </Link>
     </div>
   );
 }
