@@ -6,11 +6,11 @@ import ProductCarosel from "./product-carousel/ProductCarosel";
 import { IBanner } from "./type";
 
 export default async function HomePage() {
-  const data = await getData("product");
-  const dataImg: IBanner[] = await getData("banner");
+  // const data = await getData("product");
+  // const dataImg: IBanner[] = await getData("banner");
   return (
     <div className="flex flex-col items-center pt-8 lg:pt-24">
-      <Banner dataImg={dataImg} />
+      {/* <Banner dataImg={dataImg} /> */}
       <div className="container flex flex-col justify-center items-center gap-14">
         <div className="w-full" style={{ height: "500px" }}>
           <ProductCarosel />
