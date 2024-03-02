@@ -60,7 +60,7 @@ export default function DetailProduct({params,}: {
                                     <div className="quantity-area">
                                         <div className="quantity-title">Số lượng:</div>
                                         <button type="button" className="qty-btn">
-                                            <svg focusable="false" className="icon icon--minus " viewBox="0 0 10 2"
+                                            <svg focusable="false" className="icon4 icon--minus " viewBox="0 0 10 2"
                                                  role="presentation">
                                                 <path d="M10 0v2H0V0z"></path>
                                             </svg>
@@ -68,7 +68,7 @@ export default function DetailProduct({params,}: {
                                         <input type="text" id="quantity" name="quantity" value="1" min="1"
                                                className="quantity-input"/>
                                         <button type="button" className="qty-btn">
-                                            <svg focusable="false" className="icon icon--plus " viewBox="0 0 10 10"
+                                            <svg focusable="false" className="icon6 icon--plus " viewBox="0 0 10 10"
                                                  role="presentation">
                                                 <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z"></path>
                                             </svg>

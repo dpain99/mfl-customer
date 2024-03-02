@@ -6,7 +6,7 @@ interface props{
 const IAround = ({width,height}:props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width={width} height={height} viewBox="0 0 24.00 24.00"
-             id="turn-around-left-top-direction-square-2" data-name="Flat Line" className="icon flat-line">
+             id="turn-around-left-top-direction-square-2" data-name="Flat Line" className="icon2 flat-line">
 
             <g id="SVGRepo_bgCarrier" stroke-width="0"/>
 
