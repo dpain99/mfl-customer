@@ -1,8 +1,8 @@
-import {Col, Row} from "antd";
+
 import './style.scss';
 import imgProduct from "@/public/images/sleepwell.png";
 import Image from "next/image";
-import ItemCart from "@/app/cart/item-cart/page";
+import ItemCart from "@/app/cart/item-cart/ItemCart";
 
 export default function Cart() {
     return (
