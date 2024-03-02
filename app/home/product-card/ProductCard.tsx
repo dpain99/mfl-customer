@@ -13,6 +13,7 @@ type ICardProductProps = {
 const CardProduct = ({ title }: ICardProductProps) => {
   const isOpen = useSelector((state: any) => state.showCart.isOpen);
   const dispatch = useDispatch();
+
   const currentProductInfo =
     useSelector((state: any) => state.showCart.infoProduct) || [];
   const handleClickAddCart = () => {

@@ -10,15 +10,16 @@ import {useEffect, useState} from "react";
 import {Product} from "@/lib/interface";
 import {getDataForClient} from "@/lib/api";
 import {formatCurrencyVND} from "@/lib/helper";
+import {useParams, useSearchParams} from "next/navigation";
 
 
 export default function DetailProduct({params,}: {
     params: { slug: string };
 }) {
-    params.slug = "product/slug-1";
+    const params1 = useParams()
     const [detailProduct, setDetailProduct] = useState<Product | null>(null)
     const getData1 = async ()=>{
-        const response = await getDataForClient(params.slug);
+        const response = await getDataForClient(`product/${params1.slug}`);
         setDetailProduct(response);
     };
     useEffect(() => {
