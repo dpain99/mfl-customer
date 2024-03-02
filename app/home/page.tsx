@@ -1,16 +1,19 @@
 import { getData } from "@/lib/api";
-import imgCate from "@/public/images/second.png";
+import imgCate1 from "@/public/images/first.png";
 import Banner from "./banner/Banner";
-import CategoryCards from "./category-cards/CategoryCards";
-import ProductCarosel from "./product-carousel/ProductCarosel";
+import CategoryCard from "./category-card/CategoryCart";
+import CardProduct from "./product-card/ProductCard";
 import { IBanner } from "./type";
+import ProductCarosel from "./product-carousel/ProductCarosel";
+import CategoryCards from "./category-cards/CategoryCards";
+import imgCate from "@/public/images/second.png";
 
 export default async function HomePage() {
-  // const data = await getData("product");
-  // const dataImg: IBanner[] = await getData("banner");
+  const data = await getData("product");
+  const dataImg: IBanner[] = await getData("banner");
   return (
     <div className="flex flex-col items-center pt-8 lg:pt-24">
-      {/* <Banner dataImg={dataImg} /> */}
+      <Banner dataImg={dataImg} />
       <div className="container flex flex-col justify-center items-center gap-14">
         <div className="w-full" style={{ height: "500px" }}>
           <ProductCarosel />
