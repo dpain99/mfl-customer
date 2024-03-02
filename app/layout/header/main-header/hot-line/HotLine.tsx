@@ -13,13 +13,13 @@ export default function HotLine() {
         <g
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         >
           <path
-            stroke-dasharray="64"
-            stroke-dashoffset="64"
+            strokeDasharray="64"
+            strokeDashoffset="64"
             d="M8 3C8.5 3 10.5 7.5 10.5 8C10.5 9 9 10 8.5 11C8 12 9 13 10 14C10.3943 14.3943 12 16 13 15.5C14 15 15 13.5 16 13.5C16.5 13.5 21 15.5 21 16C21 18 19.5 19.5 18 20C16.5 20.5 15.5 20.5 13.5 20C11.5 19.5 10 19 7.5 16.5C5 14 4.5 12.5 4 10.5C3.5 8.5 3.5 7.5 4 6C4.5 4.5 6 3 8 3Z"
           >
             <animate
@@ -37,8 +37,8 @@ export default function HotLine() {
             />
           </path>
           <path
-            stroke-dasharray="4"
-            stroke-dashoffset="4"
+            strokeDasharray="4"
+            strokeDashoffset="4"
             d="M14 7.04404C14.6608 7.34734 15.2571 7.76718 15.7624 8.27723M16.956 10C16.6606 9.35636 16.2546 8.77401 15.7624 8.27723"
             opacity="0"
           >
@@ -69,8 +69,8 @@ export default function HotLine() {
             />
           </path>
           <path
-            stroke-dasharray="10"
-            stroke-dashoffset="10"
+            strokeDasharray="10"
+            strokeDashoffset="10"
             d="M20.748 9C20.3874 7.59926 19.6571 6.347 18.6672 5.3535M15 3.25203C16.4105 3.61507 17.6704 4.3531 18.6672 5.3535"
             opacity="0"
           >
