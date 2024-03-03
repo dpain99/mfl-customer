@@ -12,8 +12,57 @@ import imgProduct from "@/public/images/sleepwell.png";
 import Image from "next/image";
 import { Navigation, Pagination } from "swiper/modules";
 import MoreBtn from "@/app/components/more-btn/MoreBtn";
+import AddToCartBtn from "@/app/components/add-to-cart-btn/AddToCartBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import { useEffect, useState } from "react";
 
-export default function CardProductCarousel() {
+interface ICardProductCarouselProps {
+  linkMore: string;
+}
+export default function CardProductCarousel({
+  linkMore,
+}: ICardProductCarouselProps) {
+  const dispatch = useDispatch();
+  const currentProductInfo =
+    useSelector((state: any) => state.showCart.infoProduct) || [];
+  const handleClickAddCart = () => {
+    dispatch(openCart());
+    const newProductInfo = {
+      img: "",
+      title: "ass",
+      price: 123,
+    };
+    const updatedProductInfo = [...currentProductInfo, newProductInfo];
+    dispatch(setProductInfo(updatedProductInfo));
+  };
+
+  const [slidesPerView, setSlidesPerView] = useState(4); // Default for non-mobile
+
+  useEffect(() => {
+    // Check if mobile screen
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    // Set slides per view based on screen size
+    if (isMobile) {
+      setSlidesPerView(2);
+    } else {
+      setSlidesPerView(4);
+    }
+
+    // Update slides per view on window resize
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setSlidesPerView(2);
+      } else {
+        setSlidesPerView(4);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <div className="flex justify-between items-center pb-4 pl-4 pr-4">
@@ -71,7 +120,7 @@ export default function CardProductCarousel() {
       </div>
       <div className="card-product-container">
         <Swiper
-          slidesPerView={4}
+          slidesPerView={slidesPerView}
           spaceBetween={10}
           modules={[Pagination, Navigation]}
           className="mySwiper"
@@ -90,13 +139,24 @@ export default function CardProductCarousel() {
                 }}
                 className="img-product"
               />
-              <div className="info_product">
+              <div className="info_product relative">
                 <div className="price">
-                  <p className={martel.className}>{"asdas"}đ</p>
-                  <p className={martel.className}>{"asdas"}đ</p>
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
                 </div>
-
-                <span>{"jasdasd"}</span>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -113,13 +173,24 @@ export default function CardProductCarousel() {
                 }}
                 className="img-product"
               />
-              <div className="info_product">
+              <div className="info_product relative">
                 <div className="price">
-                  <p className={martel.className}>{"asdas"}đ</p>
-                  <p className={martel.className}>{"asdas"}đ</p>
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
                 </div>
-
-                <span>{"jasdasd"}</span>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -136,13 +207,24 @@ export default function CardProductCarousel() {
                 }}
                 className="img-product"
               />
-              <div className="info_product">
+              <div className="info_product relative">
                 <div className="price">
-                  <p className={martel.className}>{"asdas"}đ</p>
-                  <p className={martel.className}>{"asdas"}đ</p>
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
                 </div>
-
-                <span>{"jasdasd"}</span>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -159,13 +241,24 @@ export default function CardProductCarousel() {
                 }}
                 className="img-product"
               />
-              <div className="info_product">
+              <div className="info_product relative">
                 <div className="price">
-                  <p className={martel.className}>{"asdas"}đ</p>
-                  <p className={martel.className}>{"asdas"}đ</p>
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
                 </div>
-
-                <span>{"jasdasd"}</span>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -182,20 +275,65 @@ export default function CardProductCarousel() {
                 }}
                 className="img-product"
               />
-              <div className="info_product">
+              <div className="info_product relative">
                 <div className="price">
-                  <p className={martel.className}>{"asdas"}đ</p>
-                  <p className={martel.className}>{"asdas"}đ</p>
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
                 </div>
-
-                <span>{"jasdasd"}</span>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="slide w-48 lg:w-56">
+              <Image
+                src={imgProduct}
+                alt={`asdsa`}
+                style={{
+                  display: "flex",
+                  objectFit: "cover",
+                  width: "150px",
+                  height: "150px",
+                }}
+                className="img-product"
+              />
+              <div className="info_product relative">
+                <div className="price">
+                  <p className={`${martel.className} real-price`}>
+                    {"599.000"}đ
+                  </p>
+                  <p className={`${martel.className} sub-price`}>
+                    {"699.000"}đ
+                  </p>
+                </div>
+                <span className="name-product">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
+                  asperiores eius dolorem iure voluptatibus, cupiditate unde
+                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
+                </span>
+                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
         </Swiper>
       </div>
       <div className="flex pt-5 justify-center">
-        <MoreBtn />
+        <MoreBtn link={linkMore} />
       </div>
     </>
   );

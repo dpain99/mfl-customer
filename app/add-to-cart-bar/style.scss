@@ -3,6 +3,7 @@
   background-color: bisque;
   position: absolute;
   right: 0;
+  transition: all 0.5 linear;
   .content {
     display: flex;
     flex-direction: column;

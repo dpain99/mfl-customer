@@ -36,7 +36,7 @@ export default function AddToCartBar() {
 
   return (
     <div className={isOpen ? "flex" : "hidden"}>
-      <div className="cart-bar-container shadow-lg w-1/2 md:w-1/4">
+      <div className="cart-bar-container shadow-lg w-1/2 md:w-1/4 z-20">
         <div className="content">
           <div className="cart-header">
             <span>Giỏ Hàng</span>
