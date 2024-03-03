@@ -1,9 +1,11 @@
-import { comfortaa } from "@/fonts/font";
-import Providers from "@/redux/Provider";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import FooterWeb from "./layout/footer/FooterWeb";
 import Header from "./layout/header/page";
+import Providers from "@/redux/Provider";
+import FooterWeb from "./layout/footer/FooterWeb";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={comfortaa.className}>
+      <body className={inter.className}>
         <Providers>
           <Header />
           {children}

@@ -45,7 +45,7 @@ export default function SubHeader() {
           <Link href={"/blog"}>
             <span className={`${comfortaa.className} cate-span`}>Cẩm nang</span>
           </Link>
-          <Link href={"/about-us"}>
+          <Link href={"./about-us"}>
             <span className={`${comfortaa.className} cate-span`}>
               Về chúng tôi
             </span>
