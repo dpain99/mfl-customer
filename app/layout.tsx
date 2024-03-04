@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Header />
-          {children}
+          <div className="mt-16">{children}</div>
           <FooterWeb />
         </Providers>
       </body>

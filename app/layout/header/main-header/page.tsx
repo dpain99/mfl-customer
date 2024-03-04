@@ -1,23 +1,47 @@
 "use client";
-import AddToCartBar from "@/app/add-to-cart-bar/AddToCartBar";
+import AddToCartMenu from "@/app/components/add-to-cart-menu/AddToCartMenu";
 import SearchInput from "@/app/components/search-input/SearchInput";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
+import { getDataForClient } from "@/lib/api";
 import logoImg from "@/public/images/logo.png";
+import { RootState } from "@/redux/store";
+import { Tooltip } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import HotLine from "./hot-line/HotLine";
-import "./style.scss";
-import { useState } from "react";
 import MenuBar from "./menu-bar/MenuBar";
+import "./style.scss";
+import { IUserData } from "./type";
 export default function MainHeader() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [infoAcc, setInfoAcc] = useState<IUserData>();
   const handleClickMenu = () => {
     setOpenMenu(!openMenu);
   };
+  const checkToken = useSelector(
+    (state: RootState) => state.authenSlice.accessToken
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (checkToken) {
+        try {
+          const responseData = await getDataForClient("auth/current");
+          setInfoAcc(responseData);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [checkToken]);
   return (
     <>
       <header className="page-header h-12 md:h-16 shadow-lg lg:shadow-none">
-        <AddToCartBar />
+        <AddToCartMenu />
         <div className="container mx-auto px-4">
           <div className="flex flex-row">
             <div className="flex basis-1/3 justify-start items-center gap-10 ">
@@ -60,20 +84,38 @@ export default function MainHeader() {
                   </g>
                 </svg>
               </Link>
-              <div className="hidden lg:block">
-                {" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1.7em"
-                  height="1.7em"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
-                  />
-                </svg>
-              </div>
+              <Tooltip placement="bottom" title={infoAcc?.email}>
+                <Link href={"account"}>
+                  <div className="hidden lg:block">
+                    {" "}
+                    {infoAcc?.email ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1.7em"
+                        height="1.7em"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 4c-.6 0-1 .4-1 1v1h-1.5l-1.4-3c-.1-.2-.2-.4-.4-.5c-.5-.5-1.3-.6-2-.3l-.7.2l-.7-.3c-.7-.3-1.5-.2-2 .3c-.2.2-.3.4-.4.6L7.5 6H6V5c0-.6-.4-1-1-1s-1 .4-1 1v1c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-.5-.4-1-1-1M4 22v-3c0-2.67 5.33-4 8-4s8 1.33 8 4v3zm14.1-1.9V19c0-.64-3.13-2.1-6.1-2.1S5.9 18.36 5.9 19v1.1zM16 9v1c0 2.21-1.79 4-4 4s-4-1.79-4-4V9h2v1a2 2 0 1 0 4 0V9z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1.7em"
+                        height="1.7em"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </Link>
+              </Tooltip>
 
               <div className="block lg:hidden" onClick={handleClickMenu}>
                 <svg

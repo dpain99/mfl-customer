@@ -24,21 +24,23 @@ export default function Banner({ dataImg }: BannerProps) {
           onSwiper={(swiper) => console.log(swiper)}
           className="h-auto w-full rounded-lg"
         >
-          {dataImg.map((items, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex h-full w-full items-center justify-center">
-                <Image
-                  src={`${items.actionLink}`}
-                  alt={items.name}
-                  className="block h-full w-full object-cover"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: "100%", height: "auto" }}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
+          {dataImg &&
+            dataImg.length &&
+            dataImg.map((items, index) => (
+              <SwiperSlide key={index}>
+                <div className="flex h-full w-full items-center justify-center">
+                  <Image
+                    src={`${items.actionLink}`}
+                    alt={items.name}
+                    className="block h-full w-full object-cover"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>
