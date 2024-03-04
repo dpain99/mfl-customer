@@ -2,10 +2,10 @@
 import {Col, Row} from "antd";
 import './style.scss';
 import MyBtn2 from "@/app/components/button-2/page";
-import IBox from "@/public/icon/IBox/page";
-import ILike from "@/public/icon/ILike/page";
-import IAround from "@/public/icon/IAround/page";
-import IPhone from "@/public/icon/IPhone/page";
+import IBox from "@/public/icon/IBox";
+import ILike from "@/public/icon/ILike";
+import IAround from "@/public/icon/IAround";
+import IPhone from "@/public/icon/IPhone";
 import {useEffect, useState} from "react";
 import {Product} from "@/lib/interface";
 import {getDataForClient} from "@/lib/api";
@@ -106,7 +106,7 @@ export default function DetailProduct({params,}: {
                                 <span>
                                     <IPhone width="20px" height="20px"/>
                                 </span>
-                                        <span>Hotline <strong>0123456789</strong></span>
+                                        <span>Hotline <strong>0981 787 551</strong></span>
                             </span>
 
                                 </div>
