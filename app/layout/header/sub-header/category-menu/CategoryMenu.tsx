@@ -14,7 +14,6 @@ export default function CategoryMenu({ isShow, data }: CategoryMenuProps) {
         }`}
       >
         <div className="flex flex-col relative">
-          <div className="sub-cate">hello</div>
           {data.map((item, id) => (
             <div className="span-cate" key={id}>
               <span className="children-cate">{item.name}</span>

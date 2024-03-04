@@ -5,6 +5,7 @@ import {
   Martel,
   Rubik_Vinyl,
   Saira_Stencil_One,
+  Kanit,
 } from "next/font/google";
 
 export const inter = Inter({
@@ -56,4 +57,9 @@ export const sairaStencilOne = Saira_Stencil_One({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "400"],
+});
+export const kanit = Kanit({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400", "600"],
 });

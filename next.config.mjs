@@ -8,6 +8,12 @@ const nextConfig = {
         port: "",
         pathname: "/awd-prod-bucket/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "tailwindui.com",
+        port: "",
+        pathname: "/img/ecommerce-images/**",
+      },
     ],
   },
 };

@@ -11,12 +11,12 @@
     justify-content: space-between;
     align-items: center;
   }
-  .span-cate:hover + .sub-cate {
-    display: block;
-  }
-  .sub-cate {
-    display: flex;
-    position: absolute;
-    left: 100%;
-  }
+  // .span-cate:hover + .sub-cate {
+  //   display: block;
+  // }
+  // .sub-cate {
+  //   display: flex;
+  //   position: absolute;
+  //   left: 100%;
+  // }
 }
