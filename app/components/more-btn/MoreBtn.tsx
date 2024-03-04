@@ -1,8 +1,13 @@
+import Link from "next/link";
 import "./style.scss";
-export default function MoreBtn() {
+
+interface IMoreBtnProps {
+  link: string;
+}
+export default function MoreBtn({ link }: IMoreBtnProps) {
   return (
     <div className="more-btn-conteiner">
-      <a className="btn-content" href="#">
+      <Link className="btn-content" href={link}>
         <span className="btn-title">Xem Thêm</span>
         <span className="icon-arrow">
           <svg
@@ -38,7 +43,7 @@ export default function MoreBtn() {
             </g>
           </svg>
         </span>
-      </a>
+      </Link>
     </div>
   );
 }
