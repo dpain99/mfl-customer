@@ -21,7 +21,8 @@
     --text-sub : #696969;
     --bg-color-default: #012d57;
     --color-border: #ffffff;
-
+    --color-border-1: #eae4e8;
+    --color-hover-button-submit: #01123F;
 }
 body {
   background: linear-gradient(to bottom,
