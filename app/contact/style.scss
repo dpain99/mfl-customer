@@ -1,0 +1,58 @@
+.wrapbox-content-contact {
+  .contact {
+    .box-info-contact, .box-send-contact{
+      background: #fff;
+      padding: 15px;
+      border-radius: 3px;
+      h2{
+        font-weight: 700;
+        font-size: 22px;
+        margin: 0 0 20px;
+      }
+    }
+    .box-info-contact {
+      margin-bottom: 15px;
+      .wrapbox-contact{
+        .row{
+          display: flex;
+          flex-wrap: wrap;
+          margin-right: -15px;
+          margin-left: -15px;
+        }
+        li{
+          margin-bottom: 10px;
+          font-size: 14px;
+          span{
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%;
+            float: left;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg{
+              width: 20px;
+              height: 20px;
+            }
+          }
+          p{
+            width: calc(100% - 35px);
+            float: left;
+            padding-left: 15px;
+            margin-bottom: 5px;
+            color: var(--text-sub);
+            font-weight: 500;
+            strong{
+              color: #171717;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

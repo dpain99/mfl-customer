@@ -18,8 +18,9 @@
 :root{
     --text-color-highlight: #004280;
     --text-color-default: #fff;
+    --text-sub : #696969;
     --bg-color-default: #012d57;
-    --color-border:#eae4e8;
+    --color-border: #ffffff;
 
 }
 body {
