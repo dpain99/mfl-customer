@@ -8,10 +8,10 @@ const IAround = ({width,height}:props) => {
         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width={width} height={height} viewBox="0 0 24.00 24.00"
              id="turn-around-left-top-direction-square-2" data-name="Flat Line" className="icon2 flat-line">
 
-            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"/>
 
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
-               stroke-width="2"/>
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" stroke="#CCCCCC"
+               strokeWidth="2"/>
 
             <g id="SVGRepo_iconCarrier">
 
