@@ -1,12 +1,41 @@
 import { configureStore } from "@reduxjs/toolkit";
-import showCartSlice from "./slices/showCart";
-import authenSlice from "./slices/authen";
+import {
+  TypedUseSelectorHook,
+  useDispatch as useAppDispatch,
+  useSelector as useAppSelector,
+} from "react-redux";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { rootReducer } from "./rootReducer";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  keyPrefix: "mfl-",
+  whitelist: ["user", "authenSlice"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    showCart: showCartSlice,
-    authenSlice: authenSlice,
-  },
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
+export const persistor = persistStore(store);
+
+export type AppDispatch = typeof store.dispatch;
+
+const { dispatch } = store;
+
+export const useDispatch = () => useAppDispatch<AppDispatch>();
+
+export const useSelector: TypedUseSelectorHook<RootState> = useAppSelector;
+
+export { dispatch };
