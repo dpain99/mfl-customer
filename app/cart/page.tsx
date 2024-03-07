@@ -24,7 +24,7 @@ export default function Cart() {
       wardId: null,
     });
 
-  const [orderShippingId, setOrderShippingId] = useState<number>();
+  const [orderShippingId, setOrderShippingId] = useState<number>(0);
   const accessToken = useSelector(
     (state: RootState) => state.authenSlice.accessToken
   );
