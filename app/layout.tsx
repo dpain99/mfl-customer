@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./layout/header/page";
 import Providers from "@/redux/Provider";
 import FooterWeb from "./layout/footer/FooterWeb";
+import ProviderReactQuery from "@/common/providers/react-query.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} id="checkout">
         <Providers>
-          <Header />
-          <div className="mt-16">{children}</div>
-          <FooterWeb />
+          <ProviderReactQuery>
+            <Header />
+            <div className="mt-16">{children}</div>
+            <FooterWeb />
+          </ProviderReactQuery>
         </Providers>
       </body>
     </html>

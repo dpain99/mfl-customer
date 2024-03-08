@@ -1,5 +1,5 @@
 import { getData } from "@/lib/api";
-import MainHeader from "./main-header/page";
+import MainHeader from "./main-header/main-header";
 import SubHeader from "./sub-header/page";
 
 export default async function Header() {
