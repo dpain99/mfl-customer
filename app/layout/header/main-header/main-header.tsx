@@ -2,42 +2,38 @@
 import AddToCartMenu from "@/app/components/add-to-cart-menu/AddToCartMenu";
 import SearchInput from "@/app/components/search-input/SearchInput";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
-import { getDataForClient } from "@/lib/api";
 import logoImg from "@/public/images/logo.png";
-import { RootState } from "@/redux/store";
+import { RootState, dispatch } from "@/redux/store";
 import { Tooltip } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useGetCurrentUser } from "./hooks/use-get-current-user";
 import HotLine from "./hot-line/HotLine";
 import MenuBar from "./menu-bar/MenuBar";
 import "./style.scss";
-import { IUserData } from "./type";
+import { setProfileUser } from "@/redux/slices/user";
 export default function MainHeader() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [infoAcc, setInfoAcc] = useState<IUserData>();
   const handleClickMenu = () => {
     setOpenMenu(!openMenu);
   };
-  const checkToken = useSelector(
+
+  const accessToken = useSelector(
     (state: RootState) => state.authenSlice.accessToken
   );
-
+  const { data: infoAcc } = useGetCurrentUser(accessToken || "");
   useEffect(() => {
-    const fetchData = async () => {
-      if (checkToken) {
-        try {
-          const responseData = await getDataForClient("auth/current");
-          setInfoAcc(responseData);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
-    };
+    if (infoAcc) {
+      dispatch(
+        setProfileUser({
+          user: infoAcc,
+        })
+      );
+    }
+  }, [JSON.stringify(infoAcc)]);
 
-    fetchData();
-  }, [checkToken]);
   return (
     <>
       <header className="page-header h-12 md:h-16 shadow-lg lg:shadow-none">

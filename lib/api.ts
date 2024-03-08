@@ -1,6 +1,6 @@
 import { store } from "@/redux/store";
 
-const baseURL = process.env.DB_HOST;
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 const token = store.getState().authenSlice.accessToken;
 
 async function getData(path: string) {
@@ -13,10 +13,14 @@ async function getData(path: string) {
   return res.json();
 }
 
-const getDataForClient = async (path: string) => {
+const getDataForClient = async (path: string, accessToken?: string) => {
   const headers: HeadersInit = {};
+
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
+  }
+  if (accessToken) {
+    headers["Authorization"] = `Bearer ${accessToken}`;
   }
   try {
     const response = await fetch(
