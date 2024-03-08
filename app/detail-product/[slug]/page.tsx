@@ -30,7 +30,7 @@ export default function DetailProduct({params,}: {
 
     return (
         <>
-            <div className="flex justify-center pt-52">
+            <div className="flex justify-center mt-16">
                 <div className="detail-product container mx-auto px-4">
                     <Row>
                         <Col span={8}>

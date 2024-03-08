@@ -9,7 +9,7 @@ import IEmail from "@/public/icon/IEmail";
 export default function Contact() {
 
     return (
-        <div className="pt-52">
+        <div className="mt-16">
             <div className="wrapbox-content-contact container mx-auto px-4 flex justify-center">
                 <div className="contact flex-1">
                     <div className="box-info-contact">
