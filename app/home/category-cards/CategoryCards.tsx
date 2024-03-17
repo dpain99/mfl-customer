@@ -9,11 +9,15 @@ interface CategoryCardProps {
   title: string;
   img: any;
   animation: string;
+  des: string;
+  link: string;
 }
 export default function CategoryCards({
   title,
   img,
   animation,
+  des,
+  link,
 }: CategoryCardProps) {
   useEffect(() => {
     AOS.init({
@@ -31,10 +35,10 @@ export default function CategoryCards({
             className="w-full h-48 object-cover rounded-lg"
           />
           <p className="text-title">{title}</p>
-          <p className="text-body">Here are the details of the card</p>
+          <p className="text-body">{des}</p>
         </div>
         <button className="card-button">
-          <Link href={"/list-product"}>Xem Thêm</Link>
+          <Link href={`/list-product/${link}`}>Xem Thêm</Link>
         </button>
       </div>
     </div>

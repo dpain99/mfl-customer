@@ -14,6 +14,7 @@ interface BannerProps {
   dataImg: IBanner[];
 }
 export default function Banner({ dataImg }: BannerProps) {
+  console.log("dataImg", dataImg);
   return (
     <section className="py-12">
       <div className="container">
@@ -30,7 +31,7 @@ export default function Banner({ dataImg }: BannerProps) {
               <SwiperSlide key={index}>
                 <div className="flex h-full w-full items-center justify-center">
                   <Image
-                    src={`${items.actionLink}`}
+                    src={`${items.actionLink || items.image.url}`}
                     alt={items.name}
                     className="block h-full w-full object-cover"
                     width={0}

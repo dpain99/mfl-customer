@@ -7,50 +7,69 @@ import "swiper/css/pagination";
 
 import "./style.scss";
 
-import { martel } from "@/fonts/font";
-import imgProduct from "@/public/images/sleepwell.png";
-import Image from "next/image";
-import { Navigation, Pagination } from "swiper/modules";
-import MoreBtn from "@/app/components/more-btn/MoreBtn";
 import AddToCartBtn from "@/app/components/add-to-cart-btn/AddToCartBtn";
-import { useDispatch, useSelector } from "react-redux";
-import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import MoreBtn from "@/app/components/more-btn/MoreBtn";
+import { martel } from "@/fonts/font";
+import { ProductInfo, openCart, setProductInfo } from "@/redux/slices/showCart";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigation, Pagination } from "swiper/modules";
+import { IProductListResponse } from "../type";
+import { RootState } from "@/redux/store";
 
 interface ICardProductCarouselProps {
   linkMore: string;
+  dataProduct: IProductListResponse;
 }
 export default function CardProductCarousel({
   linkMore,
+  dataProduct,
 }: ICardProductCarouselProps) {
   const dispatch = useDispatch();
   const currentProductInfo =
-    useSelector((state: any) => state.showCart.infoProduct) || [];
-  const handleClickAddCart = () => {
+    useSelector((state: RootState) => state.showCart.infoProduct) || [];
+
+  const handleClickAddCart = (
+    name: string,
+    maxMoney: number,
+    minMoney: number,
+    url: string,
+    slug: string
+  ) => {
     dispatch(openCart());
-    const newProductInfo = {
-      img: "",
-      title: "ass",
-      price: 123,
-    };
-    const updatedProductInfo = [...currentProductInfo, newProductInfo];
-    dispatch(setProductInfo(updatedProductInfo));
+    const existingProductIndex = currentProductInfo.findIndex(
+      (product) => product.slug === slug
+    );
+
+    if (existingProductIndex !== -1) {
+      const updatedProductInfo: ProductInfo[] = [...currentProductInfo];
+      updatedProductInfo[existingProductIndex].quantity += 1;
+      dispatch(setProductInfo(updatedProductInfo));
+    } else {
+      const newProductInfo = {
+        img: url,
+        title: name,
+        price: minMoney || maxMoney,
+        slug: slug,
+        quantity: 1,
+      };
+      const updatedProductInfo = [...currentProductInfo, newProductInfo];
+      dispatch(setProductInfo(updatedProductInfo));
+    }
   };
 
-  const [slidesPerView, setSlidesPerView] = useState(4); // Default for non-mobile
+  const [slidesPerView, setSlidesPerView] = useState(4);
 
   useEffect(() => {
-    // Check if mobile screen
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-    // Set slides per view based on screen size
     if (isMobile) {
       setSlidesPerView(2);
     } else {
       setSlidesPerView(4);
     }
 
-    // Update slides per view on window resize
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setSlidesPerView(2);
@@ -126,210 +145,52 @@ export default function CardProductCarousel({
           className="mySwiper"
           navigation={true}
         >
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
+          {dataProduct.items.map((item) => (
+            <SwiperSlide key={item.id}>
+              <div className="slide w-48 lg:w-56">
+                <Link href={`detail-product/${item.slug}`} key={item.id}>
+                  <Image
+                    src={item.productImage[0].image.url}
+                    alt={`${item.name}`}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{
+                      display: "flex",
+                      objectFit: "cover",
+                      width: "150px",
+                      height: "150px",
+                    }}
+                    className="img-product"
+                  />
+                </Link>
+                <div className="info_product relative">
+                  <div className="price">
+                    <p className={`${martel.className} real-price`}>
+                      {item.maxMoney}đ
+                    </p>
+                    <p className={`${martel.className} sub-price`}>
+                      {item.minMoney}đ
+                    </p>
+                  </div>
+                  <span className="name-product">{item.name}</span>
+                  <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                    <AddToCartBtn
+                      handleClickAdd={() =>
+                        handleClickAddCart(
+                          item.name,
+                          item.maxMoney,
+                          item.minMoney,
+                          item.productImage[0].image.url,
+                          item.slug
+                        )
+                      }
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="slide w-48 lg:w-56">
-              <Image
-                src={imgProduct}
-                alt={`asdsa`}
-                style={{
-                  display: "flex",
-                  objectFit: "cover",
-                  width: "150px",
-                  height: "150px",
-                }}
-                className="img-product"
-              />
-              <div className="info_product relative">
-                <div className="price">
-                  <p className={`${martel.className} real-price`}>
-                    {"599.000"}đ
-                  </p>
-                  <p className={`${martel.className} sub-price`}>
-                    {"699.000"}đ
-                  </p>
-                </div>
-                <span className="name-product">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Corporis nulla ducimus quaerat culpa nemo sapiente dolore
-                  asperiores eius dolorem iure voluptatibus, cupiditate unde
-                  voluptatum porro laboriosam nesciunt. Unde, aliquam laborum?
-                </span>
-                <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
-                  <AddToCartBtn handleClickAdd={handleClickAddCart} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div className="flex pt-5 justify-center">

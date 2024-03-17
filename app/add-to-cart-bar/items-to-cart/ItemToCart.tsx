@@ -1,10 +1,10 @@
-import Image from "next/image";
-import productImg from "@/public/images/sleepwell.png";
 import AdjustNumber from "@/app/components/adjust-number/AdjustNumber";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import RemoveBtn from "@/app/components/remove-btn/RemoveBtn";
-import { useDispatch, useSelector } from "react-redux";
 import { setProductInfo } from "@/redux/slices/showCart";
+import { RootState } from "@/redux/store";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface ItemToCardProps {
   title: string;
@@ -22,7 +22,7 @@ export default function ItemToCard({
   const dispatch = useDispatch();
 
   const infoProducts =
-    useSelector((state: any) => state.showCart.infoProduct) || [];
+    useSelector((state: RootState) => state.showCart.infoProduct) || [];
 
   useEffect(() => {
     const updatedInfoProducts = infoProducts.map((product: any) => {

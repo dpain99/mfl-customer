@@ -4,7 +4,7 @@ import SocialBtn from "@/app/components/social-btn/SocialBtn";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
 export default function FooterWeb() {
   return (
-    <div className="footer-container flex flex-col w-full mt-20 relative">
+    <div className="footer-container flex flex-col w-full pt-20 relative z-20">
       {/* destop */}
       <div className="w-full hidden lg:flex">
         <div className="basis-1/3 pl-5">
@@ -116,7 +116,7 @@ export default function FooterWeb() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 w-full border-t-2 mt-14 flex justify-center items-center p-3">
+      <div className="absolute bottom-0 w-full border-t-2 mt-14 flex justify-center items-center">
         <span className="text-xs md:text-sm">
           Copyright © 2024 Medi Fast Links - Hàng Úc Nhập Khẩu | Sữa Bột | Mỹ
           Phẩm | Vitamin - www.medifastlinks.vn

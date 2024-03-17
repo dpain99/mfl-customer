@@ -1,132 +1,223 @@
 "use client";
-import {Col, Row} from "antd";
-import './style.scss';
-import MyBtn2 from "@/app/components/button-2/page";
-import IBox from "@/public/icon/IBox";
+import AdjustNumber from "@/app/components/adjust-number/AdjustNumber";
+import BreadCrumb from "@/app/components/breadcrumb/Breadcrumb";
+import MyBtn3 from "@/app/components/button-3/MyBtn3";
+import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
+import { getDataForClient } from "@/lib/api";
+import { convertMoney } from "@/lib/convertMoney";
+import { Product } from "@/lib/interface";
 import ILike from "@/public/icon/ILike";
-import IAround from "@/public/icon/IAround";
-import IPhone from "@/public/icon/IPhone";
-import {useEffect, useState} from "react";
-import {Product} from "@/lib/interface";
-import {getDataForClient} from "@/lib/api";
-import {formatCurrencyVND} from "@/lib/helper";
-import {useParams, useSearchParams} from "next/navigation";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { SetStateAction, useEffect, useState } from "react";
+import CategoryProductCarousel from "../category-product-carousel/CategoryProductCarousel";
+import ImageProductCarousel from "../image-product-carousel/ImageProductCarousel";
+import "./style.scss";
+import { IProductListResponse } from "@/app/home/type";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
 
-
-export default function DetailProduct({params,}: {
-    params: { slug: string };
+export default function DetailProduct({
+  params,
+}: {
+  params: { slug: string };
 }) {
-    const params1 = useParams()
-    const [detailProduct, setDetailProduct] = useState<Product | null>(null)
-    const getData1 = async ()=>{
-        const response = await getDataForClient(`product/${params1.slug}`);
-        setDetailProduct(response);
+  const params1 = useParams();
+  const [detailProduct, setDetailProduct] = useState<Product | null>(null);
+  const [dataProductCategory, setDataProductCategory] =
+    useState<IProductListResponse>();
+  const [quantityProduct, setQuantityProduct] = useState<number>(1);
+  const getData1 = async () => {
+    const response = await getDataForClient(`product/${params1.slug}`);
+    setDetailProduct(response);
+  };
+  useEffect(() => {
+    getData1().then((r) => {});
+    return () => {};
+  }, []);
+
+  const categoryId = detailProduct?.productCategories[0].categoryId || 0;
+
+  const queryParamsSuaOz = new URLSearchParams({
+    categoryIds: `${categoryId}`,
+  }).toString();
+
+  const getDataProduct = async () => {
+    try {
+      const response: IProductListResponse = await getDataForClient(
+        `product?${queryParamsSuaOz}`
+      );
+      setDataProductCategory(response);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (categoryId !== undefined) {
+      getDataProduct();
+    }
+  }, [categoryId]);
+
+  const dispatch = useDispatch();
+  const currentProductInfo =
+    useSelector((state: RootState) => state.showCart.infoProduct) || [];
+  const handleClickAddCart = (
+    name: string,
+    maxMoney: number,
+    minMoney: number,
+    url: string,
+    slug: string
+  ) => {
+    dispatch(openCart());
+    const newProductInfo = {
+      img: url,
+      title: name,
+      price: minMoney | maxMoney,
+      slug: slug,
+      quantity: quantityProduct,
     };
-    useEffect(() => {
-        getData1().then(r => {});
-        return () => {
-        };
-    }, []);
+    const updatedProductInfo = [...currentProductInfo, newProductInfo];
+    dispatch(setProductInfo(updatedProductInfo));
+  };
 
-    return (
-        <>
-            <div className="flex justify-center mt-16">
-                <div className="detail-product container mx-auto px-4">
-                    <Row>
-                        <Col span={8}>
-                            <div className="image-detail">
-                                <img src={detailProduct && detailProduct.productImage[0].image.url || undefined} alt="image product"/>
-                            </div>
-                        </Col>
-                        <Col span={14}>
-                            <div className="info-detail">
-                                <h1 className="name-product">{detailProduct?.name}</h1>
-                                <span className="id-product">Mã sản phẩm : <strong>{detailProduct?.id}</strong></span>
-                                <span className="status-product">Tình trạng : <strong>{detailProduct && detailProduct.productVariant[0].quantity > 0 ? "Còn hàng" : "Hết hàng"}</strong></span>
-                                <span className="brand-product">Thương hiệu : <strong>{detailProduct?.productCategories[0].category.name}</strong></span>
-                                <div className="price-product">
-                                    <div className="price-current">
-                                        <span className="price-now">{detailProduct && formatCurrencyVND(detailProduct.productVariant[0].salePrice)} VND</span>
-                                        <span className="vat">(Đã bao gồm VAT)</span>
-                                    </div>
-                                    <div className="price-compare">
-                                        <span className="com-title">Giá hãng </span>
-                                        <span className="com-price">{detailProduct && formatCurrencyVND(detailProduct.productVariant[0].price)}</span>
-                                        {/*<span className="save-money-title">- Tiết kiệm:</span>
-                                        <span className="save-money">125,800 VNĐ</span>
-                                        <span className="percent-save">(-20%)</span>*/}
-                                    </div>
-                                </div>
-                                <div className="action-product">
-                                    <div className="quantity-area">
-                                        <div className="quantity-title">Số lượng:</div>
-                                        <button type="button" className="qty-btn">
-                                            <svg focusable="false" className="icon4 icon--minus " viewBox="0 0 10 2"
-                                                 role="presentation">
-                                                <path d="M10 0v2H0V0z"></path>
-                                            </svg>
-                                        </button>
-                                        <input type="text" id="quantity" name="quantity" value="1" min="1"
-                                               className="quantity-input"/>
-                                        <button type="button" className="qty-btn">
-                                            <svg focusable="false" className="icon6 icon--plus " viewBox="0 0 10 10"
-                                                 role="presentation">
-                                                <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div className="addcart-area">
-                                        <MyBtn2/>
-                                        <button type="button" id="buy-now" className="buy-now cursor-pointer"
-                                                name="add">
-                                            Mua ngay
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="product-delivery">
-                            <span className="info-delivery">
-                                <span>
-                                    <IBox width="20px" height="20px"/>
-                                </span>
-                                <span>Cam kết chất lượng chính hãng</span>
-                            </span>
-                                    <span className="info-delivery">
-                                <span>
-                                    <ILike width="20px" height="20px"/>
-                                </span>
-                                        <span><strong>ĐỒNG KIỂM</strong> với Shipper</span>
-                            </span>
-                                    <span className="info-delivery">
-                                <span>
-                                    <IAround width="20px" height="20px"/>
-                                </span>
-                                        <span>Hỗ trợ đổi hàng trong <strong>48 giờ</strong></span>
-                            </span>
-                                    <span className="info-delivery">
-                                <span>
-                                    <IPhone width="20px" height="20px"/>
-                                </span>
-                                        <span>Hotline <strong>0981 787 551</strong></span>
-                            </span>
+  return (
+    <div className="container mx-auto ">
+      <div className="pt-5 pb-5">
+        <BreadCrumb
+          items={[
+            { title: "Trang Chủ", href: "/" },
+            { title: `${detailProduct?.name}` },
+          ]}
+        />
+      </div>
 
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <div className="description-product">
-                            <div className="title">
-                            <span>
-                                Mô tả sản phẩm
-                            </span>
-                            </div>
-                            <div className="description">
-                                {detailProduct && detailProduct.description}
-                            </div>
-                        </div>
-                    </Row>
+      <div className="flex flex-col gap-10 rounded-xl">
+        <div className="flex flex-row p-5 rounded-xl bg-white shadow-xl">
+          <div className="w-1/3">
+            <ImageProductCarousel dataImg={detailProduct} />
+          </div>
+
+          <div className="flex flex-col gap-4 px-10 grow">
+            <span className="text-xl font-semibold text-sky-500">
+              {detailProduct?.productCategories[0].category.name}
+            </span>
+            <span className="text-2xl">{detailProduct?.name}</span>
+            <span className="text-base font-semibold">{`Tình trạng: ${detailProduct?.status}`}</span>
+            <span className="text-3xl text-red-800 bg-slate-200 rounded-lg p-2">{`${convertMoney(
+              detailProduct?.maxMoney
+            )} đ`}</span>
+            <div className="flex flex-row items-center gap-3">
+              <span className="w-24 font-semibold">Loại: </span>
+              {detailProduct?.productVariant.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-row items-center w-fit justify-center border-x border-y border-solid border-slate-400 px-2 py-1 rounded-lg"
+                >
+                  <Image
+                    src={item.productVariantImage[0].image.url}
+                    alt={item.name}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="size-14 object-cover"
+                  />
+                  <span>{item.value}</span>
                 </div>
+              ))}
             </div>
-        </>
-    );
+            <div className="flex flex-row items-center gap-3">
+              <span className="w-24 font-semibold">Số lượng : </span>
+              <AdjustNumber
+                adjustNumber={quantityProduct}
+                setAdjustNumber={setQuantityProduct}
+              />
+            </div>
+            <div className="flex flex-row gap-3">
+              <MyBtn3
+                title={"Thêm vào giỏ"}
+                sx="bg-cyan-500 before:from-cyan-600 before:to-cyan-400 w-1/2 py-4"
+                handleClick={() =>
+                  handleClickAddCart(
+                    detailProduct?.name || "",
+                    detailProduct?.maxMoney || 0,
+                    detailProduct?.minMoney || 0,
+                    detailProduct?.productImage[0].image.url || "",
+                    detailProduct?.slug || ""
+                  )
+                }
+              />
+              <MyBtn3
+                title={"Mua ngay"}
+                sx="bg-red-500 before:from-red-600 before:to-red-400 w-1/2 py-4"
+              />
+            </div>
+            <div className="flex flex-row items-center gap-3">
+              <span className="font-semibold w-24">Chia sẻ: </span>
+              <SocialBtn2 />
+            </div>
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
+              <span className="font-semibold text-base">
+                Chính sách bán hàng
+              </span>
+
+              <span className=" flex flex-row gap-3 text-sm items-center">
+                <ILike width="1.4em" height="1.4em" /> Cam kết 100% chính hãng
+              </span>
+              <span className="flex flex-row gap-3 text-sm items-center">
+                <ILike width={"1.4em"} height={"1.4em"} /> Hỗ trợ 24/7
+              </span>
+              <span className="font-semibold text-base">Thông tin thêm</span>
+              <span className=" flex flex-row gap-3 text-sm items-center">
+                <ILike width={"1.4em"} height={"1.4em"} />
+                Hoàn giá 111% nếu là hàng giả
+              </span>
+              <span className="flex flex-row gap-3 text-sm items-center">
+                <ILike width={"1.4em"} height={"1.4em"} />
+                Mở hội kiểm tra nhận hàng
+              </span>
+            </div>
+            <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
+              <iframe
+                src="https://www.youtube.com/embed/nrqhPGdT6A8"
+                title="Hướng dẫn sử dụng Oz Farm cho bà bầu"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-10 rounded-xl pt-10">
+        <div className="flex flex-col p-5 rounded-xl bg-white shadow-xl">
+          <section className="flex w-full border-solid border-b border-slate-200">
+            <span className="border-solid border-b border-slate-950 pb-3 font-semibold text-xl uppercase">
+              Mô tả sản phẩm
+            </span>
+          </section>
+          <section className="pt-8">{detailProduct?.description}</section>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-15 rounded-xl py-10">
+        <div className="flex flex-col p-5 rounded-xl bg-white shadow-xl gap-5">
+          <section className="flex w-full border-solid border-b border-slate-200">
+            <span className="border-solid border-b border-slate-950 pb-3 font-semibold text-xl uppercase">
+              Sản phẩm cùng danh mục
+            </span>
+          </section>
+
+          <CategoryProductCarousel
+            linkMore={""}
+            dataProduct={dataProductCategory}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -1,0 +1,16 @@
+.info-container-parallax {
+  height: 500px;
+  .content {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    max-width: 100%;
+    color: #4253cd;
+    backdrop-filter: blur(5px);
+    p {
+      margin: 0 0 1rem;
+      opacity: 1;
+    }
+  }
+}

@@ -23,6 +23,11 @@ export default function MainHeader() {
   const accessToken = useSelector(
     (state: RootState) => state.authenSlice.accessToken
   );
+
+  const cartItems = useSelector(
+    (state: RootState) => state.showCart.infoProduct
+  );
+  const lengthCart = cartItems?.length || 0;
   const { data: infoAcc } = useGetCurrentUser(accessToken || "");
   useEffect(() => {
     if (infoAcc) {
@@ -59,7 +64,10 @@ export default function MainHeader() {
               <div className="hidden lg:flex">
                 <SearchInput />
               </div>
-              <Link href={"/cart"}>
+              <Link href={"/cart"} className="relative">
+                <span className="bg-red-500 absolute -right-2 -top-1 text-white rounded-full w-5 h-5 text-center text-sm">
+                  {lengthCart}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="2em"

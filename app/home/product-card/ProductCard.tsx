@@ -3,25 +3,38 @@ import Link from "next/link";
 import "./style.scss";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import { ProductInfo, openCart, setProductInfo } from "@/redux/slices/showCart";
 import imgProduct from "@/public/images/sleepwell.png";
 import Image from "next/image";
+import { RootState } from "@/redux/store";
 
 type ICardProductProps = {
   title: string;
+  price: number;
+  salePrice?: number;
+  image: string;
+  slug: string;
 };
-const CardProduct = ({ title }: ICardProductProps) => {
-  const isOpen = useSelector((state: any) => state.showCart.isOpen);
+const CardProduct = ({
+  title,
+  price,
+  salePrice,
+  image,
+  slug,
+}: ICardProductProps) => {
+  const isOpen = useSelector((state: RootState) => state.showCart.isOpen);
   const dispatch = useDispatch();
 
   const currentProductInfo =
-    useSelector((state: any) => state.showCart.infoProduct) || [];
+    useSelector((state: RootState) => state.showCart.infoProduct) || [];
   const handleClickAddCart = () => {
     dispatch(openCart());
-    const newProductInfo = {
-      img: "",
+    const newProductInfo: ProductInfo = {
+      img: image,
       title: title,
-      price: 123,
+      price: salePrice || 0,
+      slug: slug,
+      quantity: 1,
     };
     const updatedProductInfo = [...currentProductInfo, newProductInfo];
     dispatch(setProductInfo(updatedProductInfo));
@@ -29,21 +42,25 @@ const CardProduct = ({ title }: ICardProductProps) => {
   return (
     <>
       <div className="card">
-        <Link href={`/detail-product/${title}`}>
+        <Link href={`/detail-product/${slug}`}>
           <div className="card-img">
-            <Image src={imgProduct} alt={`${title}`} />
+            <Image
+              src={image}
+              alt={`${title}`}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="size-36 object-cover"
+            />
           </div>
           <div className="card-title">{title}</div>
-          <div className="card-subtitle">
-            Product description. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit.
-          </div>
           <hr className="card-divider" />
         </Link>
 
         <div className="card-footer">
-          <div className="card-price">
-            <span>$</span> 123.45
+          <div className="card-price flex flex-col text-lg">
+            <span className="line-through text-sm">{salePrice} vnđ</span>
+            <span className="text-rose-600 text-lg">{price} vnđ</span>
           </div>
           <button className="card-btn" onClick={handleClickAddCart}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
