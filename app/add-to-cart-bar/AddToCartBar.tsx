@@ -4,11 +4,12 @@ import ItemToCard from "./items-to-cart/ItemToCart";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { SetStateAction, useEffect, useState } from "react";
+import { RootState } from "@/redux/store";
 
 export default function AddToCartBar() {
   const isOpen = useSelector((state: any) => state.showCart.isOpen);
   const infoProducts =
-    useSelector((state: any) => state.showCart.infoProduct) || [];
+    useSelector((state: RootState) => state.showCart.infoProduct) || [];
   const dispatch = useDispatch();
 
   const handleDeleteItem = (titleToDelete: string) => {
@@ -42,11 +43,11 @@ export default function AddToCartBar() {
             <span>Giỏ Hàng</span>
           </div>
           <div className="cart-body">
-            {infoProducts?.map((item: any, index: number) => (
+            {infoProducts?.map((item, index) => (
               <ItemToCard
                 key={index}
                 title={item?.title}
-                img={undefined}
+                img={item?.img}
                 price={item?.price}
                 handleDeleteItems={() => handleDeleteItem(item.title)}
               />

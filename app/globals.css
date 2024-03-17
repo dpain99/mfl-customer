@@ -15,19 +15,21 @@
     --background-end-rgb: 0, 0, 0;
   }
 } */
-:root{
-    --text-color-highlight: #004280;
-    --text-color-default: #fff;
-    --text-sub : #696969;
-    --bg-color-default: #012d57;
-    --color-border: #ffffff;
-    --color-border-1: #eae4e8;
-    --color-hover-button-submit: #01123F;
+:root {
+  --text-color-highlight: #004280;
+  --text-color-default: #fff;
+  --text-sub: #696969;
+  --bg-color-default: #012d57;
+  --color-border: #ffffff;
+  --color-border-1: #eae4e8;
+  --color-hover-button-submit: #01123F;
 }
+
 body {
-  background: linear-gradient(to bottom,
+  /* background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)); */
+  background-color: #F5F5F5;
 }
 
 @layer utilities {
@@ -35,6 +37,7 @@ body {
     text-wrap: balance;
   }
 }
+
 ::-webkit-scrollbar {
   width: 6px;
 }

@@ -24,7 +24,7 @@ export default function RootLayout({
         <Providers>
           <ProviderReactQuery>
             <Header />
-            <div className="mt-16">{children}</div>
+            <div>{children}</div>
             <FooterWeb />
           </ProviderReactQuery>
         </Providers>

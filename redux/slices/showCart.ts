@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ProductInfo {
+export interface ProductInfo {
   img: any;
   title: string;
   price: number;
   quantity: number;
+  slug: string;
 }
 
 interface CartState {

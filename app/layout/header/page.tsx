@@ -5,7 +5,7 @@ import SubHeader from "./sub-header/page";
 export default async function Header() {
   return (
     <>
-      <div className="sticky w-full z-10 top-0 z-20">
+      <div className="sticky w-full z-10 top-0 z-30">
         <MainHeader />
         <SubHeader />
       </div>

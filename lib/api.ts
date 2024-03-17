@@ -3,11 +3,18 @@ import { store } from "@/redux/store";
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 const token = store.getState().authenSlice.accessToken;
 
-async function getData(path: string) {
-  const res = await fetch(`${baseURL}/${path}`, { method: "GET" });
+interface RequestOptions {
+  method?: string;
+  headers?: { [key: string]: string };
+  body?: BodyInit | null;
+}
+
+async function getData(path: string, options: RequestOptions = {}) {
+  const { method = "GET", headers = {}, body } = options;
+  const res = await fetch(`${baseURL}/${path}`, { method, headers, body });
 
   if (res.status !== 200) {
-    console.log("error");
+    console.error("Error:", res.status);
   }
 
   return res.json();
