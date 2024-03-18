@@ -11,7 +11,12 @@ interface RequestOptions {
 
 async function getData(path: string, options: RequestOptions = {}) {
   const { method = "GET", headers = {}, body } = options;
-  const res = await fetch(`${baseURL}/${path}`, { method, headers, body });
+  const res = await fetch(`${baseURL}/${path}`, {
+    next: { revalidate: 3600 },
+    method,
+    headers,
+    body,
+  });
 
   if (res.status !== 200) {
     console.error("Error:", res.status);
