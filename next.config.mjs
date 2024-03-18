@@ -15,6 +15,7 @@ const nextConfig = {
         pathname: "/img/ecommerce-images/**",
       },
     ],
+    unoptimized: true,
   },
 };
 
