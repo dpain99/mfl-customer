@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RootState } from "@/redux/store";
 import { convertMoney } from "@/lib/convertMoney";
+import IClose from "@/public/icon/IClose";
 
 export default function AddToCartMenu() {
   const isOpen = useSelector((state: any) => state.showCart.isOpen);
@@ -78,7 +79,7 @@ export default function AddToCartMenu() {
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Close panel</span>
                             <span className="h-6 w-6" aria-hidden="true">
-                              X
+                              <IClose width={"1.9em"} height={"1.9em"} />
                             </span>
                           </button>
                         </div>
@@ -154,12 +155,13 @@ export default function AddToCartMenu() {
                         Tổng giá tiền chưa tính phí ship
                       </p>
                       <div className="mt-6">
-                        <a
+                        <Link
                           href="/cart"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          onClick={handleCloseCart}
                         >
                           Mua ngay
-                        </a>
+                        </Link>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>

@@ -1,11 +1,12 @@
-import MyBtn from "@/app/components/button/MyBtn";
+import MyBtn3 from "@/app/components/button-3/MyBtn3";
 import "./style.scss";
-import MyBtn2 from "@/app/components/button-2/MyBtn2";
 export default function InfoCard() {
   return (
     <div className="info-container-parallax z-20 flex items-center justify-center">
-      <div className="content flex flex-col items-center justify-center w-1/2 p-5">
-        <span className="text-4xl font-semibold"> Tự nhiên 100% từ Úc </span>
+      <div className="content flex flex-col items-center justify-center w-full md:w-3/4 lg:3/4 xl:w-1/2 p-5 text-base md:text-xl lg:text-2xl">
+        <span className="text-xl sm:text-4xl font-semibold">
+          Tự nhiên 100% từ Úc{" "}
+        </span>
         <br />
         <p>
           Oz Farm là một công ty Úc tự hào về việc công thức hóa bột sữa dinh
@@ -19,7 +20,10 @@ export default function InfoCard() {
           chuyển một cách tự nhiên mà không cần thức ăn nhân tạo hoặc khu chăn
           nuôi.
         </p>
-        <MyBtn2 title={"Tìm Hiểu Thêm"} />
+        <MyBtn3
+          title={"Tìm Hiểu Thêm"}
+          sx="text-blue-500 hover:text-blue-800 border-solid border border-slate-300 hover:border-slate-500 "
+        />
       </div>
     </div>
   );

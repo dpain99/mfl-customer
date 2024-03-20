@@ -1,9 +1,10 @@
+@import "@/themes/theme.scss";
 .more-btn-conteiner {
   display: flex;
   justify-content: center;
   --color-text: #ffffff;
-  --color-background: #4253cd;
-  --color-outline: #4253cd;
+  --color-background: #272fa5;
+  --color-outline: #272fa5;
   --color-shadow: #00000080;
   .btn-content {
     display: flex;

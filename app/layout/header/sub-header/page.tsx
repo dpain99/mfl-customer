@@ -30,10 +30,15 @@ export default function SubHeader() {
     <div className="sub-header shadow-lg h-12 hidden lg:block">
       <div className="container mx-auto px-4">
         <div className="flex flex-row justify-between items-center h-12 relative">
-          <CategoryMenu isShow={openCate} data={dataCate} />
+          <CategoryMenu
+            isShow={openCate}
+            data={dataCate}
+            handleIsClose={() => setOpenCate(false)}
+          />
           <span
             className={`${comfortaa.className} cate-span`}
-            onClick={handleClickCate}
+            // onClick={handleClickCate}
+            onMouseOver={handleClickCate}
           >
             Danh Mục
           </span>

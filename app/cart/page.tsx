@@ -2,15 +2,18 @@
 import ItemCart from "@/app/cart/item-cart/ItemCarts";
 import { RootState, useSelector } from "@/redux/store";
 import { Spin } from "antd";
-import { useState } from "react";
-import AddressForm from "./components/address-form-guest";
+import { useEffect, useState } from "react";
 import { IFormCheckoutGuest } from "./components/interfaces";
 import {
   useCreatePaymentLinkCustomer,
   useCreatePaymentLinkGuest,
 } from "./hooks/use-create-payment-link";
 import "./style.scss";
-import AddressCustomerForm from "./components/address-form.customer";
+import BreadCrumb from "../components/breadcrumb/Breadcrumb";
+import { useDispatch } from "react-redux";
+import { setProductInfo } from "@/redux/slices/showCart";
+import { convertMoney } from "@/lib/convertMoney";
+import Link from "next/link";
 
 export default function Cart() {
   const [formCheckoutGuest, setFormCheckoutGuest] =
@@ -104,9 +107,67 @@ export default function Cart() {
     }
   };
 
+  const dataCart = useSelector(
+    (state: RootState) => state.showCart.infoProduct
+  );
+  const dispatch = useDispatch();
+
+  const handleRemove = (slug: string) => {
+    const newData = dataCart?.filter((item) => item.slug !== slug) || [];
+    dispatch(setProductInfo(newData));
+  };
+
+  const handleClickPlus = (slug: string) => {
+    const dataCartPick =
+      dataCart?.map((item) => {
+        if (item.slug === slug) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      }) || [];
+
+    dispatch(setProductInfo(dataCartPick));
+  };
+
+  const handleClickMinus = (slug: string) => {
+    const dataCartPick =
+      dataCart
+        ?.map((item) => {
+          if (item.slug === slug) {
+            const valueMinus = item.quantity - 1;
+            if (valueMinus <= 0) {
+              return null;
+            } else
+              return {
+                ...item,
+                quantity: item.quantity - 1,
+              };
+          }
+          return item;
+        })
+        .filter((item) => item !== null) || [];
+
+    dispatch(setProductInfo(dataCartPick));
+  };
+
+  const [totalPrice, setTotalPrice] = useState<number>(1);
+
+  useEffect(() => {
+    const totalPrices = dataCart?.reduce((total: number, product: any) => {
+      const quantity = product.quantity || 1;
+      const productPrice = product.price * quantity;
+      return total + productPrice;
+    }, 0);
+
+    setTotalPrice(totalPrices || 0);
+  }, [dataCart]);
+
   return (
     <div>
-      {!accessToken ? (
+      {/* {!accessToken ? (
         <AddressForm
           state={formCheckoutGuest}
           setState={setFormCheckoutGuest}
@@ -118,12 +179,21 @@ export default function Cart() {
           token={accessToken}
           setOrderShippingId={setOrderShippingId}
         />
-      )}
+      )} */}
 
-      <div className="layout-cart pt-52 ">
+      <div className="layout-cart">
         <div className="wrapper-mainCart">
           <div className="content-bodyCart">
             <div className="container mx-auto px-4">
+              <div className="py-5">
+                <BreadCrumb
+                  items={[
+                    { title: "Trang Chủ", href: "/" },
+                    { title: "Giỏ Hàng" },
+                  ]}
+                />
+              </div>
+
               <div className="flex flex-row flex-nowrap gap-x-5 cart">
                 <div className="flex-1 w-64 col-span-12 mainCart">
                   <div className="mainCart-detail">
@@ -131,14 +201,24 @@ export default function Cart() {
                       <h1>Giỏ hàng của bạn</h1>
                       <p className="title-number-cart">
                         Bạn đang có{" "}
-                        <strong className="count-cart">1 sản phẩm</strong> trong
-                        giỏ hàng
+                        <strong className="count-cart">
+                          {dataCart?.length} sản phẩm
+                        </strong>{" "}
+                        trong giỏ hàng
                       </p>
                     </div>
                     <div className="list-item-cart">
                       <div className="list-item">
-                        <ItemCart index={0} />
-                        <ItemCart index={1} />
+                        {dataCart?.map((item, index) => (
+                          <ItemCart
+                            index={index}
+                            key={item.slug}
+                            productData={item}
+                            handleDeleteItems={() => handleRemove(item.slug)}
+                            handlePlusItems={() => handleClickPlus(item.slug)}
+                            handleMinusItems={() => handleClickMinus(item.slug)}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -149,7 +229,7 @@ export default function Cart() {
                       <h2 className="summary-title">Thông tin đơn hàng</h2>
                       <div className="summary-total">
                         <p>
-                          Tổng tiền: <span>1,153,900 VNĐ</span>
+                          Tổng tiền: <span>{convertMoney(totalPrice)} VNĐ</span>
                         </p>
                       </div>
                       <div className="summary-action">
@@ -160,16 +240,18 @@ export default function Cart() {
                         </p>
                       </div>
                       <div className="summary-button" onClick={getPaymentLink}>
-                        <div
-                          id="btnCart-checkout"
-                          className="checkout-btn btnred"
-                        >
-                          {isPendingGuest || isPendingCustomer ? (
-                            <Spin />
-                          ) : (
-                            "THANH TOÁN"
-                          )}
-                        </div>
+                        <Link href={"/payment"}>
+                          <div
+                            id="btnCart-checkout"
+                            className="checkout-btn btnred cursor-pointer"
+                          >
+                            {isPendingGuest || isPendingCustomer ? (
+                              <Spin />
+                            ) : (
+                              "THANH TOÁN"
+                            )}
+                          </div>
+                        </Link>
                       </div>
                     </div>
                     <div className="order-summary-block order-summary-notify hide">

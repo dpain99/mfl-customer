@@ -6,7 +6,7 @@ export default function FooterWeb() {
   return (
     <div className="footer-container flex flex-col w-full pt-20 relative z-20">
       {/* destop */}
-      <div className="w-full hidden lg:flex">
+      <div className="w-full hidden md:flex">
         <div className="basis-1/3 pl-5">
           <div className="h-0.5 w-full bg-black mt-5"></div>
           <div className="flex flex-col pt-20 items-center h-full gap-5">
@@ -19,7 +19,7 @@ export default function FooterWeb() {
         <div className="basis-1/3 flex flex-col items-center">
           <div className="flex flex-col items-center">
             <span
-              className={`${sairaStencilOne.className} text-2xl lg:text-5xl tracking-wider`}
+              className={`${sairaStencilOne.className} text-2xl lg:text-5xl tracking-wider truncate`}
             >
               MEDI FAST LINKS
             </span>
@@ -115,12 +115,13 @@ export default function FooterWeb() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-0 w-full border-t-2 mt-14 flex justify-center items-center">
-        <span className="text-xs md:text-sm">
-          Copyright © 2024 Medi Fast Links - Hàng Úc Nhập Khẩu | Sữa Bột | Mỹ
-          Phẩm | Vitamin - www.medifastlinks.vn
-        </span>
+
+        <div className="w-full border-t-2 flex justify-center items-center mt-2 pt-2 px-2">
+          <span className="text-xs md:text-sm">
+            Copyright © 2024 Medi Fast Links - Hàng Úc Nhập Khẩu | Sữa Bột | Mỹ
+            Phẩm | Vitamin - www.medifastlinks.vn
+          </span>
+        </div>
       </div>
     </div>
   );
