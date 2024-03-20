@@ -11,7 +11,7 @@ import {
 import "./style.scss";
 import BreadCrumb from "../components/breadcrumb/Breadcrumb";
 import { useDispatch } from "react-redux";
-import { setProductInfo } from "@/redux/slices/showCart";
+import { ProductInfo, setProductInfo } from "@/redux/slices/showCart";
 import { convertMoney } from "@/lib/convertMoney";
 import Link from "next/link";
 
@@ -132,25 +132,27 @@ export default function Cart() {
     dispatch(setProductInfo(dataCartPick));
   };
 
-  const handleClickMinus = (slug: string) => {
-    const dataCartPick =
-      dataCart
-        ?.map((item) => {
-          if (item.slug === slug) {
-            const valueMinus = item.quantity - 1;
-            if (valueMinus <= 0) {
-              return null;
-            } else
-              return {
-                ...item,
-                quantity: item.quantity - 1,
-              };
-          }
-          return item;
-        })
-        .filter((item) => item !== null) || [];
+  const [dataDelete, setDataDelete] = useState<ProductInfo>();
 
-    dispatch(setProductInfo(dataCartPick));
+  const handleClickMinus = (slug: string) => {
+    const dataCartPick = dataCart?.map((item) => {
+      if (item.slug === slug) {
+        const valueMinus = item.quantity - 1;
+        if (valueMinus <= 0) {
+          setDataDelete(item);
+        } else
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+      }
+      return item;
+    });
+
+    const notNullData =
+      dataCartPick?.filter((item) => item.slug !== dataDelete?.slug) || [];
+
+    dispatch(setProductInfo(notNullData));
   };
 
   const [totalPrice, setTotalPrice] = useState<number>(1);
