@@ -83,7 +83,7 @@ export default function DetailProduct({
   };
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto px-4">
       <div className="pt-5 pb-5">
         <BreadCrumb
           items={[
@@ -94,12 +94,12 @@ export default function DetailProduct({
       </div>
 
       <div className="flex flex-col gap-10 rounded-xl">
-        <div className="flex flex-row p-5 rounded-xl bg-white shadow-xl">
-          <div className="w-1/3">
+        <div className="flex flex-col lg:flex-row p-5 rounded-xl bg-white shadow-xl">
+          <div className="w-full lg:w-1/3 border-solid border-b border-slate-500 pb-5 lg:pb-0 lg:border-0">
             <ImageProductCarousel dataImg={detailProduct} />
           </div>
 
-          <div className="flex flex-col gap-4 px-10 grow">
+          <div className="flex flex-col gap-4 px-0 lg:px-10 grow pt-5 lg:pt-0">
             <span className="text-xl font-semibold text-sky-500">
               {detailProduct?.productCategories[0].category.name}
             </span>
@@ -158,7 +158,7 @@ export default function DetailProduct({
               <SocialBtn2 />
             </div>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 pt-5 lg:pt-0 items-center lg:items-start">
             <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
               <span className="font-semibold text-base">
                 Chính sách bán hàng

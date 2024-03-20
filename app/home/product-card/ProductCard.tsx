@@ -7,6 +7,7 @@ import { ProductInfo, openCart, setProductInfo } from "@/redux/slices/showCart";
 import imgProduct from "@/public/images/sleepwell.png";
 import Image from "next/image";
 import { RootState } from "@/redux/store";
+import { convertMoney } from "@/lib/convertMoney";
 
 type ICardProductProps = {
   title: string;
@@ -29,15 +30,35 @@ const CardProduct = ({
     useSelector((state: RootState) => state.showCart.infoProduct) || [];
   const handleClickAddCart = () => {
     dispatch(openCart());
-    const newProductInfo: ProductInfo = {
+    const newProductInfo = {
       img: image,
       title: title,
-      price: salePrice || 0,
+      price: salePrice || price,
       slug: slug,
       quantity: 1,
     };
-    const updatedProductInfo = [...currentProductInfo, newProductInfo];
-    dispatch(setProductInfo(updatedProductInfo));
+
+    const productDublicateId = currentProductInfo.findIndex(
+      (item) => item.slug === slug
+    );
+
+    if (productDublicateId !== -1) {
+      const existedProduct = currentProductInfo[productDublicateId];
+      const newExistedProduct = {
+        ...existedProduct,
+        quantity: existedProduct.quantity + 1,
+      };
+      const newProductInfo = currentProductInfo.map((item, index) => {
+        if (index === productDublicateId) {
+          return newExistedProduct;
+        }
+        return item;
+      });
+      dispatch(setProductInfo(newProductInfo));
+    } else {
+      const updatedProductInfo = [...currentProductInfo, newProductInfo];
+      dispatch(setProductInfo(updatedProductInfo));
+    }
   };
   return (
     <>
@@ -59,8 +80,12 @@ const CardProduct = ({
 
         <div className="card-footer">
           <div className="card-price flex flex-col text-lg">
-            <span className="line-through text-sm">{salePrice} vnđ</span>
-            <span className="text-rose-600 text-lg">{price} vnđ</span>
+            <span className="line-through text-sm">
+              {convertMoney(salePrice)} vnđ
+            </span>
+            <span className="text-rose-600 text-lg">
+              {convertMoney(price)} vnđ
+            </span>
           </div>
           <button className="card-btn" onClick={handleClickAddCart}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

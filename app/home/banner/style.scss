@@ -1,0 +1,38 @@
+@import "@/themes/theme.scss";
+
+.banner-container {
+  .swiper-button-prev {
+    left: -15px;
+  }
+  .swiper-button-next {
+    right: -15px;
+  }
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: $white-color;
+    color: $text-color-black;
+    font-size: 20px;
+  }
+  .swiper-button-prev::after {
+    justify-content: flex-end;
+    padding-right: 7px;
+  }
+  .swiper-button-next::after {
+    justify-content: flex-start;
+    padding-left: 7px;
+  }
+
+  .swiper-button-prev:hover::after,
+  .swiper-button-next:hover::after {
+    color: $primary-color;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: $primary-color;
+  }
+}

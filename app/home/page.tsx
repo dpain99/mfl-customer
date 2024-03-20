@@ -14,20 +14,32 @@ import Image from "next/image";
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
   const cateLists = ["sua-ozfarm", "my-pham", "thuc-pham-chuc-nang"];
-  const queryParams = new URLSearchParams({ categoryIds: "4" }).toString();
+  const queryParamsOzfarm = new URLSearchParams({
+    categoryIds: "15",
+    page: "1",
+    limit: "4",
+  }).toString();
   const queryParamsMyPham = new URLSearchParams({
     categoryIds: "16",
     page: "1",
-    limit: "5",
+    limit: "4",
   }).toString();
-  const dataMilk: IProductListResponse = await getData(
-    `customer/product?${queryParams}`
+  const queryParamsVitamin = new URLSearchParams({
+    categoryIds: "17",
+    page: "1",
+    limit: "4",
+  }).toString();
+  const dataOz: IProductListResponse = await getData(
+    `customer/product?${queryParamsOzfarm}`
   );
-  const dataProduct: IProductListResponse = await getData(
+  const dataMyPham: IProductListResponse = await getData(
     `customer/product?${queryParamsMyPham}`
   );
+  const dataVitamin: IProductListResponse = await getData(
+    `customer/product?${queryParamsVitamin}`
+  );
   return (
-    <div className="flex flex-col items-center relative bg-white z-10 ">
+    <div className="flex flex-col items-center relative bg-white z-10">
       <Image
         src={imgBackground}
         alt="back"
@@ -35,16 +47,16 @@ export default async function HomePage() {
       />
 
       <div className="w-full bg-white z-20 flex justify-center items-center pb-20">
-        <div className="container flex flex-col justify-center items-center gap-14">
+        <div className="container px-4 flex flex-col justify-center items-center gap-14">
           <Banner dataImg={dataImg} />
           <div className="w-full" style={{ height: "500px" }}>
             <ProductCarosel
               linkMore={`/list-product/${cateLists}`}
-              dataProduct={dataMilk}
+              dataProduct={dataOz}
             />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-12">
+          <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-12">
             <CategoryCards
               title={"Sữa Oz Farm"}
               img={imgCate}
@@ -71,20 +83,20 @@ export default async function HomePage() {
       </div>
       <InfoCard />
       <div className="w-full bg-white z-20 flex justify-center items-center pt-20 pb-5">
-        <div className="container flex flex-col justify-center items-center gap-14">
+        <div className="container px-4 flex flex-col justify-center items-center gap-14">
           <ProductList
             title={"Sữa Oz Farm"}
-            data={dataProduct}
+            data={dataOz}
             link={`/list-product/${cateLists[0]}`}
           />
           <ProductList
             title={"Mỹ Phẩm"}
-            data={dataProduct}
+            data={dataMyPham}
             link={`/list-product/${[cateLists[1]]}`}
           />
           <ProductList
             title={"Thực phẩm Chức Năng"}
-            data={dataProduct}
+            data={dataVitamin}
             link={`/list-product/${cateLists[2]}`}
           />
         </div>

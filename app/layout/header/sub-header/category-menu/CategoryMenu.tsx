@@ -1,42 +1,36 @@
+import { Transition } from "@headlessui/react";
 import { ICategory } from "../types/type";
 import "./style.scss";
 
 interface CategoryMenuProps {
   isShow: boolean;
   data: ICategory[];
+  handleIsClose: () => void;
 }
-export default function CategoryMenu({ isShow, data }: CategoryMenuProps) {
+export default function CategoryMenu({
+  isShow,
+  data,
+  handleIsClose,
+}: CategoryMenuProps) {
   return (
     <>
-      <div
-        className={`category-menu-container absolute left-0 top-12 w-96  ${
-          isShow ? "h-96" : "h-0"
-        }`}
+      <Transition
+        show={isShow}
+        enter="ease-out duration-300"
+        enterFrom="opacity-0 scale-95"
+        enterTo="opacity-100 scale-100"
+        leave="ease-in duration-200"
+        leaveFrom="opacity-100 scale-100"
+        leaveTo="opacity-0 scale-95"
+        className={"absolute bg-red-100 -bottom-96 h-96 w-80 rounded-lg"}
+        onMouseLeave={handleIsClose}
       >
-        <div className="flex flex-col relative">
-          {data.map((item, id) => (
-            <div className="span-cate" key={id}>
-              <span className="children-cate">{item.name}</span>
-
-              {item.children.length > 0 && (
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 512 512"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="m190.06 414l163.12-139.78a24 24 0 0 0 0-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18"
-                    />
-                  </svg>
-                </span>
-              )}
-            </div>
+        <div className="flex flex-col gap-5 px-2 py-5 ">
+          {data.map((item) => (
+            <span key={item.id}>{item.name}</span>
           ))}
         </div>
-      </div>
+      </Transition>
     </>
   );
 }

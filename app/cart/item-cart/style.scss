@@ -47,6 +47,8 @@
   }
 
   .item-center {
+    width: 100%;
+    padding-left: 30px;
     .item-info {
       .item-title {
         display: -webkit-box;
@@ -126,14 +128,14 @@
         .item-title {
           font-size: 14px;
         }
-        .item-price{
+        .item-price {
           font-size: 13px;
         }
       }
     }
-    .item-right{
-      .item-total-price{
-        .price{
+    .item-right {
+      .item-total-price {
+        .price {
           font-size: 14px;
         }
       }
