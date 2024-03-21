@@ -59,7 +59,7 @@ export default function AddressForm({ setState, state }: AddressFormProps) {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="horizontal"
-        style={{ maxWidth: 600 }}
+        style={{ width: "100%", maxWidth: "100%" }}
       >
         <Form.Item label="Tỉnh/Thành phố">
           <Select

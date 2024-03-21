@@ -39,14 +39,9 @@ export default function AddressCustomerForm({
   };
 
   return (
-    <div className="">
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 800 }}
-      >
-        <Form.Item label="Địa chỉ giao hàng">
+    <div className="w-full">
+      <Form layout="vertical" style={{ width: "100%" }} size="large">
+        <Form.Item label={<span className="text-xl">Địa chỉ giao hàng</span>}>
           <Select
             onChange={onChangeOrderShippingId}
             placeholder="Chọn địa chỉ giao hàng"
@@ -61,7 +56,7 @@ export default function AddressCustomerForm({
           </Select>
         </Form.Item>
 
-        <Form.Item label="Họ và tên">
+        <Form.Item label={<span className="text-xl">Họ và tên</span>}>
           <Input
             placeholder="Nhập họ và tên"
             onChange={(value) => {
@@ -74,7 +69,7 @@ export default function AddressCustomerForm({
           />
         </Form.Item>
 
-        <Form.Item label="Email">
+        <Form.Item label={<span className="text-xl">Email</span>}>
           <Input
             placeholder="Nhập email"
             onChange={(value) => {
@@ -86,7 +81,7 @@ export default function AddressCustomerForm({
             value={state.email || ""}
           />
         </Form.Item>
-        <Form.Item label="Số điện thoại">
+        <Form.Item label={<span className="text-xl">Số điện thoại</span>}>
           <Input
             placeholder="Nhập số điện thoại"
             onChange={(value) => {
