@@ -2,110 +2,122 @@
 import ItemCart from "@/app/cart/item-cart/ItemCarts";
 import { RootState, useSelector } from "@/redux/store";
 import { Spin } from "antd";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import AddressForm from "./components/address-form-guest";
 import { IFormCheckoutGuest } from "./components/interfaces";
 import {
-  useCreatePaymentLinkCustomer,
-  useCreatePaymentLinkGuest,
+    useCreatePaymentLinkCustomer,
+    useCreatePaymentLinkGuest,
 } from "./hooks/use-create-payment-link";
 import "./style.scss";
-import BreadCrumb from "../components/breadcrumb/Breadcrumb";
-import { useDispatch } from "react-redux";
-import { ProductInfo, setProductInfo } from "@/redux/slices/showCart";
-import { convertMoney } from "@/lib/convertMoney";
+import AddressCustomerForm from "./components/address-form.customer";
+import {useRouter} from "next/navigation";
+import {ProductInfo, setProductInfo} from "@/redux/slices/showCart";
+import {useDispatch} from "react-redux";
+import BreadCrumb from "@/app/components/breadcrumb/Breadcrumb";
+import {convertMoney} from "@/lib/convertMoney";
 import Link from "next/link";
 
 export default function Cart() {
-  const [formCheckoutGuest, setFormCheckoutGuest] =
-    useState<IFormCheckoutGuest>({
-      addressDetail: null,
-      districtId: null,
-      email: null,
-      phoneNumber: null,
-      provinceId: null,
-      userName: null,
-      wardId: null,
-    });
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const [formCheckoutGuest, setFormCheckoutGuest] =
+        useState<IFormCheckoutGuest>({
+            addressDetail: null,
+            districtId: null,
+            email: null,
+            phoneNumber: null,
+            provinceId: null,
+            userName: null,
+            wardId: null,
+        });
 
-  const [orderShippingId, setOrderShippingId] = useState<number>(0);
-  const accessToken = useSelector(
-    (state: RootState) => state.authenSlice.accessToken
-  );
-  const { isPending: isPendingGuest, mutate: mutateGuest } =
-    useCreatePaymentLinkGuest();
+    const [orderShippingId, setOrderShippingId] = useState<number>(0);
+    const accessToken = useSelector(
+        (state: RootState) => state.authenSlice.accessToken
+    );
+    const {isPending: isPendingGuest, mutate: mutateGuest} =
+        useCreatePaymentLinkGuest();
 
-  const { isPending: isPendingCustomer, mutate: mutateCustomer } =
-    useCreatePaymentLinkCustomer();
-  const getPaymentLink = () => {
-    if (isPendingGuest || isPendingCustomer) {
-      return;
-    }
-    if (accessToken) {
-      mutateCustomer(
-        {
-          data: {
-            body: {
-              phoneNumber: formCheckoutGuest.phoneNumber,
-              email: formCheckoutGuest.email,
-              userName: formCheckoutGuest.userName,
-              orderShippingId,
-              productVariants: [
+    const {isPending: isPendingCustomer, mutate: mutateCustomer} =
+        useCreatePaymentLinkCustomer();
+    const getPaymentLink = () => {
+        if (isPendingGuest || isPendingCustomer) {
+            return;
+        }
+        if (accessToken) {
+            mutateCustomer(
                 {
-                  quantity: 1,
-                  productVariantId: 1,
+                    data: {
+                        body: {
+                            phoneNumber: formCheckoutGuest.phoneNumber,
+                            email: formCheckoutGuest.email,
+                            userName: formCheckoutGuest.userName,
+                            orderShippingId,
+                            productVariants: [
+                                {
+                                    quantity: 1,
+                                    productVariantId: 1,
+                                },
+                            ],
+                        },
+                        token: accessToken,
+                    },
                 },
-              ],
-            },
-            token: accessToken,
-          },
-        },
-        {
-          onError: (err: any) => {
-            console.log(err);
-          },
-          onSuccess: (data: any) => {
-            if (!data?.statusCode) {
-              const newWindow = window.open(
-                data?.checkoutUrl,
-                "_blank",
-                "noopener,noreferrer"
-              );
-              if (newWindow) newWindow.opener = null;
-            }
-          },
+                {
+                    onError: (err: any) => {
+                        console.log(err);
+                    },
+                    onSuccess: (data: any) => {
+                        if (!data?.statusCode) {
+                            const newWindow = window.open(
+                                data?.checkoutUrl,
+                                "_blank",
+                                "noopener,noreferrer"
+                            );
+                            if (newWindow) newWindow.opener = null;
+                        }
+                    },
+                }
+            );
+        } else {
+            mutateGuest(
+                {
+                    body: {
+                        ...formCheckoutGuest,
+                        productVariants: [
+                            {
+                                quantity: 1,
+                                productVariantId: 1,
+                            },
+                        ],
+                    },
+                },
+                {
+                    onError: (err: any) => {
+                        console.log(err);
+                    },
+                    onSuccess: (data: any) => {
+                        if (!data?.statusCode) {
+                            const newWindow = window.open(
+                                data?.checkoutUrl,
+                                "_blank",
+                                "noopener,noreferrer"
+                            );
+                            if (newWindow) newWindow.opener = null;
+                        }
+                    },
+                }
+            );
         }
-      );
-    } else {
-      mutateGuest(
-        {
-          body: {
-            ...formCheckoutGuest,
-            productVariants: [
-              {
-                quantity: 1,
-                productVariantId: 1,
-              },
-            ],
-          },
-        },
-        {
-          onError: (err: any) => {
-            console.log(err);
-          },
-          onSuccess: (data: any) => {
-            if (!data?.statusCode) {
-              const newWindow = window.open(
-                data?.checkoutUrl,
-                "_blank",
-                "noopener,noreferrer"
-              );
-              if (newWindow) newWindow.opener = null;
-            }
-          },
-        }
-      );
-    }
-  };
+    };
+    const goToPaymentPage = () =>{
+        setIsLoading(true);
+        setTimeout(()=>{
+            setIsLoading(false);
+            router.push("/payment");
+        },2000);
+    };
 
   const dataCart = useSelector(
     (state: RootState) => state.showCart.infoProduct
@@ -241,13 +253,13 @@ export default function Cart() {
                           nguyên vẹn, bể vỡ.
                         </p>
                       </div>
-                      <div className="summary-button" onClick={getPaymentLink}>
+                      <div className="summary-button" onClick={goToPaymentPage}>
                         <Link href={"/payment"}>
                           <div
                             id="btnCart-checkout"
                             className="checkout-btn btnred cursor-pointer"
                           >
-                            {isPendingGuest || isPendingCustomer ? (
+                            {isLoading ? (
                               <Spin />
                             ) : (
                               "THANH TOÁN"
