@@ -81,7 +81,7 @@ export default function AddressCustomerForm({
             value={state.email || ""}
           />
         </Form.Item>
-        <Form.Item label={<span className="text-xl">Số điện thoại</span>}>
+        <Form.Item label={<span className="text-xl text-left">Số điện thoại</span>}>
           <Input
             placeholder="Nhập số điện thoại"
             onChange={(value) => {

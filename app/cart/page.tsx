@@ -2,7 +2,7 @@
 import ItemCart from "@/app/cart/item-cart/ItemCarts";
 import { RootState, useSelector } from "@/redux/store";
 import { Spin } from "antd";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import AddressForm from "./components/address-form-guest";
 import { IFormCheckoutGuest } from "./components/interfaces";
 import {
@@ -11,6 +11,12 @@ import {
 } from "./hooks/use-create-payment-link";
 import "./style.scss";
 import AddressCustomerForm from "./components/address-form.customer";
+import {useRouter} from "next/navigation";
+import {ProductInfo, setProductInfo} from "@/redux/slices/showCart";
+import {useDispatch} from "react-redux";
+import BreadCrumb from "@/app/components/breadcrumb/Breadcrumb";
+import {convertMoney} from "@/lib/convertMoney";
+import Link from "next/link";
 
 export default function Cart() {
     const [isLoading, setIsLoading] = useState(false);
@@ -104,6 +110,13 @@ export default function Cart() {
                 }
             );
         }
+    };
+    const goToPaymentPage = () =>{
+        setIsLoading(true);
+        setTimeout(()=>{
+            setIsLoading(false);
+            router.push("/payment");
+        },2000);
     };
 
   const dataCart = useSelector(
@@ -240,13 +253,13 @@ export default function Cart() {
                           nguyên vẹn, bể vỡ.
                         </p>
                       </div>
-                      <div className="summary-button" onClick={getPaymentLink}>
+                      <div className="summary-button" onClick={goToPaymentPage}>
                         <Link href={"/payment"}>
                           <div
                             id="btnCart-checkout"
                             className="checkout-btn btnred cursor-pointer"
                           >
-                            {isPendingGuest || isPendingCustomer ? (
+                            {isLoading ? (
                               <Spin />
                             ) : (
                               "THANH TOÁN"
