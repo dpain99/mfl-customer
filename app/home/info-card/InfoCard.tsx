@@ -1,5 +1,6 @@
 import MyBtn3 from "@/app/components/button-3/MyBtn3";
 import "./style.scss";
+import Link from "next/link";
 export default function InfoCard() {
   return (
     <div className="info-container-parallax z-20 flex items-center justify-center">
@@ -20,10 +21,12 @@ export default function InfoCard() {
           chuyển một cách tự nhiên mà không cần thức ăn nhân tạo hoặc khu chăn
           nuôi.
         </p>
-        <MyBtn3
-          title={"Tìm Hiểu Thêm"}
-          sx="text-blue-500 hover:text-blue-800 border-solid border border-slate-300 hover:border-slate-500 "
-        />
+        <Link href="/introduce/oz-farm">
+          <MyBtn3
+            title={"Tìm Hiểu Thêm"}
+            sx="text-blue-500 hover:text-blue-800 border-solid border border-slate-300 hover:border-slate-500 "
+          />
+        </Link>
       </div>
     </div>
   );

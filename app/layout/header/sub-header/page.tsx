@@ -37,7 +37,7 @@ export default function SubHeader() {
           />
           <span
             className={`${comfortaa.className} cate-span`}
-            // onClick={handleClickCate}
+            onClick={handleClickCate}
             onMouseOver={handleClickCate}
           >
             Danh Mục

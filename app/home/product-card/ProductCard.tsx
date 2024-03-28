@@ -1,13 +1,14 @@
 "use client";
-import Link from "next/link";
-import "./style.scss";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ProductInfo, openCart, setProductInfo } from "@/redux/slices/showCart";
-import imgProduct from "@/public/images/sleepwell.png";
-import Image from "next/image";
-import { RootState } from "@/redux/store";
 import { convertMoney } from "@/lib/convertMoney";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import { RootState } from "@/redux/store";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "./style.scss";
 
 type ICardProductProps = {
   title: string;
@@ -60,9 +61,15 @@ const CardProduct = ({
       dispatch(setProductInfo(updatedProductInfo));
     }
   };
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+    });
+  }, []);
   return (
     <>
-      <div className="card">
+      <div className="card" data-aos={`zoom-in`} data-aos-once="true">
         <Link href={`/detail-product/${slug}`}>
           <div className="card-img">
             <Image
