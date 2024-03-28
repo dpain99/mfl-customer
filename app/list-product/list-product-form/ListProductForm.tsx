@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 "use client";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -82,7 +68,7 @@ function classNames(...classes: string[]) {
 
 export default function ListProductForm() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [idCategory, setIdCategory] = useState<number>();
+  const [idCategory, setIdCategory] = useState<{ id: number; name: string }>();
   const [data, setData] = useState<IProductListResponse>();
   const [page, setPage] = useState<{
     totalItems: number;
@@ -102,7 +88,7 @@ export default function ListProductForm() {
 
   const checkList = () => {
     if (`${params1.slug}` === "sua-ozfarm") {
-      setIdCategory(15);
+      setIdCategory({ id: 15, name: "Sữa bột Oz Farm" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -110,7 +96,7 @@ export default function ListProductForm() {
       ]);
     }
     if (`${params1.slug}` === "my-pham") {
-      setIdCategory(16);
+      setIdCategory({ id: 16, name: "Mỹ phẩm" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -118,7 +104,7 @@ export default function ListProductForm() {
       ]);
     }
     if (`${params1.slug}` === "thuc-pham-chuc-nang") {
-      setIdCategory(17);
+      setIdCategory({ id: 17, name: "Thực phẩm chức năng" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -128,7 +114,7 @@ export default function ListProductForm() {
   };
 
   const queryParamsSuaOz = new URLSearchParams({
-    categoryIds: `${idCategory}`,
+    categoryIds: `${idCategory?.id}`,
     page: `${page.currentPage}`,
     limit: `${page.itemsPerPage}`,
   }).toString();
@@ -145,10 +131,10 @@ export default function ListProductForm() {
   };
 
   useEffect(() => {
-    if (idCategory !== undefined) {
+    if (idCategory?.id !== undefined) {
       getDataProduct();
     }
-  }, [idCategory, page]);
+  }, [idCategory?.id, page]);
 
   useEffect(() => {
     checkList();
@@ -162,7 +148,7 @@ export default function ListProductForm() {
   };
 
   return (
-    <div className="bg-white">
+    <div>
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -297,13 +283,16 @@ export default function ListProductForm() {
         <main className="mx-auto container">
           <div className="py-10">
             <BreadCrumb
-              items={[{ title: "Trang Chủ", href: "/" }, { title: "Sữa Bột" }]}
+              items={[
+                { title: "Trang Chủ", href: "/" },
+                { title: `${idCategory?.name}` },
+              ]}
             />
           </div>
 
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              {"Sữa Bột Oz Farm"}
+              {idCategory?.name}
             </h1>
 
             <div className="flex items-center">
@@ -373,7 +362,7 @@ export default function ListProductForm() {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block">
+              <form className="hidden lg:block bg-white shadow-lg rounded-lg p-5">
                 <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
@@ -444,7 +433,7 @@ export default function ListProductForm() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3">
+              <div className="lg:col-span-3 bg-white shadow-lg rounded-lg py-10 h-fit">
                 {
                   <div className="grid grid-cols-4 gap-4">
                     {data?.items.map((item, id) => (

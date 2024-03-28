@@ -15,6 +15,8 @@ const config: Config = {
       },
       colors: {
         "primary-color": "#272fa5",
+        "secondary-color": "#003B71",
+        "green-au": "#027A53",
       },
     },
   },
