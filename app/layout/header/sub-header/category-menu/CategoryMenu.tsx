@@ -5,7 +5,7 @@ import Link from "next/link";
 
 interface CategoryMenuProps {
   isShow: boolean;
-  data: ICategory[];
+  data?: ICategory[];
   handleIsClose: () => void;
 }
 export default function CategoryMenu({
@@ -27,8 +27,8 @@ export default function CategoryMenu({
         className={"absolute bg-sky-100 -bottom-96 h-96 w-80 rounded-lg"}
         onMouseLeave={handleIsClose}
       >
-        <div className="flex flex-col gap-2 px-2 py-5 ">
-          {data.map((item, index) => (
+        <div className="flex flex-col gap-2 px-2 py-5">
+          {data?.map((item, index) => (
             <Link
               href={`/list-product/${cateLists[index]}`}
               key={item.id}

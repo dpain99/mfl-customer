@@ -15,17 +15,17 @@ export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
   const cateLists = ["sua-ozfarm", "my-pham", "thuc-pham-chuc-nang"];
   const queryParamsOzfarm = new URLSearchParams({
-    categoryIds: "15",
+    categoryIds: "1",
     page: "1",
     limit: "4",
   }).toString();
   const queryParamsMyPham = new URLSearchParams({
-    categoryIds: "16",
+    categoryIds: "2",
     page: "1",
     limit: "4",
   }).toString();
   const queryParamsVitamin = new URLSearchParams({
-    categoryIds: "17",
+    categoryIds: "3",
     page: "1",
     limit: "4",
   }).toString();
@@ -51,7 +51,7 @@ export default async function HomePage() {
           <Banner dataImg={dataImg} />
           <div className="w-full" style={{ height: "500px" }}>
             <ProductCarosel
-              linkMore={`/list-product/${cateLists}`}
+              linkMore={`/list-product/${cateLists[0]}`}
               dataProduct={dataOz}
             />
           </div>

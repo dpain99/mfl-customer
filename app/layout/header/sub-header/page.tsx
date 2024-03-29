@@ -1,30 +1,19 @@
 "use client";
 import { comfortaa } from "@/fonts/font";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CategoryMenu from "./category-menu/CategoryMenu";
+import { useGetListCategory } from "./hooks/useGetListCategory";
 import "./style.scss";
-import { getDataForClient } from "@/lib/api";
-import { ICategory } from "./types/type";
 export default function SubHeader() {
   const [openCate, setOpenCate] = useState<boolean>(false);
-  const [dataCate, setDataCate] = useState<ICategory[]>([]);
   const handleClickCate = () => {
-    setOpenCate(!openCate);
+    if (openCate) {
+      setOpenCate(openCate);
+    } else setOpenCate(!openCate);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data: ICategory[] = await getDataForClient("category");
-        setDataCate(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data: dataCate } = useGetListCategory();
 
   return (
     <div className="sub-header shadow-lg h-12 hidden lg:block">

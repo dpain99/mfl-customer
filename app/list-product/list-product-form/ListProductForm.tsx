@@ -9,6 +9,7 @@ import { IProductListResponse } from "@/app/home/type";
 import ICaretDown from "@/public/icon/ICaretDown";
 import MyBtn2 from "@/app/components/button-2/MyBtn2";
 import MyBtn from "@/app/components/button/MyBtn";
+import { useGetListProduct } from "./hooks/useGetListProduct";
 
 const sortOptions = [
   { name: "Phổ biến nhất", href: "#", current: true },
@@ -69,7 +70,7 @@ function classNames(...classes: string[]) {
 export default function ListProductForm() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [idCategory, setIdCategory] = useState<{ id: number; name: string }>();
-  const [data, setData] = useState<IProductListResponse>();
+  // const [data, setData] = useState<IProductListResponse>();
   const [page, setPage] = useState<{
     totalItems: number;
     itemCount: number;
@@ -88,7 +89,7 @@ export default function ListProductForm() {
 
   const checkList = () => {
     if (`${params1.slug}` === "sua-ozfarm") {
-      setIdCategory({ id: 15, name: "Sữa bột Oz Farm" });
+      setIdCategory({ id: 1, name: "Sữa bột Oz Farm" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -96,7 +97,7 @@ export default function ListProductForm() {
       ]);
     }
     if (`${params1.slug}` === "my-pham") {
-      setIdCategory({ id: 16, name: "Mỹ phẩm" });
+      setIdCategory({ id: 2, name: "Mỹ phẩm" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -104,7 +105,7 @@ export default function ListProductForm() {
       ]);
     }
     if (`${params1.slug}` === "thuc-pham-chuc-nang") {
-      setIdCategory({ id: 17, name: "Thực phẩm chức năng" });
+      setIdCategory({ id: 3, name: "Thực phẩm chức năng" });
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -112,29 +113,11 @@ export default function ListProductForm() {
       ]);
     }
   };
-
-  const queryParamsSuaOz = new URLSearchParams({
-    categoryIds: `${idCategory?.id}`,
-    page: `${page.currentPage}`,
-    limit: `${page.itemsPerPage}`,
-  }).toString();
-
-  const getDataProduct = async () => {
-    try {
-      const response: IProductListResponse = await getDataForClient(
-        `product?${queryParamsSuaOz}`
-      );
-      setData(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (idCategory?.id !== undefined) {
-      getDataProduct();
-    }
-  }, [idCategory?.id, page]);
+  const { data, isSuccess } = useGetListProduct({
+    page: page.currentPage,
+    limit: page.itemsPerPage,
+    categoryIds: [idCategory?.id || 0],
+  });
 
   useEffect(() => {
     checkList();
@@ -436,7 +419,7 @@ export default function ListProductForm() {
               <div className="lg:col-span-3 bg-white shadow-lg rounded-lg py-10 h-fit">
                 {
                   <div className="grid grid-cols-4 gap-4">
-                    {data?.items.map((item, id) => (
+                    {data?.items?.map((item, id) => (
                       <div key={id} className="flex justify-center">
                         <CardProduct
                           title={item.name}
