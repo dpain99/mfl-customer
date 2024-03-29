@@ -1,13 +1,11 @@
 "use client";
-import { postDataForClient } from "@/lib/api";
 import EyeClose from "@/public/icon/eyes/EyeClose";
 import EyeOpen from "@/public/icon/eyes/EyeOpen";
 import Link from "next/link";
-import { useState } from "react";
-import { IRegisterForm } from "./type";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setToken } from "@/redux/slices/authen";
+import { IRegisterForm } from "./type";
 
 export default function Account() {
   const router = useRouter();
@@ -22,22 +20,22 @@ export default function Account() {
   };
   const dispatch = useDispatch();
 
-  const handleClickSubmit = async () => {
-    try {
-      const responseData = await postDataForClient("auth/login", formLogin);
-      if (responseData.accessToken !== undefined) {
-        router.push("/");
-      }
-      dispatch(
-        setToken({
-          accessToken: responseData.accessToken,
-          refreshToken: responseData.refreshToken,
-        })
-      );
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const handleClickSubmit = async () => {
+  //   try {
+  //     const responseData = await postDataForClient("auth/login", formLogin);
+  //     if (responseData.accessToken !== undefined) {
+  //       router.push("/");
+  //     }
+  //     dispatch(
+  //       setToken({
+  //         accessToken: responseData.accessToken,
+  //         refreshToken: responseData.refreshToken,
+  //       })
+  //     );
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -115,7 +113,7 @@ export default function Account() {
 
             <div>
               <button
-                onClick={handleClickSubmit}
+                // onClick={handleClickSubmit}
                 type="button"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >

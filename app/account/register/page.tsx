@@ -1,5 +1,4 @@
 "use client";
-import { postDataForClient } from "@/lib/api";
 import EyeClose from "@/public/icon/eyes/EyeClose";
 import EyeOpen from "@/public/icon/eyes/EyeOpen";
 import Link from "next/link";
@@ -23,26 +22,26 @@ export default function Register() {
     setFormRegister({ ...formRegister, [name]: value });
   };
 
-  const handleClickSubmit = async () => {
-    if (formRegister.password !== confirmPassword) {
-      setPasswordMismatch(true);
-      return;
-    } else {
-      setPasswordMismatch(false);
-    }
-    try {
-      const responseData = await postDataForClient(
-        "auth/register",
-        formRegister
-      );
-      if (responseData.id !== undefined) {
-        router.push("/account/register-success");
-      }
-      console.log("responseData", responseData);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const handleClickSubmit = async () => {
+  //   if (formRegister.password !== confirmPassword) {
+  //     setPasswordMismatch(true);
+  //     return;
+  //   } else {
+  //     setPasswordMismatch(false);
+  //   }
+  //   try {
+  //     const responseData = await postDataForClient(
+  //       "auth/register",
+  //       formRegister
+  //     );
+  //     if (responseData.id !== undefined) {
+  //       router.push("/account/register-success");
+  //     }
+  //     console.log("responseData", responseData);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -154,7 +153,7 @@ export default function Register() {
             <div>
               <button
                 type="button"
-                onClick={handleClickSubmit}
+                // onClick={handleClickSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Đăng ký

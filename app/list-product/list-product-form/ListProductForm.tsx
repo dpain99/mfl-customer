@@ -1,14 +1,11 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import CardProduct from "../../home/product-card/ProductCard";
-import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
-import { useParams } from "next/navigation";
-import { getDataForClient } from "@/lib/api";
-import { IProductListResponse } from "@/app/home/type";
-import ICaretDown from "@/public/icon/ICaretDown";
-import MyBtn2 from "@/app/components/button-2/MyBtn2";
 import MyBtn from "@/app/components/button/MyBtn";
+import ICaretDown from "@/public/icon/ICaretDown";
+import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import { useParams } from "next/navigation";
+import { Fragment, useEffect, useState } from "react";
+import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
+import CardProduct from "../../home/product-card/ProductCard";
 import { useGetListProduct } from "./hooks/useGetListProduct";
 
 const sortOptions = [
