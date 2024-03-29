@@ -3,20 +3,19 @@ import AdjustNumber from "@/app/components/adjust-number/AdjustNumber";
 import BreadCrumb from "@/app/components/breadcrumb/Breadcrumb";
 import MyBtn3 from "@/app/components/button-3/MyBtn3";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
-import { getDataForClient } from "@/lib/api";
+import { useGetListProduct } from "@/app/list-product/list-product-form/hooks/useGetListProduct";
 import { convertMoney } from "@/lib/convertMoney";
-import { Product } from "@/lib/interface";
 import ILike from "@/public/icon/ILike";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import { RootState } from "@/redux/store";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CategoryProductCarousel from "../category-product-carousel/CategoryProductCarousel";
+import { useGetProductBySlug } from "../hooks/useGetProductBySlug";
 import ImageProductCarousel from "../image-product-carousel/ImageProductCarousel";
 import "./style.scss";
-import { IProductListResponse } from "@/app/home/type";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { openCart, setProductInfo } from "@/redux/slices/showCart";
 
 export default function DetailProduct({
   params,
@@ -24,41 +23,51 @@ export default function DetailProduct({
   params: { slug: string };
 }) {
   const params1 = useParams();
-  const [detailProduct, setDetailProduct] = useState<Product | null>(null);
-  const [dataProductCategory, setDataProductCategory] =
-    useState<IProductListResponse>();
+  // const [detailProduct, setDetailProduct] = useState<Product | null>(null);
+  // const [dataProductCategory, setDataProductCategory] =
+  //   useState<IProductListResponse>();
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
-  const getData1 = async () => {
-    const response = await getDataForClient(`product/${params1.slug}`);
-    setDetailProduct(response);
-  };
-  useEffect(() => {
-    getData1().then((r) => {});
-    return () => {};
-  }, []);
+  // const getData1 = async () => {
+  //   const response = await getDataForClient(`product/${params1.slug}`);
+  //   setDetailProduct(response);
+  // };
+  // useEffect(() => {
+  //   getData1().then((r) => {});
+  //   return () => {};
+  // }, []);
+
+  const { data: detailProduct } = useGetProductBySlug({
+    slug: `${params1.slug}`,
+  });
 
   const categoryId = detailProduct?.productCategories[0].categoryId || 0;
+
+  const { data: dataProductCategory } = useGetListProduct({
+    categoryIds: [categoryId],
+    page: 1,
+    limit: 10,
+  });
 
   const queryParamsSuaOz = new URLSearchParams({
     categoryIds: `${categoryId}`,
   }).toString();
 
-  const getDataProduct = async () => {
-    try {
-      const response: IProductListResponse = await getDataForClient(
-        `product?${queryParamsSuaOz}`
-      );
-      setDataProductCategory(response);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const getDataProduct = async () => {
+  //   try {
+  //     const response: IProductListResponse = await getDataForClient(
+  //       `product?${queryParamsSuaOz}`
+  //     );
+  //     setDataProductCategory(response);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (categoryId !== undefined) {
-      getDataProduct();
-    }
-  }, [categoryId]);
+  // useEffect(() => {
+  //   if (categoryId !== undefined) {
+  //     getDataProduct();
+  //   }
+  // }, [categoryId]);
 
   const dispatch = useDispatch();
   const currentProductInfo =
@@ -96,7 +105,7 @@ export default function DetailProduct({
       <div className="flex flex-col gap-10 rounded-xl">
         <div className="flex flex-col lg:flex-row p-5 rounded-xl bg-white shadow-xl">
           <div className="w-full lg:w-1/3 border-solid border-b border-slate-500 pb-5 lg:pb-0 lg:border-0">
-            <ImageProductCarousel dataImg={detailProduct} />
+            <ImageProductCarousel dataImg={detailProduct || null} />
           </div>
 
           <div className="flex flex-col gap-4 px-0 lg:px-10 grow pt-5 lg:pt-0">
