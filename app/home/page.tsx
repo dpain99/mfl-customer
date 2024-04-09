@@ -10,6 +10,8 @@ import ProductList from "./product-list/ProductList";
 import { IBanner, IProductListResponse } from "./type";
 import InfoCard from "./info-card/InfoCard";
 import Image from "next/image";
+import MyDialog from "./pop-up-ads/ModalAds";
+import ModalAds from "./pop-up-ads/ModalAds";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
@@ -40,6 +42,7 @@ export default async function HomePage() {
   );
   return (
     <div className="flex flex-col items-center relative bg-white z-10">
+      <ModalAds />
       <Image
         src={imgBackground}
         alt="back"

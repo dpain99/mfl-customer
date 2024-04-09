@@ -12,7 +12,7 @@ const persistConfig = {
   key: "root",
   storage,
   keyPrefix: "mfl-",
-  whitelist: ["user", "authenSlice","showCart"],
+  whitelist: ["user", "authenSlice", "showCart", "checkAccess"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

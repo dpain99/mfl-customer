@@ -1,13 +1,16 @@
 "use client";
+import { useRegisterUser } from "@/app/account/hooks/useRegisterUser";
+import { IRegisterForm } from "@/app/account/type";
 import EyeClose from "@/public/icon/eyes/EyeClose";
 import EyeOpen from "@/public/icon/eyes/EyeOpen";
-import Link from "next/link";
-import { useState } from "react";
-import { IRegisterForm } from "../type";
+import IArrowLeft from "@/public/icon/ILoading copy";
 import { useRouter } from "next/navigation";
-import { useRegisterUser } from "../hooks/useRegisterUser";
+import { useState } from "react";
 
-export default function Register() {
+interface RegisterProps {
+  handleClickLogin: () => void;
+}
+export default function Register({ handleClickLogin }: RegisterProps) {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -51,8 +54,11 @@ export default function Register() {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-row gap-5 items-center">
+          <div onClick={handleClickLogin}>
+            <IArrowLeft width={"1.6em"} height={"1.6em"} />
+          </div>
+          <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Đăng ký tài khoản của bạn
           </h2>
         </div>
@@ -159,14 +165,14 @@ export default function Register() {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p
+            className="mt-10 text-center text-sm text-gray-500"
+            onClick={handleClickLogin}
+          >
             Bạn đã có tài khoản?{" "}
-            <Link
-              href="/account"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
+            <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Đăng nhập
-            </Link>
+            </span>
           </p>
         </div>
       </div>

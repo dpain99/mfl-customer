@@ -1,10 +1,13 @@
 "use client";
 import EyeClose from "@/public/icon/eyes/EyeClose";
 import EyeOpen from "@/public/icon/eyes/EyeOpen";
+import ILoading from "@/public/icon/ILoading";
+import { setToken } from "@/redux/slices/authen";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useLoginUser } from "./hooks/useLoginUser";
 import { IRegisterForm } from "./type";
 
 export default function Account() {
@@ -20,25 +23,30 @@ export default function Account() {
   };
   const dispatch = useDispatch();
 
-  // const handleClickSubmit = async () => {
-  //   try {
-  //     const responseData = await postDataForClient("auth/login", formLogin);
-  //     if (responseData.accessToken !== undefined) {
-  //       router.push("/");
-  //     }
-  //     dispatch(
-  //       setToken({
-  //         accessToken: responseData.accessToken,
-  //         refreshToken: responseData.refreshToken,
-  //       })
-  //     );
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
+  const { mutate, data, isPending } = useLoginUser();
+
+  const handleClickSubmit = () => {
+    mutate(formLogin);
+  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    if (data?.accessToken !== undefined) {
+      console.log("accessToken", data);
+      router.push("/");
+      dispatch(
+        setToken({
+          accessToken: data.accessToken || null,
+          refreshToken: data.refreshToken || null,
+        })
+      );
+    } else {
+      console.log("data error nha", data);
+    }
+  }, [data]);
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -113,11 +121,15 @@ export default function Account() {
 
             <div>
               <button
-                // onClick={handleClickSubmit}
+                onClick={handleClickSubmit}
                 type="button"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Đăng nhập
+                {isPending ? (
+                  <ILoading width={"1.6em"} height={"1.6em"} />
+                ) : (
+                  "Đăng Nhập"
+                )}
               </button>
             </div>
           </form>
