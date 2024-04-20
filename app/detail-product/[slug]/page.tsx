@@ -10,7 +10,7 @@ import { openCart, setProductInfo } from "@/redux/slices/showCart";
 import { RootState } from "@/redux/store";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryProductCarousel from "../category-product-carousel/CategoryProductCarousel";
 import { useGetProductBySlug } from "../hooks/useGetProductBySlug";
@@ -23,18 +23,7 @@ export default function DetailProduct({
   params: { slug: string };
 }) {
   const params1 = useParams();
-  // const [detailProduct, setDetailProduct] = useState<Product | null>(null);
-  // const [dataProductCategory, setDataProductCategory] =
-  //   useState<IProductListResponse>();
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
-  // const getData1 = async () => {
-  //   const response = await getDataForClient(`product/${params1.slug}`);
-  //   setDetailProduct(response);
-  // };
-  // useEffect(() => {
-  //   getData1().then((r) => {});
-  //   return () => {};
-  // }, []);
 
   const { data: detailProduct } = useGetProductBySlug({
     slug: `${params1.slug}`,
@@ -42,32 +31,11 @@ export default function DetailProduct({
 
   const categoryId = detailProduct?.productCategories[0].categoryId || 0;
 
-  const { data: dataProductCategory } = useGetListProduct({
+  const { data: dataProductCategory, refetch } = useGetListProduct({
     categoryIds: [categoryId],
     page: 1,
     limit: 10,
   });
-
-  const queryParamsSuaOz = new URLSearchParams({
-    categoryIds: `${categoryId}`,
-  }).toString();
-
-  // const getDataProduct = async () => {
-  //   try {
-  //     const response: IProductListResponse = await getDataForClient(
-  //       `product?${queryParamsSuaOz}`
-  //     );
-  //     setDataProductCategory(response);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (categoryId !== undefined) {
-  //     getDataProduct();
-  //   }
-  // }, [categoryId]);
 
   const dispatch = useDispatch();
   const currentProductInfo =
@@ -91,6 +59,11 @@ export default function DetailProduct({
     dispatch(setProductInfo(updatedProductInfo));
   };
 
+  useEffect(() => {
+    refetch();
+  }, [categoryId]);
+
+  console.log("dataProductCategory", dataProductCategory);
   return (
     <div className="container mx-auto px-4">
       <div className="pt-5 pb-5">
@@ -209,7 +182,12 @@ export default function DetailProduct({
               Mô tả sản phẩm
             </span>
           </section>
-          <section className="pt-8">{detailProduct?.description}</section>
+          <section
+            className="text-base p-5"
+            dangerouslySetInnerHTML={{
+              __html: detailProduct?.description || "",
+            }}
+          />
         </div>
       </div>
 

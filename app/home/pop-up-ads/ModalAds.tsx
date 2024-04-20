@@ -1,10 +1,11 @@
 "use client";
-import { setAccess } from "@/redux/slices/checkAccess";
+import wheelImg from "@/public/images/wheel.png";
 import { RootState } from "@/redux/store";
 import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function ModalAds() {
   let [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function ModalAds() {
   return (
     <>
       <Transition show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10 " onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -39,8 +40,8 @@ export default function ModalAds() {
             <div className="fixed inset-0 bg-black/25" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="fixed inset-0 overflow-y-auto ">
+            <div className="flex min-h-full items-center justify-center p-4 text-center ">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -53,15 +54,15 @@ export default function ModalAds() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900 text-center"
+                    className="text-2xl font-semibold leading-6 text-gray-900 text-center"
                   >
                     Vòng quay may mắn
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-base">
+                    <Image src={wheelImg} alt="vong-quay-may-man" />
+                    <p className="text-base mt-2">
                       Bạn là người may mắn? Thử vận may của mình hôm nay với
-                      Vòng quay may mắn của chúng tôi! Ngại gì mà không quay thử
-                      1 vòng
+                      Vòng quay may mắn của chúng tôi!
                     </p>
                   </div>
 

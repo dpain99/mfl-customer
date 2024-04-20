@@ -7,17 +7,26 @@ import ModalLoginRequired from "./components/popup-login-required/ModalLoginRequ
 import { useGetInfoUser } from "./hooks/useGetInfoUser";
 import "./style.scss";
 import { confetti } from "./components/confetti/confetti";
+import Image from "next/image";
+import Voucher10 from "@/public/images/voucher-10.png";
+import Voucher15 from "@/public/images/voucher-15.png";
+import Voucher20 from "@/public/images/voucher-20.png";
+import Voucher25 from "@/public/images/voucher-25.png";
+import Voucher10k from "@/public/images/voucher-10k.png";
+import FreeShip from "@/public/images/freeship.png";
+import Iphone15 from "@/public/images/iphone-15-plus-series-image-10.png";
+import GoodLuck from "@/public/images/goodluck.jpg";
 
 export default function LuckyWheel() {
   const [voucher, setVoucher] = useState([
-    "10%",
-    "15%",
-    "20%",
-    "30%",
-    "GoodLuck",
-    "Iphone 15",
-    "Freeship",
-    "10k",
+    { value: "10%", img: Voucher10 },
+    { value: "15%", img: Voucher15 },
+    { value: "20%", img: Voucher20 },
+    { value: "25%", img: Voucher25 },
+    { value: "GoodLuck", img: GoodLuck },
+    { value: "Iphone 15", img: Iphone15 },
+    { value: "Freeship", img: FreeShip },
+    { value: "10k", img: Voucher10k },
   ]);
   const [winningVoucher, setWinningVoucher] = useState<string>("");
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -25,7 +34,7 @@ export default function LuckyWheel() {
   const [showCompleted, setShowCompleted] = useState(false);
   const [checkLogin, setCheckLogin] = useState<boolean>(false);
 
-  const probabilities = [0, 0, 0, 0, 0, 0, 0, 1];
+  const probabilities = [0, 0, 0, 0, 1, 0, 0, 0];
   const percent = [
     [
       [1, 21],
@@ -67,7 +76,7 @@ export default function LuckyWheel() {
 
         if (randomNumber <= accumulatedProbability) {
           const selectedVoucher = voucher[i];
-          setWinningVoucher(selectedVoucher);
+          setWinningVoucher(selectedVoucher.value);
           setSpinning(true);
           const numberDeg =
             getRandomNumberFromPercent(percent[i]) +
@@ -147,9 +156,13 @@ export default function LuckyWheel() {
         </div>
         <div className="wheel" ref={wheelRef}>
           {voucher.map((item, id) => (
-            <div className={`reward-${id + 1}`} key={item}>
-              {/* <Image src={voucherImg10} alt={item} className="size-24" /> */}
-              <span>{item}</span>
+            <div className={`reward-${id + 1}`} key={item.value}>
+              <Image
+                src={item.img}
+                alt={`${item.img}`}
+                className="image-voucher w-24"
+              />
+              {/* <span>{item}</span> */}
             </div>
           ))}
         </div>

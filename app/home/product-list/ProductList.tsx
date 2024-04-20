@@ -29,8 +29,8 @@ export default function ProductList({ title, data, link }: ProductListProps) {
           <div className="flex justify-center items-center" key={child.id}>
             <CardProduct
               title={child.name}
-              price={child.maxMoney}
-              salePrice={child.minMoney}
+              price={child.productVariant[0].price}
+              salePrice={child.productVariant[0].salePrice}
               image={child.productImage[0].image.url}
               slug={child.slug}
             />

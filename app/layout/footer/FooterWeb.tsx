@@ -2,6 +2,7 @@ import { sairaStencilOne } from "@/fonts/font";
 import "./style.scss";
 import SocialBtn from "@/app/components/social-btn/SocialBtn";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
+import Link from "next/link";
 export default function FooterWeb() {
   return (
     <div className="footer-container flex flex-col w-full pt-20 relative z-20">
@@ -10,9 +11,21 @@ export default function FooterWeb() {
         <div className="basis-1/3 pl-5">
           <div className="h-0.5 w-full bg-black mt-5"></div>
           <div className="flex flex-col pt-20 items-center h-full gap-5">
-            <span className="uppercase font-semibold">Chính sách bảo mật</span>
-            <span className="uppercase font-semibold">Quy định bảo hành</span>
-            <span className="uppercase font-semibold">Chính sách đổi trả</span>
+            <Link href={"/policy/private-policy"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Chính sách bảo mật
+              </span>
+            </Link>
+            <Link href={"/policy/warranty-provisions"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Quy định bảo hành
+              </span>
+            </Link>
+            <Link href={"/policy/return-policy"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Chính sách đổi trả
+              </span>
+            </Link>
           </div>
         </div>
 
@@ -62,9 +75,21 @@ export default function FooterWeb() {
         <div className="basis-1/3 pr-5">
           <div className="h-0.5 w-full bg-black mt-5"></div>
           <div className="flex flex-col pt-20 items-center h-full gap-5">
-            <span className="uppercase font-semibold">Về Medi Fast Links</span>
-            <span className="uppercase font-semibold">Địa Điểm Showroom</span>
-            <span className="uppercase font-semibold">Liên Hệ Chúng Tôi</span>
+            <Link href={"/about-us"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Về Medi Fast Links
+              </span>
+            </Link>
+            <Link href={"/contact"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Địa Điểm Showroom
+              </span>
+            </Link>
+            <Link href={"/contact"}>
+              <span className="uppercase font-semibold cursor-pointer">
+                Liên Hệ Chúng Tôi
+              </span>
+            </Link>
           </div>
         </div>
       </div>
@@ -81,12 +106,24 @@ export default function FooterWeb() {
           <div className="h-0.5 bg-black w-full mr-2"></div>
         </div>
         <div className="flex flex-col gap-4 items-center pt-10">
-          <span className="uppercase font-semibold">Về Medi Fast Links</span>
-          <span className="uppercase font-semibold">Địa Điểm Showroom</span>
-          <span className="uppercase font-semibold">Liên Hệ Chúng Tôi</span>
-          <span className="uppercase font-semibold">Chính sách bảo mật</span>
-          <span className="uppercase font-semibold">Quy định bảo hành</span>
-          <span className="uppercase font-semibold">Chính sách đổi trả</span>
+          <Link href={"/about-us"}>
+            <span className="uppercase font-semibold">Về Medi Fast Links</span>
+          </Link>
+          <Link href={"/contact"}>
+            <span className="uppercase font-semibold">Địa Điểm Showroom</span>
+          </Link>
+          <Link href={"/contact"}>
+            <span className="uppercase font-semibold">Liên Hệ Chúng Tôi</span>
+          </Link>
+          <Link href={"/policy/private-policy"}>
+            <span className="uppercase font-semibold">Chính sách bảo mật</span>
+          </Link>
+          <Link href={"/policy/warranty-provisions"}>
+            <span className="uppercase font-semibold">Quy định bảo hành</span>
+          </Link>
+          <Link href={"/return-policy"}>
+            <span className="uppercase font-semibold">Chính sách đổi trả</span>
+          </Link>
           <SocialBtn2 />
           <span>Đăng ký nhận bản tin</span>
           <div className="relative">

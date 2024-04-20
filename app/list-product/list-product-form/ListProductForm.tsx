@@ -1,12 +1,14 @@
 "use client";
-import MyBtn from "@/app/components/button/MyBtn";
+import PriceRange from "@/app/components/price-range/PriceRange";
 import ICaretDown from "@/public/icon/ICaretDown";
+import ISearch from "@/public/icon/ISearch";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { useParams } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, SetStateAction, useEffect, useState } from "react";
 import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
 import CardProduct from "../../home/product-card/ProductCard";
 import { useGetListProduct } from "./hooks/useGetListProduct";
+import { Pagination } from "antd";
 
 const sortOptions = [
   { name: "Phổ biến nhất", href: "#", current: true },
@@ -24,38 +26,21 @@ const subCate = [
 ];
 const filters = [
   {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
-  {
     id: "category",
-    name: "Category",
+    name: "Danh Mục",
     options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
+      { value: "1", label: "Sữa Oz Farm", checked: false },
+      { value: "2", label: "Mỹ Phẩm", checked: false },
+      { value: "3", label: "Vitamin", checked: false },
     ],
   },
   {
-    id: "size",
-    name: "Size",
+    id: "on-sale",
+    name: "Khuyến Mãi",
     options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
+      { value: "true", label: "Đang Khuyến Mãi", checked: false },
+      { value: "false", label: "Chưa Khuyến mãi", checked: false },
+      { value: undefined, label: "Tất cả", checked: true },
     ],
   },
 ];
@@ -84,6 +69,9 @@ export default function ListProductForm() {
   const [subCate, setSubCate] = useState<{ name: string; href: string }[]>([]);
   const params1 = useParams();
 
+  const params = decodeURIComponent(`${params1.slug}`);
+  const keyword = params.substring(8);
+
   const checkList = () => {
     if (`${params1.slug}` === "sua-ozfarm") {
       setIdCategory({ id: 1, name: "Sữa bột Oz Farm" });
@@ -108,25 +96,62 @@ export default function ListProductForm() {
         { name: "Dành cho Người Cao Tuổi", href: "#" },
         { name: "Chăm sóc giấc ngủ", href: "#" },
       ]);
+    } else {
+      setIdCategory({ id: 0, name: "Danh sách sản phẩm" });
+      setSubCate([
+        {
+          name: `Từ khóa tìm kiếm: ${keyword}`,
+          href: "#",
+        },
+        { name: "Dành cho Người Cao Tuổi", href: "#" },
+        { name: "Chăm sóc giấc ngủ", href: "#" },
+      ]);
     }
   };
-  const { data, isSuccess } = useGetListProduct({
+
+  const [dataCategory, setDataCateGory] = useState<number[]>([]);
+  const [onSale, setOnSale] = useState<boolean | undefined>(undefined);
+  const [minPrice, setMinPrice] = useState<number>(100000);
+  const [maxPrice, setMaxPrice] = useState<number>(1900000);
+
+  const { data, refetch } = useGetListProduct({
     page: page.currentPage,
     limit: page.itemsPerPage,
-    categoryIds: [idCategory?.id || 0],
+    categoryIds: dataCategory || [idCategory?.id || 0],
+    onSale: onSale,
+    minMoney: minPrice,
+    maxMoney: maxPrice,
   });
 
   useEffect(() => {
     checkList();
+    refetch();
   }, [params1]);
 
-  const handleClickShowMore = () => {
-    setPage((prevPage) => ({
-      ...prevPage,
-      currentPage: prevPage.currentPage + 1,
-    }));
+  const handleClickFilter = () => {
+    refetch();
   };
 
+  const handleOnCheck = (value: string) => {
+    if (value === "1" || value === "2" || value === "3") {
+      const newValue = parseInt(value);
+      if (dataCategory.includes(newValue)) {
+        const newData = dataCategory.filter((item) => item !== newValue);
+        setDataCateGory(newData);
+      } else {
+        setDataCateGory([...dataCategory, newValue]);
+      }
+    }
+    if (value === "true" || "false" || "undefined") {
+      if (value === "true") {
+        setOnSale(true);
+      } else if (value === "false") {
+        setOnSale(false);
+      } else setOnSale(undefined);
+    } else return undefined;
+  };
+
+  console.log("ónal", onSale);
   return (
     <div>
       <div>
@@ -228,7 +253,7 @@ export default function ListProductForm() {
                               <div className="space-y-6">
                                 {section.options.map((option, optionIdx) => (
                                   <div
-                                    key={option.value}
+                                    key={option.label}
                                     className="flex items-center"
                                   >
                                     <input
@@ -368,6 +393,7 @@ export default function ListProductForm() {
                             <span className="font-medium text-gray-900">
                               {section.name}
                             </span>
+
                             <span className="ml-6 flex items-center">
                               {open ? (
                                 <span className="h-5 w-5" aria-hidden="true">
@@ -388,14 +414,32 @@ export default function ListProductForm() {
                                 key={option.value}
                                 className="flex items-center"
                               >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
+                                {section.id === "on-sale" ? (
+                                  <input
+                                    id={`filter-${section.id}-${optionIdx}`}
+                                    name={`${section.id}[]`}
+                                    type="radio"
+                                    defaultChecked={option.checked}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    value={option.value}
+                                    onChange={(e) => {
+                                      handleOnCheck(e.target.value);
+                                    }}
+                                  />
+                                ) : (
+                                  <input
+                                    id={`filter-${section.id}-${optionIdx}`}
+                                    name={`${section.id}[]`}
+                                    type="checkbox"
+                                    defaultChecked={option.checked}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    value={option.value}
+                                    onChange={(e) => {
+                                      handleOnCheck(e.target.value);
+                                    }}
+                                  />
+                                )}
+
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
                                   className="ml-3 text-sm text-gray-600"
@@ -410,19 +454,36 @@ export default function ListProductForm() {
                     )}
                   </Disclosure>
                 ))}
+                <PriceRange
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  setMinPrice={setMinPrice}
+                  setMaxPrice={setMaxPrice}
+                />
+                <div className="flex w-full items-center justify-center pt-4">
+                  <button
+                    type="button"
+                    onClick={handleClickFilter}
+                    className="active:bg-sky-200 p-2 border border-solid border-black w-full rounded-lg flex justify-center items-center text-secondary-color"
+                  >
+                    <ISearch width="1.9em" height="1.9em" />
+                    <span className="uppercase font-semibold">Tìm kiếm</span>
+                  </button>
+                </div>
               </form>
 
               {/* Product grid */}
               <div className="lg:col-span-3 bg-white shadow-lg rounded-lg py-10 h-fit">
                 {
-                  <div className="grid grid-cols-4 gap-4">
+                  <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
                     {data?.items?.map((item, id) => (
                       <div key={id} className="flex justify-center">
                         <CardProduct
                           title={item.name}
-                          price={item.maxMoney}
+                          price={item.productVariant[0].price}
                           image={item.productImage[0].image.url}
                           slug={item.slug}
+                          salePrice={item.productVariant[0].salePrice}
                         />
                       </div>
                     ))}
@@ -430,10 +491,14 @@ export default function ListProductForm() {
                 }
 
                 <div className="flex items-center justify-center pt-10">
-                  {data?.meta.currentPage === data?.meta.totalPages ? (
+                  {data?.meta?.currentPage === data?.meta?.totalPages ? (
                     ""
                   ) : (
-                    <MyBtn title={"Xem Thêm"} onClick={handleClickShowMore} />
+                    <Pagination
+                      defaultCurrent={1}
+                      total={data?.meta.totalItems}
+                      current={data?.meta.currentPage}
+                    />
                   )}
                 </div>
               </div>

@@ -6,7 +6,7 @@ import Link from "next/link";
 interface CategoryMenuProps {
   isShow: boolean;
   data?: ICategory[];
-  handleIsClose: () => void;
+  handleIsClose?: () => void;
 }
 export default function CategoryMenu({
   isShow,
@@ -25,7 +25,7 @@ export default function CategoryMenu({
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
         className={"absolute bg-sky-100 -bottom-96 h-96 w-80 rounded-lg"}
-        onMouseLeave={handleIsClose}
+        // onMouseLeave={handleIsClose}
       >
         <div className="flex flex-col gap-2 px-2 py-5">
           {data?.map((item, index) => (

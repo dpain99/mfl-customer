@@ -1,8 +1,10 @@
+import Link from "next/link";
 import "./style.scss";
+import IZalo from "@/public/icon/social/IZalo";
 export default function SocialBtn2() {
   return (
     <div className="card-social">
-      <a
+      <Link
         className="socialContainer containerOne"
         href="https://www.facebook.com/profile.php?id=61555367214506"
       >
@@ -18,14 +20,16 @@ export default function SocialBtn2() {
             d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"
           />
         </svg>
-      </a>
+      </Link>
 
-      <a className="socialContainer containerTwo" href="#">
-        <svg viewBox="0 0 16 16" className="socialSvg twitterSvg">
-          {" "}
-          <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path>{" "}
-        </svg>{" "}
-      </a>
+      <Link
+        className="socialContainer containerTwo"
+        href="https://chat.zalo.me/"
+      >
+        <div className="socialSvg twitterSvg">
+          <IZalo width={"1.2em"} height={"1.2em"} />
+        </div>
+      </Link>
 
       <a className="socialContainer containerThree" href="#">
         <svg viewBox="0 0 448 512" className="socialSvg linkdinSvg">

@@ -78,7 +78,7 @@ const CardProduct = ({
               width={0}
               height={0}
               sizes="100vw"
-              className="size-36 object-cover"
+              className="size-24 md:size-36 object-cover"
             />
           </div>
           <div className="card-title">{title}</div>

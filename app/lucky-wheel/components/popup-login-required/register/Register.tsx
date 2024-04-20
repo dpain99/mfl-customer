@@ -3,7 +3,7 @@ import { useRegisterUser } from "@/app/account/hooks/useRegisterUser";
 import { IRegisterForm } from "@/app/account/type";
 import EyeClose from "@/public/icon/eyes/EyeClose";
 import EyeOpen from "@/public/icon/eyes/EyeOpen";
-import IArrowLeft from "@/public/icon/ILoading copy";
+import IArrowLeft from "@/public/icon/IArrowLeft";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

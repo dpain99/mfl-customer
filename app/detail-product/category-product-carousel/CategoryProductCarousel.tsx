@@ -79,7 +79,7 @@ export default function CategoryProductCarousel({
         {dataProduct?.items.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="slide w-48 lg:w-56">
-              <Link href={`detail-product/${item.slug}`} key={item.id}>
+              <Link href={`/detail-product/${item.slug}`} key={item.id}>
                 <Image
                   src={item.productImage[0].image.url}
                   alt={`${item.name}`}
