@@ -9,7 +9,7 @@
     position: absolute;
     width: 60px;
     height: 60px;
-    background-color: red;
+    background-color: white;
     border-radius: 50%;
     z-index: 10;
     display: flex;
@@ -29,7 +29,7 @@
     top: -28px;
     width: 20px;
     height: 30px;
-    background-color: red;
+    background-color: white;
     clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
   }
   .wheel {
@@ -43,33 +43,58 @@
     overflow: hidden;
     box-shadow: 0 0 0 5px #333, 0 0 0 15px #fff, 0 0 0 18px #111;
 
+    $colors: (
+      #df3535,
+      // Màu đỏ
+      #00ff00,
+      // Màu xanh lá cây
+      #0000ff,
+      // Màu xanh dương
+      #ffff00,
+      // Màu vàng
+      #ff00ff,
+      // Màu tím
+      #00ffff,
+      // Màu lam
+      #ff8000,
+      // Màu cam
+      #0080ff // Màu xanh da trời
+    );
+
     @for $i from 1 through 8 {
       .reward-#{$i} {
         position: absolute;
         width: 50%;
         height: 50%;
-        background-color: blueviolet;
+        background-color: nth($colors, $i);
         transform-origin: bottom right;
         transform: rotate(calc(45deg * #{$i}));
         clip-path: polygon(0 0, 58% 0, 100% 100%, 0 58%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
         user-select: none;
         cursor: pointer;
         span {
-          position: relative;
-          transform: rotate(60deg);
+          position: absolute;
+          transform: rotate(45deg);
           font-size: 1em;
           font-weight: 700;
           color: #fff;
           text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.15);
+          // top: 50%;
+          // left: 50%;
+        }
+        .image-voucher {
+          position: absolute;
+          transform: rotate(calc(45deg));
+          top: 44%;
+          left: 30%;
         }
       }
     }
   }
 }
-
 // .box-wheel {
 //   display: flex;
 //   justify-content: center;

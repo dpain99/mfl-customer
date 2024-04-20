@@ -26,7 +26,11 @@ export const getListProduct = ({
   if (page !== undefined) queryParams.append("page", page.toString());
   if (limit !== undefined) queryParams.append("limit", limit.toString());
 
-  if (categoryIds !== undefined && categoryIds.length > 0) {
+  if (
+    categoryIds !== undefined &&
+    categoryIds.length > 0 &&
+    !categoryIds.includes(0)
+  ) {
     categoryIds.forEach((categoryId) => {
       queryParams.append("categoryIds", categoryId.toString());
     });

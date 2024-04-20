@@ -2,9 +2,10 @@ export interface IListProductParams {
   search?: string;
   fromDate?: string;
   toDate?: string;
-  minMoney?: string;
-  maxMoney?: string;
+  minMoney?: number;
+  maxMoney?: number;
   categoryIds?: number[];
+  onSale?: boolean;
   page: number;
   limit: number;
 }

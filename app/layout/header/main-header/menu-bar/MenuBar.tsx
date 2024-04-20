@@ -9,7 +9,7 @@ export default function MenuBar({ onClickClose }: MenuBarProps) {
   return (
     <>
       <div
-        className="absolute w-screen h-screen top-0 left-0 z-1"
+        className="absolute w-screen h-screen top-0 left-0 z-10"
         onClick={onClickClose}
         style={{ backgroundColor: "rgba(0,0,0, 0.3)" }}
       ></div>

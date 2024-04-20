@@ -8,9 +8,10 @@ import "./style.scss";
 export default function SubHeader() {
   const [openCate, setOpenCate] = useState<boolean>(false);
   const handleClickCate = () => {
-    if (openCate) {
-      setOpenCate(openCate);
-    } else setOpenCate(!openCate);
+    // if (openCate) {
+    //   setOpenCate(openCate);
+    // } else setOpenCate(!openCate);
+    setOpenCate(!openCate);
   };
 
   const { data: dataCate } = useGetListCategory();
@@ -22,12 +23,12 @@ export default function SubHeader() {
           <CategoryMenu
             isShow={openCate}
             data={dataCate}
-            handleIsClose={() => setOpenCate(false)}
+            // handleIsClose={() => setOpenCate(false)}
           />
           <span
             className={`${comfortaa.className} cate-span`}
             onClick={handleClickCate}
-            onMouseOver={handleClickCate}
+            // onMouseLeave={handleClickCate}
           >
             Danh Mục
           </span>

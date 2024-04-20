@@ -14,6 +14,8 @@ import HotLine from "./hot-line/HotLine";
 import MenuBar from "./menu-bar/MenuBar";
 import "./style.scss";
 import { setProfileUser } from "@/redux/slices/user";
+import SearchBar from "./search-bar/SearchBar";
+import MenuAccount from "@/app/account/menu-account/MenuAccount";
 export default function MainHeader() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const handleClickMenu = () => {
@@ -39,10 +41,22 @@ export default function MainHeader() {
     }
   }, [JSON.stringify(infoAcc)]);
 
+  const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
+
+  const handleFocusSearch = () => {
+    setShowSearchBar(true);
+  };
+
   return (
     <>
       <header className="page-header h-12 md:h-16 shadow-lg lg:shadow-none">
         <AddToCartMenu />
+        {showSearchBar && (
+          <SearchBar
+            onClose={() => setShowSearchBar(false)}
+            autoFocus={showSearchBar ? true : false}
+          />
+        )}
         <div className="container mx-auto px-4">
           <div className="flex flex-row">
             <div className="flex basis-1/3 justify-start items-center gap-10 ">
@@ -62,7 +76,7 @@ export default function MainHeader() {
             </div>
             <div className="flex basis-1/3 justify-end items-center gap-4 sm:gap-10">
               <div className="hidden lg:flex">
-                <SearchInput />
+                <SearchInput onFocusSearch={handleFocusSearch} />
               </div>
               <Link href={"/cart"} className="relative">
                 <span className="bg-red-500 absolute -right-2 -top-1 text-white rounded-full w-5 h-5 text-center text-sm">
@@ -89,8 +103,8 @@ export default function MainHeader() {
                 </svg>
               </Link>
               <Tooltip placement="bottom" title={infoAcc?.email}>
-                <Link href={"account"}>
-                  <div className="hidden lg:block">
+                <MenuAccount nameAcc={infoAcc?.email} />
+                {/* <div className="hidden lg:block">
                     {" "}
                     {infoAcc?.email ? (
                       <svg
@@ -117,8 +131,7 @@ export default function MainHeader() {
                         />
                       </svg>
                     )}
-                  </div>
-                </Link>
+                  </div> */}
               </Tooltip>
 
               <div className="block lg:hidden" onClick={handleClickMenu}>

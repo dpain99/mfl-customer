@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getListProduct } from "../service";
 import { IListProductParams } from "../interface";
+import { getListProduct } from "../service";
 
 export function useGetListProduct(params: IListProductParams) {
-  return useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["todos", params],
     queryFn: () => getListProduct(params),
+    enabled: false,
   });
+
+  return { data, refetch };
 }
