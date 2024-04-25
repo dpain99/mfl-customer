@@ -8,24 +8,24 @@ import "swiper/css/pagination";
 import "./style.scss";
 
 import AddToCartBtn from "@/app/components/add-to-cart-btn/AddToCartBtn";
+import CountDown from "@/app/components/count-down/CountDown";
 import MoreBtn from "@/app/components/more-btn/MoreBtn";
 import { martel } from "@/fonts/font";
-import { ProductInfo, openCart, setProductInfo } from "@/redux/slices/showCart";
+import { convertMoney } from "@/lib/convertMoney";
+import IClockAnimation from "@/public/icon/IClockAnimation";
+import IHotSale from "@/public/icon/IHotSale";
+import { openCart, setProductInfo } from "@/redux/slices/showCart";
+import { RootState } from "@/redux/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation, Pagination } from "swiper/modules";
-import { IProductListResponse } from "../type";
-import { RootState } from "@/redux/store";
-import IHotSale from "@/public/icon/IHotSale";
-import CountDown from "@/app/components/count-down/CountDown";
-import IClockAnimation from "@/public/icon/IClockAnimation";
-import { convertMoney } from "@/lib/convertMoney";
+import { IProduct } from "../type";
 
 interface ICardProductCarouselProps {
   linkMore: string;
-  dataProduct: IProductListResponse;
+  dataProduct: IProduct[];
 }
 export default function CardProductCarousel({
   linkMore,
@@ -120,7 +120,7 @@ export default function CardProductCarousel({
           className="mySwiper"
           navigation={true}
         >
-          {dataProduct.items.map((item) => (
+          {dataProduct.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="slide w-48 lg:w-56">
                 <Link href={`detail-product/${item.slug}`} key={item.id}>

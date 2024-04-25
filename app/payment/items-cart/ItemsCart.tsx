@@ -1,51 +1,51 @@
 import Image from "next/image";
-import {convertMoney} from "@/lib/convertMoney";
-import {ProductInfo} from "@/redux/slices/showCart";
-import './style.scss';
+import { convertMoney } from "@/lib/convertMoney";
+import { ProductInfo } from "@/redux/slices/showCart";
+import "./style.scss";
 
 interface props {
-    index?: number;
-    productData: ProductInfo;
-    handlePlusItems: () => void;
-    handleMinusItems: () => void;
+  index?: number;
+  productData: ProductInfo;
+  handlePlusItems: () => void;
+  handleMinusItems: () => void;
 }
 
 const ItemsCart = ({
-                       index,
-                       productData,
-                       handlePlusItems,
-                       handleMinusItems,
-                   }: props) => {
-    return (
-        <div className={index && index > 0 ? "item line-top" : "item"}>
-            <div className="item-left">
-                <div className="item-img">
-                    <Image
-                        src={productData.img}
-                        alt={productData.slug}
-                        width={0}
-                        height={0}
-                    />
-                </div>
-                <div className="item-remove">
+  index,
+  productData,
+  handlePlusItems,
+  handleMinusItems,
+}: props) => {
+  return (
+    <div className={index && index > 0 ? "item line-top" : "item"}>
+      <div className="item-left">
+        <div className="item-img">
+          <Image
+            src={productData.img}
+            alt={productData.slug}
+            width={0}
+            height={0}
+          />
+        </div>
+        <div className="item-remove">
           <span className="cart text-xs bg-slate-300 rounded-full p-1">
             {productData.quantity}
           </span>
-                </div>
-            </div>
-            <div className="item-center">
-                <div className="item-info">
-                    <div className="item-title">{productData.title}</div>
-                    <div className="item-price">{convertMoney(productData.price)} đ</div>
-                </div>
-            </div>
-            <div className="item-right">
-                <div className="item-total-price">
-                    <div className="price truncate">
-                        {convertMoney(productData.price * productData.quantity)} đ
-                    </div>
-                </div>
-                {/*<div className="item-qty">
+        </div>
+      </div>
+      <div className="item-center">
+        <div className="item-info">
+          <div className="item-title">{productData.title}</div>
+          <div className="item-price">{convertMoney(productData.price)} đ</div>
+        </div>
+      </div>
+      <div className="item-right">
+        <div className="item-total-price">
+          <div className="price truncate">
+            {convertMoney(productData.price * productData.quantity)} đ
+          </div>
+        </div>
+        {/*<div className="item-qty">
                     <div className="qty">
                         <button
                             type="button"
@@ -83,9 +83,9 @@ const ItemsCart = ({
                         </button>
                     </div>
                 </div>*/}
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default ItemsCart;
