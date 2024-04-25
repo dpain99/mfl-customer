@@ -42,6 +42,12 @@ export default function MenuAccount({ nameAcc }: MenuAccountProps) {
                 <span>Xin chào, {nameAcc}</span>
                 <div className="border border-solid border-slate-500"></div>
 
+                <div className="flex items-center gap-3 hover:bg-slate-400 cursor-pointer">
+                  <Link href={"/account/info-account"}>
+                    Thông tin tài khoản
+                  </Link>
+                </div>
+
                 <div
                   className="flex items-center gap-3 hover:bg-slate-400 cursor-pointer"
                   onClick={() => {

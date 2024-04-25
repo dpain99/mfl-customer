@@ -17,13 +17,6 @@ const sortOptions = [
   { name: "Giá: Thấp đến Cao", href: "#", current: false },
   { name: "Giá: Cao đến Thấp", href: "#", current: false },
 ];
-const subCate = [
-  { name: "Totes", href: "#" },
-  { name: "Backpacks", href: "#" },
-  { name: "Travel Bags", href: "#" },
-  { name: "Hip Bags", href: "#" },
-  { name: "Laptop Sleeves", href: "#" },
-];
 const filters = [
   {
     id: "category",
@@ -52,7 +45,6 @@ function classNames(...classes: string[]) {
 export default function ListProductForm() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [idCategory, setIdCategory] = useState<{ id: number; name: string }>();
-  // const [data, setData] = useState<IProductListResponse>();
   const [page, setPage] = useState<{
     totalItems: number;
     itemCount: number;
@@ -133,6 +125,9 @@ export default function ListProductForm() {
   };
 
   const handleOnCheck = (value: string) => {
+    if (idCategory) {
+      setDataCateGory([idCategory.id]);
+    }
     if (value === "1" || value === "2" || value === "3") {
       const newValue = parseInt(value);
       if (dataCategory.includes(newValue)) {
@@ -151,7 +146,6 @@ export default function ListProductForm() {
     } else return undefined;
   };
 
-  console.log("ónal", onSale);
   return (
     <div>
       <div>

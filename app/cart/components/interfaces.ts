@@ -16,6 +16,7 @@ export interface IFormCheckoutGuest {
   provinceId: number | null;
   districtId: number | null;
   wardId: number | null;
+  birthDate?: string;
 }
 
 export interface IProductVariantsCheckout {

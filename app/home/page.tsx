@@ -1,7 +1,7 @@
 import { getData } from "@/lib/api";
 import imgCate from "@/public/images/third.png";
-import imgMyPham from "@/public/images/my-pham-botani.png";
-import imgVitamin from "@/public/images/vitamin-blackmores.png";
+import eukyBearImg from "@/public/images/euky-bear.jpg";
+import pentaviteImg from "@/public/images/pentavite.png";
 import imgBackground from "@/public/images/background.jpg";
 import Banner from "./banner/Banner";
 import CategoryCards from "./category-cards/CategoryCards";
@@ -55,7 +55,12 @@ export default async function HomePage() {
           <div className="w-full" style={{ height: "500px" }}>
             <ProductCarosel
               linkMore={`/list-product/${cateLists[0]}`}
-              dataProduct={dataOz}
+              dataProduct={[
+                dataOz.items[0],
+                dataMyPham.items[0],
+                dataVitamin.items[0],
+                dataOz.items[1],
+              ]}
             />
           </div>
 
@@ -68,15 +73,15 @@ export default async function HomePage() {
               link={cateLists[0]}
             />
             <CategoryCards
-              title={"Mỹ Phẩm"}
-              img={imgMyPham}
+              title={"Chăm Sóc Cơ Thể"}
+              img={eukyBearImg}
               animation={"zoom-in"}
               des={"Thương hiệu nổi tiếng"}
               link={cateLists[1]}
             />
             <CategoryCards
               title={"Vitamin"}
-              img={imgVitamin}
+              img={pentaviteImg}
               animation={"fade-left"}
               des={"Chăm sóc sức khỏe"}
               link={cateLists[2]}
