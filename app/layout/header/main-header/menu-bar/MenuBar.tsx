@@ -4,7 +4,13 @@ interface MenuBarProps {
   onClickClose: () => void;
 }
 export default function MenuBar({ onClickClose }: MenuBarProps) {
-  const listCate = ["Danh mục", "Cẩm nang", "Về chúng tôi", "Liên hệ"];
+  const listCate = [
+    "Danh mục",
+    "Cẩm nang",
+    "Về chúng tôi",
+    "Sản Phẩm",
+    "Liên hệ",
+  ];
   const acc = ["Đăng ký", "Đăng nhập"];
   return (
     <>

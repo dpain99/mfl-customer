@@ -148,7 +148,7 @@ export default function MainHeader() {
                 </svg>
               </div>
 
-              {openMenu && <MenuBar onClickClose={handleClickMenu} />}
+              {/* {openMenu && <MenuBar onClickClose={handleClickMenu} />} */}
             </div>
           </div>
         </div>
