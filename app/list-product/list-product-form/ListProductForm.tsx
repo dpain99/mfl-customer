@@ -3,12 +3,12 @@ import PriceRange from "@/app/components/price-range/PriceRange";
 import ICaretDown from "@/public/icon/ICaretDown";
 import ISearch from "@/public/icon/ISearch";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import { Pagination } from "antd";
 import { useParams } from "next/navigation";
-import { Fragment, SetStateAction, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
 import CardProduct from "../../home/product-card/ProductCard";
 import { useGetListProduct } from "./hooks/useGetListProduct";
-import { Pagination } from "antd";
 
 const sortOptions = [
   { name: "Phổ biến nhất", href: "#", current: true },
@@ -54,7 +54,7 @@ export default function ListProductForm() {
   }>({
     totalItems: 0,
     itemCount: 0,
-    itemsPerPage: 4,
+    itemsPerPage: 10,
     totalPages: 0,
     currentPage: 1,
   });
@@ -67,22 +67,23 @@ export default function ListProductForm() {
   const checkList = () => {
     if (`${params1.slug}` === "sua-ozfarm") {
       setIdCategory({ id: 1, name: "Sữa bột Oz Farm" });
+      setDataCateGory([1]);
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
         { name: "Chăm sóc giấc ngủ", href: "#" },
       ]);
-    }
-    if (`${params1.slug}` === "my-pham") {
-      setIdCategory({ id: 2, name: "Mỹ phẩm" });
+    } else if (`${params1.slug}` === "cham-soc-co-the") {
+      setIdCategory({ id: 2, name: "Chăm Sóc Cơ Thể" });
+      setDataCateGory([2]);
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
         { name: "Chăm sóc giấc ngủ", href: "#" },
       ]);
-    }
-    if (`${params1.slug}` === "thuc-pham-chuc-nang") {
-      setIdCategory({ id: 3, name: "Thực phẩm chức năng" });
+    } else if (`${params1.slug}` === "thuc-pham-chuc-nang") {
+      setIdCategory({ id: 3, name: "Thực Phẩm Chức Năng" });
+      setDataCateGory([3]);
       setSubCate([
         { name: "Dành cho Mẹ Bầu", href: "#" },
         { name: "Dành cho Người Cao Tuổi", href: "#" },
@@ -145,7 +146,6 @@ export default function ListProductForm() {
       } else setOnSale(undefined);
     } else return undefined;
   };
-
   return (
     <div>
       <div>

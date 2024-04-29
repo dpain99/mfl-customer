@@ -1,14 +1,17 @@
 "use client";
 import wheelImg from "@/public/images/wheel.png";
+import { closeWheel, openWheel } from "@/redux/slices/wheel";
 import { RootState } from "@/redux/store";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ModalAds() {
   let [isOpen, setIsOpen] = useState(false);
+  const isShowWheel = useSelector((state: RootState) => state.showWheel.isShow);
+  // const distpatch = useDispatch();
 
   const isUserAccess = useSelector(
     (state: RootState) => state.checkAccess.isAccess
@@ -16,10 +19,12 @@ export default function ModalAds() {
 
   function closeModal() {
     setIsOpen(false);
+    // distpatch(closeWheel());
   }
 
   useEffect(() => {
     if (!isUserAccess) {
+      // distpatch(openWheel());
       setIsOpen(true);
     }
   }, []);

@@ -16,31 +16,30 @@ export default function AboutUs() {
         <div className="flex flex-col items-center bg-white shadow-xl p-5 rounded-lg mt-10 gap-5">
           <Image src={img} alt="oz-farm" className="rounded-lg" />
           <span className="font-semibold text-3xl text-center">
-            Giới thiệu về <br /> Medi Fast Links
+            Giới thiệu về <br /> Công ty cổ phần Medi Fast Links
           </span>
           <p className="text-justify">
-            Medi Fast Links là một công ty mới trên thị trường, chuyên về các
-            dòng sản phẩm nhập khẩu Úc. Với tâm huyết và niềm tin, chúng tôi
-            luôn cam kết mang đến cho khách hàng những sản phẩm cùng dịch vụ
-            chất lượng, tiêu chuẩn cho nhu cầu của người tiêu dùng. Đặc biệt với
-            dòng sản phẩm sữa bột Oz Farm, chúng tôi là đại lý tiêu biểu cho
-            nhãn sữa nổi tiếng tại Úc, muốn đem nhãn hiệu này về phục vụ cho
+            Medi Fast Links là một công ty chuyên về dòng sản phẩm sữa bột nhập
+            khẩu Australia. Với tâm huyết và niềm tin, chúng tôi luôn cam kết
+            mang đến cho khách hàng những sản phẩm cùng dịch vụ chất lượng, tiêu
+            chuẩn cho nhu cầu của người tiêu dùng. Đặc biệt với dòng sản phẩm
+            sữa bột Oz Farm, chúng tôi là công ty nhập khẩu độc quyền cho nhãn
+            sữa nổi tiếng của Australia, muốn mang nhãn hiệu này về phục vụ cho
             người tiêu dùng Việt Nam. Uy tín tạo nên thương hiệu, niềm tin củng
-            cố bởi sản phẩm, chúng tôi đã sẵn sàng phục vụ và đáp ứng mọi nhu
-            cầu của khách hàng.
+            cố bởi sản phẩm, chúng tôi sẵn sàng phục vụ và đáp ứng mọi yêu cầu
+            của khách hàng.
             <br />
-            Medi Fast Links hiện đã có showrooms cũng như có mặt tại các nền
-            tảng Mạng xã hội Facebook, Tiktok... các sàn thương mại điện tử lớn
-            nhất để khách hàng có thể dễ dàng truy cập và lựa chọn cho mình
-            những sản phẩm phù hợp với nhu cầu bản thân.
+            Medi Fast Links JSC hiện đã có các phòng trưng bày cũng như có mặt
+            tại các nền tảng Mạng xã hội Facebook, Tiktok... các sàn thương mại
+            điện tử lớn nhất để khách hàng có thể dễ dàng truy cập và lựa chọn
+            những sản phẩm phù hợp với mình và gia đình.
             <br />
-            Với chiến lược kinh doanh bài bản, tầm nhìn xa rộng, Medi Fast Links
-            không ngừng nghiên cứu, đổi mới, sáng tạo, gia tăng hiệu quả vận
-            hành đồng thời nâng cao chất lượng sản phẩm, dịch vụ tạo dựng vị thế
-            cạnh tranh trên thị trường. Medi Fast Links sẽ không ngừng mở rộng,
-            hợp tác và phát triển để trở thành nhà phân phối dẫn đầu trong lĩnh
-            vực mình tại Việt Nam và sẽ trở thành nhà cung cấp cho thị trường
-            Đông Nam Á và khu vực lân cận.
+            Với chiến lược kinh doanh bài bản, tầm nhìn xa, Medi Fast Links JSC
+            không ngừng nghiên cứu, đổi mới, sáng tạo, tăng hiệu quả hoạt động
+            đồng thời nâng cao chất lượng sản phẩm, dịch vụ tạo vị trí thế cạnh
+            tranh trên trường. Medi Fast Links JSC sẽ không ngừng mở rộng, hợp
+            tác và phát triển để trở thành nhà nhập khẩu dẫn đầu trong lĩnh vực
+            của mình tại Việt Nam.
           </p>
         </div>
 
@@ -192,9 +191,11 @@ export default function AboutUs() {
               }
             />
             <p style={{ width: "350px" }} className="text-justify text-sky-700">
-              Medi Fast Links muốn là một địa chỉ đáng tin cậy hàng đầu khi
-              khách hàng có nhu cầu sử dụng các sản phẩm với chất lượng tốt nhất
-              đến từ xứ sở Kangaroo.
+              Tầm nhìn của sản phẩm sữa bột Oz Farm tại thị trường Việt Nam là
+              trở thành sản phẩm không thể thiếu trong hành trình chăm sóc sức
+              khỏe toàn diện cho mọi gia đình. Chúng tôi không chỉ muốn trở
+              thành một thương hiệu dinh dưỡng, mà còn là một người bạn đồng
+              hành đáng tin cậy trong mỗi gia đình.
             </p>
           </div>
           <div className="flex flex-col gap-10 items-center">
@@ -204,9 +205,12 @@ export default function AboutUs() {
               }
             />
             <p style={{ width: "350px" }} className="text-justify text-sky-700">
-              Luôn đem đến tận tay khách hàng những sản phẩm chất lượng, tiêu
-              chuẩn phục vụ cho nhu cầu khách hàng, cũng như đa dạng hóa các
-              danh mục sản phẩm.
+              Sứ mệnh của chúng tôi là cung cấp các giải pháp dinh dưỡng toàn
+              diện, từ việc cải thiện chất lượng giấc ngủ, hỗ trợ thai kỳ cho mẹ
+              bầu đến việc chăm sóc sức khỏe cho người lớn tuổi. Chúng tôi hiểu
+              rằng mỗi gia đình đều đặt niềm tin vào chất lượng sản phẩm mà họ
+              chọn, và với Oz Farm, sứ mệnh của chúng tôi là không ngừng nâng
+              cao chất lượng để đáp ứng mọi nhu cầu của khách hàng.
             </p>
           </div>
           <div className="flex flex-col gap-10 items-center">
@@ -216,9 +220,12 @@ export default function AboutUs() {
               }
             />
             <p style={{ width: "350px" }} className="text-justify text-sky-700">
-              Luôn là nơi để khách hàng và đối tác tin tưởng để song hành, và
-              phát triển mạng lưới rộng khắp nhằm đáp ứng tối đa nhu cầu của các
-              bên.
+              Sứ mệnh của chúng tôi là cung cấp các giải pháp dinh dưỡng toàn
+              diện, từ việc cải thiện chất lượng giấc ngủ, hỗ trợ thai kỳ cho mẹ
+              bầu đến việc chăm sóc sức khỏe cho người lớn tuổi. Chúng tôi hiểu
+              rằng mỗi gia đình đều đặt niềm tin vào chất lượng sản phẩm mà họ
+              chọn, và với Oz Farm, sứ mệnh của chúng tôi là không ngừng nâng
+              cao chất lượng để đáp ứng mọi nhu cầu của khách hàng.
             </p>
           </div>
         </div>

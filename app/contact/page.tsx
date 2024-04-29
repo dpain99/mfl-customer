@@ -28,8 +28,8 @@ export default function Contact() {
                   <p>
                     <strong>Địa chỉ</strong>
                     <br></br>
-                    198A Mã Lò, P. Bình Trị Đông A, Q. Bình Tân, Thành phố Hồ
-                    Chí Minh
+                    Toà nhà EveryGolf, Số 63 Cổ Linh, Phường Thạch Bàn, Quận
+                    Long Biên, Thành phố Hà Nội
                   </p>
                 </li>
                 <li>
@@ -39,7 +39,7 @@ export default function Contact() {
                   <p>
                     <strong>Điện thoại</strong>
                     <br></br>
-                    0981 787 551
+                    0973.02.22.82
                   </p>
                 </li>
               </ul>
@@ -51,8 +51,7 @@ export default function Contact() {
                   <p>
                     <strong>Thời gian làm việc</strong>
                     <br></br>
-                    Thứ 2 đến Thứ 6: từ 8h đến 18h;<br></br>
-                    Thứ 7 và Chủ nhật: từ 8h00 đến 17h00
+                    Thứ 2 đến Thứ 6: từ 8h đến 17h;
                   </p>
                 </li>
                 <li>
@@ -62,7 +61,7 @@ export default function Contact() {
                   <p>
                     <strong>Email</strong>
                     <br></br>
-                    medifastlinks@gmail.com
+                    medifastlinks.jsc@gmail.com
                   </p>
                 </li>
               </ul>
