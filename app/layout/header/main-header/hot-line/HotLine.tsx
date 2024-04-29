@@ -106,7 +106,7 @@ export default function HotLine() {
           Hotline
         </span>
         <span className={`${marhey.className} text-xs sm:text-lg text-nowrap`}>
-          0981 787 551
+          0973.02.22.82
         </span>
       </div>
     </div>

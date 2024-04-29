@@ -1,21 +1,20 @@
 import { getData } from "@/lib/api";
-import imgCate from "@/public/images/third.png";
+import imgBackground from "@/public/images/background.jpg";
 import eukyBearImg from "@/public/images/euky-bear.jpg";
 import pentaviteImg from "@/public/images/pentavite.png";
-import imgBackground from "@/public/images/background.jpg";
+import imgCate from "@/public/images/third.png";
+import Image from "next/image";
 import Banner from "./banner/Banner";
 import CategoryCards from "./category-cards/CategoryCards";
+import InfoCard from "./info-card/InfoCard";
+import ModalAds from "./pop-up-ads/ModalAds";
 import ProductCarosel from "./product-carousel/ProductCarosel";
 import ProductList from "./product-list/ProductList";
 import { IBanner, IProductListResponse } from "./type";
-import InfoCard from "./info-card/InfoCard";
-import Image from "next/image";
-import MyDialog from "./pop-up-ads/ModalAds";
-import ModalAds from "./pop-up-ads/ModalAds";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
-  const cateLists = ["sua-ozfarm", "my-pham", "thuc-pham-chuc-nang"];
+  const cateLists = ["sua-ozfarm", "cham-soc-co-the", "thuc-pham-chuc-nang"];
   const queryParamsOzfarm = new URLSearchParams({
     categoryIds: "1",
     page: "1",
@@ -98,7 +97,7 @@ export default async function HomePage() {
             link={`/list-product/${cateLists[0]}`}
           />
           <ProductList
-            title={"Mỹ Phẩm"}
+            title={"Chăm Sóc Cơ Thể"}
             data={dataMyPham}
             link={`/list-product/${[cateLists[1]]}`}
           />
