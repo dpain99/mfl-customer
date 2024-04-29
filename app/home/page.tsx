@@ -11,6 +11,8 @@ import ModalAds from "./pop-up-ads/ModalAds";
 import ProductCarosel from "./product-carousel/ProductCarosel";
 import ProductList from "./product-list/ProductList";
 import { IBanner, IProductListResponse } from "./type";
+import imgNutiForEveryOne from "@/public/images/ozfarm-home-nutrition-everybody.webp";
+import BrandList from "./components/BrandList";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
@@ -91,6 +93,29 @@ export default async function HomePage() {
       <InfoCard />
       <div className="w-full bg-white z-20 flex justify-center items-center pt-20 pb-5">
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
+          <div className="flex flex-col gap-5 justify-center items-center">
+            <h1 className="font-semibold text-2xl uppercase">
+              Dinh dưỡng cho mọi người
+            </h1>
+            <Image src={imgNutiForEveryOne} alt="dinh-duong-cho-moi-nguoi" />
+            <p className="text-slate-500 text-xl shadow-lg p-5 text-justify flex justify-center flex-col items-center">
+              OzFarm xây dựng công thức sữa bột dinh dưỡng mang lại sức khỏe,
+              sức sống và sự phát triển tối ưu - cho mọi giai đoạn của cuộc đời.
+              Nhu cầu dinh dưỡng thay đổi trong các giai đoạn khác nhau của cuộc
+              sống. Để khỏe mạnh, điều quan trọng là phải cung cấp thêm bất kỳ
+              nhu cầu dinh dưỡng nào cho cơ thể bạn trong những giai đoạn này -
+              đặc biệt là khi mang thai, trẻ đang lớn và trong những năm cuối
+              đời. Điều cần thiết là phải đảm bảo cung cấp đầy đủ những thứ sau:
+              <ul className="list-disc">
+                <li>đủ kilojoules/calo cho năng lượng</li>
+                <li>axit béo thiết yếu</li>
+                <li>đủ protein để bảo trì và sửa chữa tế bào</li>
+                <li>vitamin tan trong chất béo và tan trong nước</li>
+                <li>khoáng chất thiết yếu như sắt, canxi và kẽm</li>
+              </ul>
+            </p>
+          </div>
+
           <ProductList
             title={"Sữa Oz Farm"}
             data={dataOz}
@@ -106,6 +131,8 @@ export default async function HomePage() {
             data={dataVitamin}
             link={`/list-product/${cateLists[2]}`}
           />
+
+          <BrandList />
         </div>
       </div>
     </div>
