@@ -100,9 +100,9 @@ export default function CategoryProductCarousel({
                   <p className={`${martel.className} real-price`}>
                     {item.maxMoney}đ
                   </p>
-                  <p className={`${martel.className} sub-price`}>
+                  {/* <p className={`${martel.className} sub-price`}>
                     {item.minMoney}đ
-                  </p>
+                  </p> */}
                 </div>
                 <span className="name-product">{item.name}</span>
                 <div className="flex items-center justify-center py-2">

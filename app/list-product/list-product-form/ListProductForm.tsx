@@ -116,6 +116,8 @@ export default function ListProductForm() {
     maxMoney: maxPrice,
   });
 
+  console.log("dataCategory", dataCategory);
+
   useEffect(() => {
     checkList();
     refetch();

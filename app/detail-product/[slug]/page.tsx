@@ -62,8 +62,6 @@ export default function DetailProduct({
   useEffect(() => {
     refetch();
   }, [categoryId]);
-
-  console.log("dataProductCategory", dataProductCategory);
   return (
     <div className="container mx-auto px-4">
       <div className="pt-5 pb-5">
@@ -87,9 +85,11 @@ export default function DetailProduct({
             </span>
             <span className="text-2xl">{detailProduct?.name}</span>
             <span className="text-base font-semibold">{`Tình trạng: ${detailProduct?.status}`}</span>
-            <span className="text-3xl text-red-800 bg-slate-200 rounded-lg p-2">{`${convertMoney(
-              detailProduct?.maxMoney
-            )} đ`}</span>
+            <span className="text-3xl text-red-800 bg-slate-200 rounded-lg p-2">
+              {detailProduct?.name.includes("Oz Farm")
+                ? `${convertMoney(detailProduct?.maxMoney)} đ`
+                : "Liên Hệ"}
+            </span>
             <div className="flex flex-row items-center gap-3">
               <span className="w-24 font-semibold">Loại: </span>
               {detailProduct?.productVariant.map((item) => (
@@ -141,7 +141,7 @@ export default function DetailProduct({
             </div>
           </div>
           <div className="flex flex-col gap-5 pt-5 lg:pt-0 items-center lg:items-start">
-            <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
+            <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-56 h-fit p-2 gap-3">
               <span className="font-semibold text-base">
                 Chính sách bán hàng
               </span>
@@ -162,7 +162,7 @@ export default function DetailProduct({
                 Mở hội kiểm tra nhận hàng
               </span>
             </div>
-            <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
+            {/* <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
               <iframe
                 src="https://www.youtube.com/embed/nrqhPGdT6A8"
                 title="Hướng dẫn sử dụng Oz Farm cho bà bầu"
@@ -170,7 +170,7 @@ export default function DetailProduct({
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               ></iframe>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
