@@ -87,11 +87,13 @@ const CardProduct = ({
 
         <div className="card-footer">
           <div className="card-price flex flex-col text-lg">
-            <span className="line-through text-sm">
+            {/* <span className="line-through text-sm">
               {convertMoney(salePrice)} vnđ
-            </span>
+            </span> */}
             <span className="text-rose-600 text-lg">
-              {convertMoney(price)} vnđ
+              {title.includes("Oz Farm")
+                ? `${convertMoney(price)} vnđ `
+                : "Liên Hệ"}
             </span>
           </div>
           <button className="card-btn" onClick={handleClickAddCart}>
