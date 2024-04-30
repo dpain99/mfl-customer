@@ -9,6 +9,7 @@ import { Fragment, useEffect, useState } from "react";
 import BreadCrumb from "../../components/breadcrumb/Breadcrumb";
 import CardProduct from "../../home/product-card/ProductCard";
 import { useGetListProduct } from "./hooks/useGetListProduct";
+import { IListProductParams } from "./interface";
 
 const sortOptions = [
   { name: "Phổ biến nhất", href: "#", current: true },
@@ -44,7 +45,10 @@ function classNames(...classes: string[]) {
 
 export default function ListProductForm() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [idCategory, setIdCategory] = useState<{ id: number; name: string }>();
+  const [idCategory, setIdCategory] = useState<{
+    id: number[] | null;
+    name: string;
+  }>();
   const [page, setPage] = useState<{
     totalItems: number;
     itemCount: number;
@@ -58,96 +62,131 @@ export default function ListProductForm() {
     totalPages: 0,
     currentPage: 1,
   });
-  const [subCate, setSubCate] = useState<{ name: string; href: string }[]>([]);
+  // const [subCate, setSubCate] = useState<{ name: string; href: string }[]>([]);
   const params1 = useParams();
 
   const params = decodeURIComponent(`${params1.slug}`);
   const keyword = params.substring(8);
 
-  const checkList = () => {
-    if (`${params1.slug}` === "sua-ozfarm") {
-      setIdCategory({ id: 1, name: "Sữa bột Oz Farm" });
-      setDataCateGory([1]);
-      setSubCate([
-        { name: "Dành cho Mẹ Bầu", href: "#" },
-        { name: "Dành cho Người Cao Tuổi", href: "#" },
-        { name: "Chăm sóc giấc ngủ", href: "#" },
-      ]);
-    } else if (`${params1.slug}` === "cham-soc-co-the") {
-      setIdCategory({ id: 2, name: "Chăm Sóc Cơ Thể" });
-      setDataCateGory([2]);
-      setSubCate([
-        { name: "Dành cho Mẹ Bầu", href: "#" },
-        { name: "Dành cho Người Cao Tuổi", href: "#" },
-        { name: "Chăm sóc giấc ngủ", href: "#" },
-      ]);
-    } else if (`${params1.slug}` === "thuc-pham-chuc-nang") {
-      setIdCategory({ id: 3, name: "Thực Phẩm Chức Năng" });
-      setDataCateGory([3]);
-      setSubCate([
-        { name: "Dành cho Mẹ Bầu", href: "#" },
-        { name: "Dành cho Người Cao Tuổi", href: "#" },
-        { name: "Chăm sóc giấc ngủ", href: "#" },
-      ]);
-    } else {
-      setIdCategory({ id: 0, name: "Danh sách sản phẩm" });
-      setSubCate([
-        {
-          name: `Từ khóa tìm kiếm: ${keyword}`,
-          href: "#",
-        },
-        { name: "Dành cho Người Cao Tuổi", href: "#" },
-        { name: "Chăm sóc giấc ngủ", href: "#" },
-      ]);
+  const checklist = () => {
+    switch (params) {
+      case "sua-ozfarm":
+        setIdCategory({ id: [1], name: "Sữa bột Oz Farm" });
+        break;
+      case "cham-soc-co-the":
+        setIdCategory({ id: [2], name: "Chăm Sóc Cơ Thể" });
+        break;
+      case "thuc-pham-chuc-nang":
+        setIdCategory({ id: [3], name: "Thực Phẩm Chức Năng" });
+        break;
+      case "hot-sale":
+        setIdCategory({ id: null, name: "Hot Sale" });
+        break;
+      default:
+        setIdCategory({ id: null, name: "Danh Sách Sản Phẩm" });
     }
   };
 
-  const [dataCategory, setDataCateGory] = useState<number[]>([]);
+  // const checkList = () => {
+  //   if (`${params1.slug}` === "sua-ozfarm") {
+  //     setIdCategory({ id: 1, name: "Sữa bột Oz Farm" });
+  //     setDataCateGory([1]);
+  //     setSubCate([
+  //       { name: "Dành cho Mẹ Bầu", href: "#" },
+  //       { name: "Dành cho Người Cao Tuổi", href: "#" },
+  //       { name: "Chăm sóc giấc ngủ", href: "#" },
+  //     ]);
+  //   } else if (`${params1.slug}` === "cham-soc-co-the") {
+  //     setIdCategory({ id: 2, name: "Chăm Sóc Cơ Thể" });
+  //     setDataCateGory([2]);
+  //     setSubCate([
+  //       { name: "Dành cho Mẹ Bầu", href: "#" },
+  //       { name: "Dành cho Người Cao Tuổi", href: "#" },
+  //       { name: "Chăm sóc giấc ngủ", href: "#" },
+  //     ]);
+  //   } else if (`${params1.slug}` === "thuc-pham-chuc-nang") {
+  //     setIdCategory({ id: 3, name: "Thực Phẩm Chức Năng" });
+  //     setDataCateGory([3]);
+  //     setSubCate([
+  //       { name: "Dành cho Mẹ Bầu", href: "#" },
+  //       { name: "Dành cho Người Cao Tuổi", href: "#" },
+  //       { name: "Chăm sóc giấc ngủ", href: "#" },
+  //     ]);
+  //   } else if (`${params1.slug}` === "hot-sale") {
+  //     setIdCategory({ id: 0, name: "Danh Sách Hot Sale" });
+  //     setDataCateGory([0]);
+  //     setSubCate([
+  //       { name: "Dành cho Mẹ Bầu", href: "#" },
+  //       { name: "Dành cho Người Cao Tuổi", href: "#" },
+  //       { name: "Chăm sóc giấc ngủ", href: "#" },
+  //     ]);
+  //   } else {
+  //     setIdCategory({ id: 0, name: "Danh sách sản phẩm" });
+  //     setSubCate([
+  //       {
+  //         name: `Từ khóa tìm kiếm: ${keyword}`,
+  //         href: "#",
+  //       },
+  //       { name: "Dành cho Người Cao Tuổi", href: "#" },
+  //       { name: "Chăm sóc giấc ngủ", href: "#" },
+  //     ]);
+  //   }
+  // };
+
+  // const [dataCategory, setDataCateGory] = useState<number[]>([]);
   const [onSale, setOnSale] = useState<boolean | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<number>(100000);
   const [maxPrice, setMaxPrice] = useState<number>(1900000);
 
-  const { data, refetch } = useGetListProduct({
-    page: page.currentPage,
-    limit: page.itemsPerPage,
-    categoryIds: dataCategory || [idCategory?.id || 0],
-    onSale: onSale,
-    minMoney: minPrice,
-    maxMoney: maxPrice,
+  const [searchParams, setSearchParams] = useState<IListProductParams>({
+    page: 1,
+    limit: 10,
   });
 
-  console.log("dataCategory", dataCategory);
-
-  useEffect(() => {
-    checkList();
-    refetch();
-  }, [params1]);
+  const { data } = useGetListProduct({
+    page: searchParams.page,
+    limit: searchParams.limit,
+    categoryIds: searchParams?.categoryIds,
+    onSale: searchParams?.onSale,
+    minMoney: searchParams?.minMoney,
+    maxMoney: searchParams?.maxMoney,
+  });
 
   const handleClickFilter = () => {
-    refetch();
+    setSearchParams({
+      page: page.currentPage,
+      limit: page.itemsPerPage,
+      categoryIds: idCategory?.id !== null ? idCategory?.id : undefined,
+      onSale: onSale,
+      minMoney: minPrice,
+      maxMoney: maxPrice,
+    });
   };
 
   const handleOnCheck = (value: string) => {
-    if (idCategory) {
-      setDataCateGory([idCategory.id]);
-    }
-    if (value === "1" || value === "2" || value === "3") {
-      const newValue = parseInt(value);
-      if (dataCategory.includes(newValue)) {
-        const newData = dataCategory.filter((item) => item !== newValue);
-        setDataCateGory(newData);
+    if (idCategory?.id !== null && idCategory?.id !== undefined) {
+      if (["1", "2", "3"].includes(value)) {
+        const newValue = parseInt(value);
+        const newData = idCategory?.id.includes(newValue)
+          ? idCategory.id.filter((item) => item !== newValue)
+          : [...idCategory.id, newValue];
+        setIdCategory((prevState) => ({ ...prevState!, id: newData }));
+      }
+
+      if (["true", "false", "undefined"].includes(value)) {
+        setOnSale(
+          value === "true" ? true : value === "false" ? false : undefined
+        );
       } else {
-        setDataCateGory([...dataCategory, newValue]);
+        return undefined;
       }
     }
-    if (value === "true" || "false" || "undefined") {
-      if (value === "true") {
-        setOnSale(true);
-      } else if (value === "false") {
-        setOnSale(false);
-      } else setOnSale(undefined);
-    } else return undefined;
   };
+
+  useEffect(() => {
+    checklist();
+  }, [params1]);
+
   return (
     <div>
       <div>
@@ -199,7 +238,7 @@ export default function ListProductForm() {
 
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
-                    <h3 className="sr-only">Categories</h3>
+                    {/* <h3 className="sr-only">Categories</h3>
                     <ul
                       role="list"
                       className="px-2 py-3 font-medium text-gray-900"
@@ -211,7 +250,7 @@ export default function ListProductForm() {
                           </a>
                         </li>
                       ))}
-                    </ul>
+                    </ul> */}
 
                     {filters.map((section) => (
                       <Disclosure
@@ -364,7 +403,7 @@ export default function ListProductForm() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block bg-white shadow-lg rounded-lg p-5">
-                <h3 className="sr-only">Categories</h3>
+                {/* <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
                   className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
@@ -374,7 +413,7 @@ export default function ListProductForm() {
                       <a href={category.href}>{category.name}</a>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
 
                 {filters.map((section) => (
                   <Disclosure

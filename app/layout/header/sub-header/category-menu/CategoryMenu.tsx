@@ -13,7 +13,7 @@ export default function CategoryMenu({
   data,
   handleIsClose,
 }: CategoryMenuProps) {
-  const cateLists = ["sua-ozfarm", "my-pham", "thuc-pham-chuc-nang"];
+  const cateLists = ["thuc-pham-chuc-nang", "sua-ozfarm", "cham-soc-co-the"];
   return (
     <>
       <Transition
@@ -25,7 +25,7 @@ export default function CategoryMenu({
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
         className={"absolute bg-sky-100 -bottom-96 h-96 w-80 rounded-lg"}
-        // onMouseLeave={handleIsClose}
+        onMouseLeave={handleIsClose}
       >
         <div className="flex flex-col gap-2 px-2 py-5">
           {data?.map((item, index) => (
@@ -33,6 +33,7 @@ export default function CategoryMenu({
               href={`/list-product/${cateLists[index]}`}
               key={item.id}
               className="cursor-pointer hover:bg-sky-300 p-1 rounded-lg font-semibold"
+              onClick={handleIsClose}
             >
               {item.name}
             </Link>

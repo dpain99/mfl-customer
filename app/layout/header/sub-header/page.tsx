@@ -23,7 +23,7 @@ export default function SubHeader() {
           <CategoryMenu
             isShow={openCate}
             data={dataCate}
-            // handleIsClose={() => setOpenCate(false)}
+            handleIsClose={() => setOpenCate(false)}
           />
           <span
             className={`${comfortaa.className} cate-span`}

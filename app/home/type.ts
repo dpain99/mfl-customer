@@ -91,6 +91,7 @@ export interface IProductVariant {
   salePrice: number;
   productId: number;
   productVariantImage: IProductVariantImage[];
+  onSale: boolean;
 }
 
 export interface IProductVariantImage {
