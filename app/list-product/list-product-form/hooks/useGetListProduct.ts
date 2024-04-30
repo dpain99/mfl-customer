@@ -6,7 +6,7 @@ export function useGetListProduct(params: IListProductParams) {
   const { data, refetch } = useQuery({
     queryKey: ["todos", params],
     queryFn: () => getListProduct(params),
-    enabled: false,
+    enabled: true,
   });
 
   return { data, refetch };

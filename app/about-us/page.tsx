@@ -1,14 +1,9 @@
-import "./style.scss";
-import { kanit } from "@/fonts/font";
-import sydneyImg from "@/public/images/sydney-img.png";
-import Image from "next/image";
-import sunImg from "@/public/images/sun.png";
-import img from "@/public/images/first.png";
-import milkMan from "@/public/images/milkman.png";
-import tamNhinImg from "@/public/images/tam-nhin.png";
+import img from "@/public/images/bannerall_products-min (1).webp";
 import suMenhImg from "@/public/images/su-menh.png";
-import CardValues from "./card-values/CardValues";
+import tamNhinImg from "@/public/images/tam-nhin.png";
+import Image from "next/image";
 import CardWater from "./card-values/CardValues";
+import "./style.scss";
 export default function AboutUs() {
   return (
     <div className="about-us bg-scroll">

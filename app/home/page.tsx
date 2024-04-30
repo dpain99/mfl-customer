@@ -55,7 +55,7 @@ export default async function HomePage() {
           <Banner dataImg={dataImg} />
           <div className="w-full" style={{ height: "500px" }}>
             <ProductCarosel
-              linkMore={`/list-product/${cateLists[0]}`}
+              linkMore={`/list-product/hot-sale`}
               dataProduct={[
                 dataOz.items[0],
                 dataMyPham.items[0],

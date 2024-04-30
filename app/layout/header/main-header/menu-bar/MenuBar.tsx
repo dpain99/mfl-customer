@@ -1,17 +1,22 @@
 import SearchInput from "@/app/components/search-input/SearchInput";
+import Link from "next/link";
 
 interface MenuBarProps {
   onClickClose: () => void;
 }
 export default function MenuBar({ onClickClose }: MenuBarProps) {
   const listCate = [
-    "Danh mục",
-    "Cẩm nang",
-    "Về chúng tôi",
-    "Sản Phẩm",
-    "Liên hệ",
+    { name: "Danh mục", href: "" },
+    { name: "Cẩm nang", href: "/blog" },
+    { name: "Về chúng tôi", href: "/about-us" },
+    { name: "Sản Phẩm", href: "/our-range" },
+    { name: "Liên hệ", href: "/contact" },
   ];
-  const acc = ["Đăng ký", "Đăng nhập"];
+
+  const acc = [
+    { name: "Đăng ký", href: "/account/register" },
+    { name: "Đăng nhập", href: "/account" },
+  ];
   return (
     <>
       <div
@@ -19,7 +24,7 @@ export default function MenuBar({ onClickClose }: MenuBarProps) {
         onClick={onClickClose}
         style={{ backgroundColor: "rgba(0,0,0, 0.3)" }}
       ></div>
-      <div className="absolute w-9/12 h-screen bg-neutral-400 right-0 top-0 transition ease-in-out z-5">
+      <div className="absolute w-9/12 h-screen bg-neutral-400 right-0 top-0 transition ease-in-out z-10">
         <div className="relative w-full h-full bg-orange-300 p-5">
           <div className="absolute -left-4 top-14 z-10" onClick={onClickClose}>
             <svg
@@ -39,15 +44,25 @@ export default function MenuBar({ onClickClose }: MenuBarProps) {
 
           <div className="flex flex-col pt-10 gap-5">
             {listCate.map((item, id) => (
-              <span className="uppercase font-semibold" key={id}>
-                {item}
-              </span>
+              <Link
+                href={item.href}
+                className="uppercase font-semibold"
+                key={id}
+                onClick={onClickClose}
+              >
+                {item.name}
+              </Link>
             ))}
             <div className="h-1 bg-black w-full"></div>
             {acc.map((item, id) => (
-              <span className="uppercase font-semibold" key={id}>
-                {item}
-              </span>
+              <Link
+                href={item.href}
+                className="uppercase font-semibold"
+                key={id}
+                onClick={onClickClose}
+              >
+                {item.name}
+              </Link>
             ))}
           </div>
         </div>

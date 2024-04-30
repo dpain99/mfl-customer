@@ -7,8 +7,18 @@ import img1ThemAn from "@/public/images/blog/increasing-childs-appetite.webp";
 import img1MuaDong from "@/public/images/blog/ozfarm-jul-blog.webp";
 import img1KenAn from "@/public/images/blog/fussy-eaters-approaches-to-avoid.webp";
 import CardProduct from "../home/product-card/ProductCard";
+import { IProductListResponse } from "../home/type";
+import { getData } from "@/lib/api";
 
-export default function Blog() {
+export default async function Blog() {
+  const queryParamsOzfarm = new URLSearchParams({
+    categoryIds: "1",
+    page: "1",
+    limit: "4",
+  }).toString();
+  const dataOz: IProductListResponse = await getData(
+    `customer/product?${queryParamsOzfarm}`
+  );
   return (
     <div className="container mx-auto px-4">
       <div className="container px-4 mx-auto pb-5 pt-5">
@@ -22,11 +32,15 @@ export default function Blog() {
             Sản phẩm hot
           </h2>
           <section className="flex flex-col gap-5">
-            <CardProduct title={""} price={0} image={""} slug={""} />
-            <CardProduct title={""} price={0} image={""} slug={""} />
-            <CardProduct title={""} price={0} image={""} slug={""} />
-            <CardProduct title={""} price={0} image={""} slug={""} />
-            <CardProduct title={""} price={0} image={""} slug={""} />
+            {dataOz.items.map((item) => (
+              <CardProduct
+                title={item.name}
+                price={item.productVariant[0].price}
+                image={item.productImage[0].image.url}
+                slug={item.slug}
+                key={item.id}
+              />
+            ))}
           </section>
         </div>
         <div className="flex flex-col gap-5 grow bg-white shadow-lg rounded-lg p-5 items-center">
