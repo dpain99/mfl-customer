@@ -6,6 +6,8 @@ import {
   Rubik_Vinyl,
   Saira_Stencil_One,
   Kanit,
+  Playfair_Display,
+  Caveat,
 } from "next/font/google";
 
 export const inter = Inter({
@@ -62,4 +64,16 @@ export const kanit = Kanit({
   subsets: ["latin"],
   display: "swap",
   weight: ["200", "300", "400", "600"],
+});
+
+export const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "600"],
+});
+
+export const caveat = Caveat({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "600"],
 });
