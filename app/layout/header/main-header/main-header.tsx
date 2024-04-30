@@ -1,21 +1,20 @@
 "use client";
+import MenuAccount from "@/app/account/menu-account/MenuAccount";
 import AddToCartMenu from "@/app/components/add-to-cart-menu/AddToCartMenu";
 import SearchInput from "@/app/components/search-input/SearchInput";
 import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
-import logoImg from "@/public/images/logo.png";
+import { playfairDisplay } from "@/fonts/font";
+import { setProfileUser } from "@/redux/slices/user";
 import { RootState, dispatch } from "@/redux/store";
 import { Tooltip } from "antd";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetCurrentUser } from "./hooks/use-get-current-user";
 import HotLine from "./hot-line/HotLine";
 import MenuBar from "./menu-bar/MenuBar";
-import "./style.scss";
-import { setProfileUser } from "@/redux/slices/user";
 import SearchBar from "./search-bar/SearchBar";
-import MenuAccount from "@/app/account/menu-account/MenuAccount";
+import "./style.scss";
 export default function MainHeader() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const handleClickMenu = () => {
@@ -57,7 +56,7 @@ export default function MainHeader() {
             autoFocus={showSearchBar ? true : false}
           />
         )}
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 pt-2">
           <div className="flex flex-row">
             <div className="flex basis-1/3 justify-start items-center gap-10 ">
               <HotLine />
@@ -67,11 +66,12 @@ export default function MainHeader() {
             </div>
             <div className="flex basis-1/3 justify-center items-center">
               <Link href="/">
-                <Image
-                  src={logoImg}
-                  alt="logo-medi-fast-links"
-                  className="size-10 sm:size-16"
-                />
+                <p
+                  className={`${playfairDisplay.className} font-bold text-base lg:text-3xl`}
+                  style={{ color: "#A99A70" }}
+                >
+                  Medi Fast Links JSC
+                </p>
               </Link>
             </div>
             <div className="flex basis-1/3 justify-end items-center gap-4 sm:gap-10">
