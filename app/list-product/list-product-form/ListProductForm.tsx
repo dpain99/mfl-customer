@@ -143,10 +143,12 @@ export default function ListProductForm() {
     limit: 10,
   });
 
+  console.log("searchParams", searchParams);
+
   const { data } = useGetListProduct({
     page: searchParams.page,
     limit: searchParams.limit,
-    categoryIds: searchParams?.categoryIds,
+    categoryIds: idCategory?.id !== null ? idCategory?.id : undefined,
     onSale: searchParams?.onSale,
     minMoney: searchParams?.minMoney,
     maxMoney: searchParams?.maxMoney,

@@ -9,29 +9,29 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ModalAds() {
-  // let [isOpen, setIsOpen] = useState(false);
+  let [isOpen, setIsOpen] = useState(false);
   const isShowWheel = useSelector((state: RootState) => state.showWheel.isShow);
-  const distpatch = useDispatch();
+  // const distpatch = useDispatch();
 
   const isUserAccess = useSelector(
     (state: RootState) => state.checkAccess.isAccess
   );
 
   function closeModal() {
-    // setIsOpen(false);
-    distpatch(closeWheel());
+    setIsOpen(false);
+    // distpatch(closeWheel());
   }
 
-  // useEffect(() => {
-  //   if (!isUserAccess) {
-  //     // distpatch(openWheel());
-  //     // setIsOpen(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!isUserAccess) {
+      // distpatch(openWheel());
+      setIsOpen(true);
+    }
+  }, []);
 
   return (
     <>
-      <Transition show={isShowWheel} as={Fragment}>
+      <Transition show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10 " onClose={closeModal}>
           <Transition.Child
             as={Fragment}
