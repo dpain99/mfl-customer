@@ -16,8 +16,10 @@
     height: 30px;
     background: linear-gradient(
       to bottom,
-      rgb(105, 109, 225),
-      rgb(83, 71, 255)
+      // rgb(105, 109, 225),
+      // rgb(83, 71, 255)
+      #ca8a04,
+      #b77e04
     );
     border-radius: 50px;
     display: flex;

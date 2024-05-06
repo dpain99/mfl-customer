@@ -41,24 +41,24 @@ export default function CountDown({
 
   return (
     <div className="count-down flex flex-row gap-1 md:gap-2 items-center">
-      <div className="flex flex-col items-center bg-red-500 rounded w-12">
+      <div className="flex flex-col items-center bg-red-500 rounded-lg w-12 py-1">
         <span className="text-sm md:text-xl text-white">{formattedDays}</span>
         <span className="text-xs text-white">Ngày</span>
       </div>
       <span>:</span>
-      <div className="flex flex-col items-center bg-red-500 rounded w-12">
+      <div className="flex flex-col items-center bg-red-500 rounded-lg w-12 py-1">
         <span className="text-sm md:text-xl text-white">{formattedHours}</span>
         <span className="text-xs text-white">Giờ</span>
       </div>
       <span>:</span>
-      <div className="flex flex-col items-center bg-red-500  rounded w-12">
+      <div className="flex flex-col items-center bg-red-500  rounded-lg w-12 py-1">
         <span className="text-sm md:text-xl text-white">
           {formattedMinutes}
         </span>
         <span className="text-xs text-white">Phút</span>
       </div>
       <span>:</span>
-      <div className="flex flex-col items-center bg-red-500 rounded w-12">
+      <div className="flex flex-col items-center bg-red-500 rounded-lg w-12 py-1">
         <span className="text-sm md:text-xl text-white">
           {formattedSeconds}
         </span>

@@ -92,6 +92,7 @@ export interface IProductVariant {
   productId: number;
   productVariantImage: IProductVariantImage[];
   onSale: boolean;
+  color: string | null;
 }
 
 export interface IProductVariantImage {

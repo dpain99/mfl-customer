@@ -11,6 +11,7 @@ interface RequestOptions {
 
 async function getData(path: string, options: RequestOptions = {}) {
   const { method = "GET", headers = {}, body } = options;
+  headers["Cache-Control"] = "no-cache";
   const res = await fetch(`${baseURL}/${path}`, {
     next: { revalidate: 3600 },
     method,

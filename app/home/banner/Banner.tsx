@@ -16,15 +16,16 @@ interface BannerProps {
 }
 export default function Banner({ dataImg }: BannerProps) {
   return (
-    <section className="py-5 sm:py-12">
-      <div className="container mx-auto">
+    <section className="w-full">
+      <div className="w-full">
         <Swiper
           navigation
           pagination={{ type: "bullets" }}
           modules={[Navigation, Pagination]}
-          className="h-auto w-96 sm:w-full rounded-lg banner-container"
+          className="h-auto w-96 sm:w-full banner-container"
           loop={true}
           autoplay={true}
+          style={{ borderEndEndRadius: "150px" }}
         >
           {dataImg &&
             dataImg.length &&

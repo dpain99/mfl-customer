@@ -74,13 +74,13 @@ export default function ListProductForm() {
         setIdCategory({ id: [1], name: "Sữa bột Oz Farm" });
         break;
       case "cham-soc-co-the":
-        setIdCategory({ id: [2], name: "Chăm Sóc Cơ Thể" });
+        setIdCategory({ id: [2], name: "Chăm Sóc Em Bé" });
         break;
       case "thuc-pham-chuc-nang":
         setIdCategory({ id: [3], name: "Thực Phẩm Chức Năng" });
         break;
       case "hot-sale":
-        setIdCategory({ id: null, name: "Hot Sale" });
+        setIdCategory({ id: [1], name: "Hot Sale" });
         break;
       default:
         setIdCategory({ id: null, name: "Danh Sách Sản Phẩm" });
@@ -132,8 +132,6 @@ export default function ListProductForm() {
   //     ]);
   //   }
   // };
-
-  // const [dataCategory, setDataCateGory] = useState<number[]>([]);
   const [onSale, setOnSale] = useState<boolean | undefined>(undefined);
   const [minPrice, setMinPrice] = useState<number>(100000);
   const [maxPrice, setMaxPrice] = useState<number>(1900000);
@@ -142,8 +140,6 @@ export default function ListProductForm() {
     page: 1,
     limit: 10,
   });
-
-  console.log("searchParams", searchParams);
 
   const { data } = useGetListProduct({
     page: searchParams.page,

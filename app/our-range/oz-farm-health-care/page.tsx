@@ -21,7 +21,7 @@ export default function OzFarmSleepWell() {
         <span className="text-xl font-semibold text-secondary-color">
           Dinh Dưỡng Tốt, Sống Khỏe Hơn!
         </span>
-        <div className="flex flex-row w-1/2 gap-4">
+        <div className="flex flex-row w-full md:w-1/2 gap-4">
           <p className="text-justify">
             Khi chúng ta già đi, cả sự thèm ăn và nhu cầu dinh dưỡng của chúng
             ta đều thay đổi. Điều này đôi khi có thể bị thách thức hơn nữa với

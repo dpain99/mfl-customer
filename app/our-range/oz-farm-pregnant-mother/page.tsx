@@ -21,7 +21,7 @@ export default function OzFarmSleepWell() {
         <span className="text-xl font-semibold text-secondary-color">
           Cải thiện hơn với công thức đường ruột khỏe mạnh
         </span>
-        <div className="flex flex-row w-1/2 gap-4">
+        <div className="flex flex-row w-full md:w-1/2 gap-4">
           <p className="text-justify">
             Oz Farm Pregnant Mother được bào chế để hỗ trợ bà bầu và phụ nữ đang
             cho con bú để đạt được mức hấp thụ dinh dưỡng tăng lên, điều này rất

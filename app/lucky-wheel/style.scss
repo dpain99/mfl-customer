@@ -19,17 +19,17 @@
     font-weight: 600;
     color: #333;
     letter-spacing: 0.1em;
-    border: 4px solid rgba(0, 0, 0, 0.75);
+    border: 4px solid #eccb60;
     cursor: pointer;
     user-select: none;
   }
   .spinBtn::before {
     content: "";
     position: absolute;
-    top: -28px;
-    width: 20px;
-    height: 30px;
-    background-color: white;
+    top: -20px;
+    width: 30px;
+    height: 20px;
+    background-color: #eccb60;
     clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
   }
   .wheel {
@@ -44,21 +44,19 @@
     box-shadow: 0 0 0 5px #333, 0 0 0 15px #fff, 0 0 0 18px #111;
 
     $colors: (
-      #df3535,
+      #eccb60,
       // Màu đỏ
-      #00ff00,
+      #005fe6,
       // Màu xanh lá cây
-      #0000ff,
-      // Màu xanh dương
-      #ffff00,
-      // Màu vàng
-      #ff00ff,
-      // Màu tím
-      #00ffff,
-      // Màu lam
-      #ff8000,
-      // Màu cam
-      #0080ff // Màu xanh da trời
+      #eccb60,
+      // Màu đỏ
+      #005fe6,
+      #eccb60,
+      // Màu đỏ
+      #005fe6,
+      #eccb60,
+      // Màu đỏ
+      #005fe6
     );
 
     @for $i from 1 through 8 {
