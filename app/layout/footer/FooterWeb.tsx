@@ -33,10 +33,11 @@ export default function FooterWeb() {
           <div className="flex flex-col items-center">
             <span
               className={`${sairaStencilOne.className} text-2xl lg:text-5xl tracking-wider truncate`}
+              style={{ color: "#A99A70" }}
             >
               MEDI FAST LINKS
             </span>
-            <span className="text-xl">Hàng Úc Nhập Khẩu</span>
+            <span className="text-xl">Hotline: 0974.02.22.82</span>
           </div>
           <div className="pt-12">
             <SocialBtn />
@@ -100,6 +101,7 @@ export default function FooterWeb() {
           <div className="h-0.5 bg-black w-full ml-2"></div>
           <span
             className={`${sairaStencilOne.className} text-2xl tracking-wider text-nowrap pl-3 pr-3`}
+            style={{ color: "#A99A70" }}
           >
             MEDI FAST LINKS
           </span>

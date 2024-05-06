@@ -12,8 +12,7 @@ import CountDown from "@/app/components/count-down/CountDown";
 import MoreBtn from "@/app/components/more-btn/MoreBtn";
 import { martel } from "@/fonts/font";
 import { convertMoney } from "@/lib/convertMoney";
-import IClockAnimation from "@/public/icon/IClockAnimation";
-import IHotSale from "@/public/icon/IHotSale";
+import IFlowerAnimation from "@/public/icon/IFlowerAnimation";
 import { openCart, setProductInfo } from "@/redux/slices/showCart";
 import { RootState } from "@/redux/store";
 import Image from "next/image";
@@ -22,6 +21,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation, Pagination } from "swiper/modules";
 import { IProduct } from "../type";
+import { LightenColor } from "@/lib/lightColor";
 
 interface ICardProductCarouselProps {
   linkMore: string;
@@ -99,16 +99,37 @@ export default function CardProductCarousel({
   return (
     <>
       <div className="flex justify-between items-center pb-4 py-4">
-        <div className="flex items-center gap-2">
-          <span className="text-red-500 hidden sm:block">
-            <IHotSale width="1.9em" height="1.9em" />
-          </span>
-          <h1 className="text-base sm:text-3xl font-semibold text-yellow-600 pl-3 md:pl-0">
-            Hot Sale
-          </h1>
-          <span className="pr-5 text-primary-color">
-            <IClockAnimation width="1.7em" height="1.7em" />
-          </span>
+        <div className="flex flex-col items-center justify-center gap-2 w-full pb-10">
+          <section className="flex flex-row gap-0 items-center justify-center">
+            <span>
+              <IFlowerAnimation width="2.5em" height="2.5em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="3em" height="3em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="3.5em" height="3.5em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="4em" height="4em" />
+            </span>
+            <h1 className="text-base sm:text-4xl font-semibold text-yellow-600 pl-3 md:pl-0">
+              Hot Sale
+            </h1>
+            <span>
+              <IFlowerAnimation width="4em" height="4em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="3.5em" height="3.5em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="3em" height="3em" />
+            </span>
+            <span>
+              <IFlowerAnimation width="2.5em" height="2.5em" />
+            </span>
+          </section>
+
           <CountDown days={1} hours={0} minutes={0} seconds={0} />
         </div>
       </div>
@@ -119,11 +140,28 @@ export default function CardProductCarousel({
           modules={[Pagination, Navigation]}
           className="mySwiper"
           navigation={true}
+          pagination={{ type: "progressbar" }}
         >
           {dataProduct.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="slide w-48 lg:w-56">
-                <Link href={`detail-product/${item.slug}`} key={item.id}>
+              <div className="slide w-48 lg:w-72 shadow-lg relative rounded-lg">
+                <Link
+                  href={`detail-product/${item.slug}`}
+                  key={item.id}
+                  className={`link-img-${item.id} w-full h-2/3 flex justify-center items-center transition-colors duration-500 ease-in-out rounded-lg`}
+                >
+                  <style>
+                    {`
+                    .link-img-${item.id} {
+                      background-color: ${
+                        LightenColor(item.productVariant[0].color || "", 150) ||
+                        ""
+                      };
+                    }
+                    .link-img-${item.id}:hover {
+                      background-color: ${item.productVariant[0].color};
+                    }`}
+                  </style>
                   <Image
                     src={item.productImage[0].image.url}
                     alt={`${item.name}`}
@@ -133,23 +171,27 @@ export default function CardProductCarousel({
                     style={{
                       display: "flex",
                       objectFit: "cover",
-                      width: "150px",
-                      height: "150px",
+                      width: "170px",
+                      height: "230px",
                     }}
                     className="img-product"
                   />
                 </Link>
-                <div className="info_product relative">
+                <div className="info_product">
                   <div className="price">
-                    <p className={`${martel.className} real-price`}>
-                      {convertMoney(item.maxMoney)}đ
+                    <p
+                      className={`${martel.className} real-price text-base lg:text-xl`}
+                    >
+                      {convertMoney(item.productVariant[0].price)}đ
                     </p>
-                    <p className={`${martel.className} sub-price`}>
-                      {convertMoney(item.minMoney)}đ
+                    <p
+                      className={`${martel.className} sub-price text-base lg:text-xl`}
+                    >
+                      {convertMoney(item.productVariant[0].salePrice)}đ
                     </p>
                   </div>
-                  <span className="name-product">{item.name}</span>
-                  <div className="absolute bottom-0 flex items-center right-2/4 translate-x-2/4">
+                  <span className="name-product leading-6">{item.name}</span>
+                  <div className="absolute bottom-1 flex items-center right-2/4 translate-x-2/4">
                     <AddToCartBtn
                       handleClickAdd={() =>
                         handleClickAddCart(

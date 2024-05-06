@@ -22,7 +22,7 @@ export default function OzFarmSleepWell() {
         <span className="text-xl font-semibold text-secondary-color">
           Ngủ ngon, sống tốt!
         </span>
-        <div className="flex flex-row w-1/2 gap-4">
+        <div className="flex flex-row w-full md:w-1/2 gap-4">
           <p className="text-justify">
             Công thức sữa dinh dưỡng Oz Farm SleepWell™ được pha chế với thành
             phần đã được chứng minh lâm sàng, Lactium®, giúp mọi người giảm bớt

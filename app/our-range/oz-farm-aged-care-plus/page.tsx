@@ -21,7 +21,7 @@ export default function OzFarmSleepWell() {
         <span className="text-xl font-semibold text-secondary-color">
           Dinh Dưỡng Tốt, Sống Khỏe Hơn!
         </span>
-        <div className="flex flex-row w-1/2 gap-4">
+        <div className="flex flex-row w-full md:w-1/2 gap-4">
           <p className="text-justify">
             Công thức sữa dinh dưỡng Oz Farm Aged Care Plus đã được pha chế đặc
             biệt dành cho người cao tuổi mong muốn duy trì đường ruột khỏe mạnh

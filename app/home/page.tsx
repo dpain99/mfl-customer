@@ -41,6 +41,7 @@ export default async function HomePage() {
   const dataVitamin: IProductListResponse = await getData(
     `customer/product?${queryParamsVitamin}`
   );
+
   return (
     <div className="flex flex-col items-center relative bg-white z-10">
       <ModalAds />
@@ -50,17 +51,18 @@ export default async function HomePage() {
         className="w-full h-full fixed top-0 left-0"
       />
 
-      <div className="w-full bg-white z-20 flex justify-center items-center pb-20">
+      <div className="w-full bg-white z-20 flex flex-col justify-center items-center pb-20">
+        <Banner dataImg={dataImg} />
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
-          <Banner dataImg={dataImg} />
-          <div className="w-full" style={{ height: "500px" }}>
+          <div className="w-full mb-40" style={{ height: "670px" }}>
             <ProductCarosel
               linkMore={`/list-product/hot-sale`}
               dataProduct={[
                 dataOz.items[0],
-                dataMyPham.items[0],
-                dataVitamin.items[0],
                 dataOz.items[1],
+                dataOz.items[2],
+                dataOz.items[3],
+                dataMyPham.items[0],
               ]}
             />
           </div>
@@ -104,15 +106,15 @@ export default async function HomePage() {
               Nhu cầu dinh dưỡng thay đổi trong các giai đoạn khác nhau của cuộc
               sống. Để khỏe mạnh, điều quan trọng là phải cung cấp thêm bất kỳ
               nhu cầu dinh dưỡng nào cho cơ thể bạn trong những giai đoạn này -
-              đặc biệt là khi mang thai, trẻ đang lớn và trong những năm cuối
-              đời. Điều cần thiết là phải đảm bảo cung cấp đầy đủ những thứ sau:
-              <ul className="list-disc">
+              đặc biệt là khi mang thai, trẻ đang lớn và trong những năm tháng
+              tuổi cao sức yếu.
+              {/* <ul className="list-disc">
                 <li>đủ kilojoules/calo cho năng lượng</li>
                 <li>axit béo thiết yếu</li>
                 <li>đủ protein để bảo trì và sửa chữa tế bào</li>
                 <li>vitamin tan trong chất béo và tan trong nước</li>
                 <li>khoáng chất thiết yếu như sắt, canxi và kẽm</li>
-              </ul>
+              </ul> */}
             </p>
           </div>
 
@@ -122,7 +124,7 @@ export default async function HomePage() {
             link={`/list-product/${cateLists[0]}`}
           />
           <ProductList
-            title={"Chăm Sóc Cơ Thể"}
+            title={"Chăm Sóc Em Bé"}
             data={dataMyPham}
             link={`/list-product/${[cateLists[1]]}`}
           />

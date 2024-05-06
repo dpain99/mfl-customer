@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
+import { LightenColor } from "@/lib/lightColor";
 
 type ICardProductProps = {
   title: string;
@@ -16,6 +17,7 @@ type ICardProductProps = {
   salePrice?: number;
   image: string;
   slug: string;
+  color: string;
 };
 const CardProduct = ({
   title,
@@ -23,6 +25,7 @@ const CardProduct = ({
   salePrice,
   image,
   slug,
+  color,
 }: ICardProductProps) => {
   const isOpen = useSelector((state: RootState) => state.showCart.isOpen);
   const dispatch = useDispatch();
@@ -67,18 +70,31 @@ const CardProduct = ({
       once: true,
     });
   }, []);
+
   return (
     <>
       <div className="card" data-aos={`zoom-in`} data-aos-once="true">
         <Link href={`/detail-product/${slug}`}>
-          <div className="card-img">
+          <div className={`card-img card-img-${slug}`}>
+            <style>
+              {`
+                    .card-img-${slug} {
+                      background-color: ${
+                        LightenColor(color || "#fff", 150) || "#fff"
+                      };
+                    }
+                    .card-img-${slug}:hover {
+                      background-color: ${color};
+                    }`}
+            </style>
             <Image
               src={image}
               alt={`${title}`}
               width={0}
               height={0}
               sizes="100vw"
-              className="size-24 md:size-36 object-cover"
+              className="object-cover img-product"
+              style={{ width: "130px", height: "173px" }}
             />
           </div>
           <div className="card-title">{title}</div>
@@ -93,7 +109,7 @@ const CardProduct = ({
             <span className="text-rose-600 text-lg">
               {title.includes("Oz Farm")
                 ? `${convertMoney(price)} vnđ `
-                : "Liên Hệ"}
+                : "Giá: Liên Hệ"}
             </span>
           </div>
           <button className="card-btn" onClick={handleClickAddCart}>

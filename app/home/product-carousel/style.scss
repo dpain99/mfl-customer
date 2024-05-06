@@ -5,12 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $primary-color;
+  background-color: transparent;
   border-radius: 10px;
   padding: 10px 0;
   .swiper {
     width: fit-content;
-    height: 90%;
+    height: 100%;
+    position: relative;
     .swiper-slide {
       text-align: center;
       font-size: 18px;
@@ -18,9 +19,7 @@
       justify-content: center;
       align-items: center;
       .slide {
-        background-color: white;
-        padding-top: 20px;
-        height: 100%;
+        height: 90%;
         position: relative;
         display: flex;
         justify-content: center;
@@ -28,9 +27,11 @@
         flex-direction: column;
         gap: 20px;
         border-radius: 10px;
+
         .img-product {
           transition: all 0.3s ease-in-out;
         }
+        border-radius: 10px;
 
         .info_product {
           display: flex;
@@ -39,22 +40,23 @@
           box-sizing: border-box;
           padding: 0 15px;
           flex-direction: column;
+          z-index: 100;
           .price {
             display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 10px;
             .real-price:first-child {
               color: #c73030;
-              font-size: 16px;
             }
             .sub-price:last-child {
               color: #707070;
               text-decoration: line-through;
-              font-size: 16px;
             }
           }
           .name-product {
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -66,7 +68,7 @@
       .slide:hover {
         .img-product {
           display: flex;
-          transform: translateY(-5px);
+          transform: scale(0.95);
         }
       }
     }
@@ -85,8 +87,15 @@
       color: transparent;
       transition: all 0.3s ease;
     }
-    .swiper-pagination {
-      bottom: 0;
+    .swiper-horizontal > .swiper-pagination-progressbar,
+    .swiper-pagination-progressbar.swiper-pagination-horizontal {
+      top: 99%;
+      width: 50%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      .swiper-pagination-progressbar-fill {
+        background-color: #ca8a04;
+      }
     }
     .swiper-button-prev::after {
       font-size: 25px;
