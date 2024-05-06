@@ -517,6 +517,7 @@ export default function ListProductForm() {
                           image={item.productImage[0].image.url}
                           slug={item.slug}
                           salePrice={item.productVariant[0].salePrice}
+                          color={item.productVariant[0].color || "#fff"}
                         />
                       </div>
                     ))}

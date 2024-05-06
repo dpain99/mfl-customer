@@ -39,6 +39,7 @@ export default async function Blog() {
                 image={item.productImage[0].image.url}
                 slug={item.slug}
                 key={item.id}
+                color={item.productVariant[0].color || "#fff"}
               />
             ))}
           </section>
