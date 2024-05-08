@@ -18,6 +18,9 @@ const config: Config = {
         "secondary-color": "#003B71",
         "green-au": "#027A53",
       },
+      listStyleImage: {
+        checkmark: 'url("/img/checkmark.png")',
+      },
     },
   },
   plugins: [],

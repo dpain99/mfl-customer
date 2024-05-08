@@ -13,6 +13,8 @@ import ProductList from "./product-list/ProductList";
 import { IBanner, IProductListResponse } from "./type";
 import imgNutiForEveryOne from "@/public/images/ozfarm-home-nutrition-everybody.webp";
 import BrandList from "./components/BrandList";
+import Pentavite from "./components/Pentavite";
+import HotSale from "./components/hot-sale/HotSale";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
@@ -54,7 +56,10 @@ export default async function HomePage() {
       <div className="w-full bg-white z-20 flex flex-col justify-center items-center pb-20">
         <Banner dataImg={dataImg} />
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
-          <div className="w-full mb-40" style={{ height: "670px" }}>
+          <div style={{ height: "300px" }}>
+            <HotSale />
+          </div>
+          <div className="w-full mb-10" style={{ height: "500px" }}>
             <ProductCarosel
               linkMore={`/list-product/hot-sale`}
               dataProduct={[
@@ -123,15 +128,18 @@ export default async function HomePage() {
             data={dataOz}
             link={`/list-product/${cateLists[0]}`}
           />
-          <ProductList
-            title={"Chăm Sóc Em Bé"}
-            data={dataMyPham}
-            link={`/list-product/${[cateLists[1]]}`}
-          />
+          <Pentavite />
+
           <ProductList
             title={"Thực phẩm Chức Năng"}
             data={dataVitamin}
             link={`/list-product/${cateLists[2]}`}
+          />
+
+          <ProductList
+            title={"Chăm Sóc Em Bé"}
+            data={dataMyPham}
+            link={`/list-product/${[cateLists[1]]}`}
           />
 
           <BrandList />
