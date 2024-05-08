@@ -8,11 +8,10 @@ import "swiper/css/pagination";
 import "./style.scss";
 
 import AddToCartBtn from "@/app/components/add-to-cart-btn/AddToCartBtn";
-import CountDown from "@/app/components/count-down/CountDown";
 import MoreBtn from "@/app/components/more-btn/MoreBtn";
 import { martel } from "@/fonts/font";
 import { convertMoney } from "@/lib/convertMoney";
-import IFlowerAnimation from "@/public/icon/IFlowerAnimation";
+import { LightenColor } from "@/lib/lightColor";
 import { openCart, setProductInfo } from "@/redux/slices/showCart";
 import { RootState } from "@/redux/store";
 import Image from "next/image";
@@ -21,7 +20,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigation, Pagination } from "swiper/modules";
 import { IProduct } from "../type";
-import { LightenColor } from "@/lib/lightColor";
 
 interface ICardProductCarouselProps {
   linkMore: string;
@@ -98,41 +96,6 @@ export default function CardProductCarousel({
 
   return (
     <>
-      <div className="flex justify-between items-center pb-4 py-4">
-        <div className="flex flex-col items-center justify-center gap-2 w-full pb-10">
-          <section className="flex flex-row gap-0 items-center justify-center">
-            <span>
-              <IFlowerAnimation width="2.5em" height="2.5em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="3em" height="3em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="3.5em" height="3.5em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="4em" height="4em" />
-            </span>
-            <h1 className="text-base sm:text-4xl font-semibold text-yellow-600 pl-3 md:pl-0">
-              Hot Sale
-            </h1>
-            <span>
-              <IFlowerAnimation width="4em" height="4em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="3.5em" height="3.5em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="3em" height="3em" />
-            </span>
-            <span>
-              <IFlowerAnimation width="2.5em" height="2.5em" />
-            </span>
-          </section>
-
-          <CountDown days={1} hours={0} minutes={0} seconds={0} />
-        </div>
-      </div>
       <div className="card-product-container">
         <Swiper
           slidesPerView={slidesPerView}
@@ -145,6 +108,16 @@ export default function CardProductCarousel({
           {dataProduct.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="slide w-48 lg:w-72 shadow-lg relative rounded-lg">
+                <div className="ribbon-product">
+                  {(
+                    ((item.productVariant[0].price -
+                      item.productVariant[0].salePrice) /
+                      item.productVariant[0].salePrice) *
+                    100
+                  ).toFixed(0)}
+                  %
+                </div>
+
                 <Link
                   href={`detail-product/${item.slug}`}
                   key={item.id}
