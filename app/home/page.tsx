@@ -15,6 +15,8 @@ import imgNutiForEveryOne from "@/public/images/ozfarm-home-nutrition-everybody.
 import BrandList from "./components/BrandList";
 import Pentavite from "./components/Pentavite";
 import HotSale from "./components/hot-sale/HotSale";
+import EukyBear from "./components/EukyBear";
+import FollowUs from "./components/FollowUs";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
@@ -22,17 +24,17 @@ export default async function HomePage() {
   const queryParamsOzfarm = new URLSearchParams({
     categoryIds: "1",
     page: "1",
-    limit: "4",
+    limit: "10",
   }).toString();
   const queryParamsMyPham = new URLSearchParams({
     categoryIds: "2",
     page: "1",
-    limit: "4",
+    limit: "10",
   }).toString();
   const queryParamsVitamin = new URLSearchParams({
     categoryIds: "3",
     page: "1",
-    limit: "4",
+    limit: "10",
   }).toString();
   const dataOz: IProductListResponse = await getData(
     `customer/product?${queryParamsOzfarm}`
@@ -62,13 +64,7 @@ export default async function HomePage() {
           <div className="w-full mb-10" style={{ height: "500px" }}>
             <ProductCarosel
               linkMore={`/list-product/hot-sale`}
-              dataProduct={[
-                dataOz.items[0],
-                dataOz.items[1],
-                dataOz.items[2],
-                dataOz.items[3],
-                dataMyPham.items[0],
-              ]}
+              dataProduct={dataOz.items}
             />
           </div>
 
@@ -102,7 +98,7 @@ export default async function HomePage() {
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
           <div className="flex flex-col gap-5 justify-center items-center">
             <h1 className="font-semibold text-2xl uppercase">
-              Dinh dưỡng cho mọi người
+              Oz Farm - Dinh dưỡng cho mọi người
             </h1>
             <Image src={imgNutiForEveryOne} alt="dinh-duong-cho-moi-nguoi" />
             <p className="text-slate-500 text-xl shadow-lg p-5 text-justify flex justify-center flex-col items-center">
@@ -113,13 +109,6 @@ export default async function HomePage() {
               nhu cầu dinh dưỡng nào cho cơ thể bạn trong những giai đoạn này -
               đặc biệt là khi mang thai, trẻ đang lớn và trong những năm tháng
               tuổi cao sức yếu.
-              {/* <ul className="list-disc">
-                <li>đủ kilojoules/calo cho năng lượng</li>
-                <li>axit béo thiết yếu</li>
-                <li>đủ protein để bảo trì và sửa chữa tế bào</li>
-                <li>vitamin tan trong chất béo và tan trong nước</li>
-                <li>khoáng chất thiết yếu như sắt, canxi và kẽm</li>
-              </ul> */}
             </p>
           </div>
 
@@ -136,6 +125,8 @@ export default async function HomePage() {
             link={`/list-product/${cateLists[2]}`}
           />
 
+          <EukyBear />
+
           <ProductList
             title={"Chăm Sóc Em Bé"}
             data={dataMyPham}
@@ -143,6 +134,8 @@ export default async function HomePage() {
           />
 
           <BrandList />
+          {/* 
+          <FollowUs /> */}
         </div>
       </div>
     </div>

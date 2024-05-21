@@ -33,10 +33,16 @@
   .containerThree:hover {
     background-color: #0072b1;
     transition-duration: 0.3s;
+    color: white;
   }
   /* Whatsapp*/
   .containerFour:hover {
-    background-color: #128c7e;
+    background-color: #f94d2f;
+    transition-duration: 0.3s;
+  }
+
+  .containerFive:hover {
+    background-color: #f2056e;
     transition-duration: 0.3s;
   }
 

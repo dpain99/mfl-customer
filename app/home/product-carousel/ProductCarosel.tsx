@@ -94,6 +94,8 @@ export default function CardProductCarousel({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  console.log("dataProduct", dataProduct);
+
   return (
     <>
       <div className="card-product-container">
@@ -125,15 +127,17 @@ export default function CardProductCarousel({
                 >
                   <style>
                     {`
-                    .link-img-${item.id} {
-                      background-color: ${
-                        LightenColor(item.productVariant[0].color || "", 150) ||
-                        ""
-                      };
-                    }
-                    .link-img-${item.id}:hover {
-                      background-color: ${item.productVariant[0].color};
-                    }`}
+                      .link-img-${item.id} {
+                        background-color: ${
+                          LightenColor(
+                            item.productVariant[0].color || "",
+                            150
+                          ) || ""
+                        };
+                      }
+                      .link-img-${item.id}:hover {
+                        background-color: ${item.productVariant[0].color};
+                      }`}
                   </style>
                   <Image
                     src={item.productImage[0].image.url}

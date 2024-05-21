@@ -159,7 +159,7 @@ export default function DetailProduct({
               </span>
               <span className="flex flex-row gap-3 text-sm items-center">
                 <ILike width={"1.4em"} height={"1.4em"} />
-                Mở hội kiểm tra nhận hàng
+                Mở hộp kiểm tra nhận hàng
               </span>
             </div>
             {/* <div className="flex flex-col border-solid border-x border-y border-black rounded-lg w-80 h-fit p-2 gap-3">
