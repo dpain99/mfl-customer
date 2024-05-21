@@ -2,7 +2,7 @@ import Image from "next/image";
 import pentaviteImg from "@/public/images/Pentavite-Products-2_768x.webp";
 export default function Pentavite() {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 my-20 w-screen">
       <div className="flex justify-center items-center">
         <p className="w-1/2 text-xl">
           <span className="font-semibold text-2xl">
@@ -19,7 +19,7 @@ export default function Pentavite() {
       <div>
         <iframe
           width="100%"
-          height="500px"
+          height="550px"
           src="https://www.youtube.com/embed/SPmbrjeVuj0"
           title='"Must be a Pentavite Kid" Masterbrand TVC 30&#39;'
           frameBorder="0"
@@ -29,7 +29,7 @@ export default function Pentavite() {
         ></iframe>
       </div>
       <div>
-        <Image src={pentaviteImg} alt="pentavite-img" />
+        <Image src={pentaviteImg} alt="pentavite-img" className="w-full" />
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="text-xl">

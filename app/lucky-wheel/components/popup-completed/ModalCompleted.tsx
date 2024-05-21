@@ -1,6 +1,5 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import Link from "next/link";
 import { Fragment } from "react";
 
 interface ModalCompletedProps {
@@ -18,7 +17,7 @@ export default function ModalCompleted({
   return (
     <>
       <Transition show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={handleSetClose}>
+        <Dialog as="div" className="relative z-40" onClose={handleSetClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
