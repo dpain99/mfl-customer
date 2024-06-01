@@ -12,20 +12,22 @@ export default function MenuAccount({ nameAcc }: MenuAccountProps) {
   const dispatch = useDispatch();
   return (
     <div className="">
-      <Popover className="relative">
+      <Popover className="relative flex justify-center items-center">
         <>
           <Popover.Button onClick={() => setShow(!show)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1.7em"
-              height="1.7em"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
-              />
-            </svg>
+            <div className="border border-solid border-black rounded-full p-2 text-black">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="currentColor"
+                  d="M230.92 212c-15.23-26.33-38.7-45.21-66.09-54.16a72 72 0 1 0-73.66 0c-27.39 8.94-50.86 27.82-66.09 54.16a8 8 0 1 0 13.85 8c18.84-32.56 52.14-52 89.07-52s70.23 19.44 89.07 52a8 8 0 1 0 13.85-8M72 96a56 56 0 1 1 56 56a56.06 56.06 0 0 1-56-56"
+                />
+              </svg>
+            </div>
           </Popover.Button>
           <Transition
             show={show}
@@ -37,7 +39,7 @@ export default function MenuAccount({ nameAcc }: MenuAccountProps) {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute -left-48 z-10">
+            <Popover.Panel className="absolute -bottom-36 w-64 z-10">
               <div className="bg-slate-200 shadow-lg rounded-lg p-5 flex flex-col gap-2">
                 <span>Xin chào, {nameAcc}</span>
                 <div className="border border-solid border-slate-500"></div>

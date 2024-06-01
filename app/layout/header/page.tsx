@@ -7,7 +7,10 @@ export default async function Header() {
     <>
       <div className="sticky w-full z-10 top-0 z-30">
         <MainHeader />
-        <SubHeader />
+        <div className="hidden lg:flex">
+          <SubHeader />
+        </div>
+
         <div className={`absolute right-5`} style={{ bottom: "-70vh" }}>
           <SocialBtn3 />
         </div>

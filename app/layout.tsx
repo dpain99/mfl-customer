@@ -5,6 +5,7 @@ import Header from "./layout/header/page";
 import Providers from "@/redux/Provider";
 import FooterWeb from "./layout/footer/FooterWeb";
 import ProviderReactQuery from "@/common/providers/react-query.provider";
+import FooterHome from "./layout/footer/FooterHome";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,8 @@ export default function RootLayout({
           <ProviderReactQuery>
             <Header />
             <div>{children}</div>
-            <FooterWeb />
+            {/* <FooterWeb /> */}
+            <FooterHome />
           </ProviderReactQuery>
         </Providers>
       </body>
