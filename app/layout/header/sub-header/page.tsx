@@ -2,57 +2,93 @@
 import { comfortaa } from "@/fonts/font";
 import Link from "next/link";
 import { useState } from "react";
-import CategoryMenu from "./category-menu/CategoryMenu";
 import { useGetListCategory } from "./hooks/useGetListCategory";
 import "./style.scss";
 export default function SubHeader() {
-  const [openCate, setOpenCate] = useState<boolean>(false);
-  const handleClickCate = () => {
-    // if (openCate) {
-    //   setOpenCate(openCate);
-    // } else setOpenCate(!openCate);
-    setOpenCate(!openCate);
+  const { data: dataCate } = useGetListCategory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnterMenu = () => {
+    setIsOpen(true);
   };
 
-  const { data: dataCate } = useGetListCategory();
+  const handleMouseLeaveMenu = () => {
+    if (!isHovered) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleMouseEnterDropdown = () => {
+    setIsHovered(true);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeaveDropdown = () => {
+    setIsHovered(false);
+    setIsOpen(false);
+  };
 
   return (
-    <div className="sub-header shadow-lg h-12 hidden lg:block">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-row justify-between items-center h-12 relative">
-          <CategoryMenu
-            isShow={openCate}
-            data={dataCate}
-            handleIsClose={() => setOpenCate(false)}
-          />
-          <span
-            className={`${comfortaa.className} cate-span`}
-            onClick={handleClickCate}
-            // onMouseLeave={handleClickCate}
-          >
-            Danh Mục
-          </span>
-          <Link href={"/"}>
-            <span className={`${comfortaa.className} cate-span`}>
-              Trang chủ
-            </span>
-          </Link>
-          <Link href={"/blog"}>
-            <span className={`${comfortaa.className} cate-span`}>Cẩm nang</span>
-          </Link>
-          <Link href={"/about-us"}>
-            <span className={`${comfortaa.className} cate-span`}>
-              Về chúng tôi
-            </span>
-          </Link>
-          <Link href={"/our-range"}>
-            <span className={`${comfortaa.className} cate-span`}>Sản phẩm</span>
-          </Link>
-          <Link href={"/contact"}>
-            <span className={`${comfortaa.className} cate-span`}>Liên Hệ</span>
-          </Link>
+    <section className="bg-primary-color w-full h-full flex flex-row justify-center gap-6 text-white p-1">
+      <div
+        className="menu"
+        onMouseEnter={handleMouseEnterMenu}
+        onMouseLeave={handleMouseLeaveMenu}
+      >
+        <span
+          className={`${comfortaa.className} cate-span hover:cursor-pointer text-base lg:text-lg`}
+        >
+          Danh Mục
+        </span>
+        <div
+          className={`dropdown  ${isOpen ? "show" : ""}`}
+          onMouseEnter={handleMouseEnterDropdown}
+          onMouseLeave={handleMouseLeaveDropdown}
+        >
+          {dataCate?.map((item) => (
+            <Link href={""} key={item.id}>
+              <span>{item.name}</span>
+            </Link>
+          ))}
         </div>
       </div>
-    </div>
+
+      <Link href={"/"}>
+        <span
+          className={`${comfortaa.className} cate-span text-base lg:text-lg`}
+        >
+          Trang Chủ
+        </span>
+      </Link>
+      <Link href={"/blog"}>
+        <span
+          className={`${comfortaa.className} cate-span text-base lg:text-lg`}
+        >
+          Cẩm Nang
+        </span>
+      </Link>
+      <Link href={"/about-us"}>
+        <span
+          className={`${comfortaa.className} cate-span text-base lg:text-lg`}
+        >
+          Về Chúng Tôi
+        </span>
+      </Link>
+      <Link href={"/our-range"}>
+        <span
+          className={`${comfortaa.className} cate-span text-base lg:text-lg`}
+        >
+          Sản Phẩm
+        </span>
+      </Link>
+      <Link href={"/contact"}>
+        <span
+          className={`${comfortaa.className} cate-span text-base lg:text-lg`}
+        >
+          Liên Hệ
+        </span>
+      </Link>
+    </section>
   );
 }

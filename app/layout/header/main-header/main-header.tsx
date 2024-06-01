@@ -1,35 +1,29 @@
 "use client";
 import MenuAccount from "@/app/account/menu-account/MenuAccount";
-import AddToCartMenu from "@/app/components/add-to-cart-menu/AddToCartMenu";
-import SearchInput from "@/app/components/search-input/SearchInput";
-import SocialBtn2 from "@/app/components/social-btn-2/SocialBtn2";
+import Divider from "@/app/components/divider/Divider";
 import { playfairDisplay } from "@/fonts/font";
 import { setProfileUser } from "@/redux/slices/user";
-import { RootState, dispatch } from "@/redux/store";
-import { Tooltip } from "antd";
+import { dispatch, RootState } from "@/redux/store";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import "./style.scss";
 import { useGetCurrentUser } from "./hooks/use-get-current-user";
+import SearchBar from "./search-bar/SearchBar";
 import HotLine from "./hot-line/HotLine";
 import MenuBar from "./menu-bar/MenuBar";
-import SearchBar from "./search-bar/SearchBar";
-import "./style.scss";
-export default function MainHeader() {
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const handleClickMenu = () => {
-    setOpenMenu(!openMenu);
-  };
 
+export default function RootHeader() {
+  const cartItems = useSelector(
+    (state: RootState) => state.showCart.infoProduct
+  );
   const accessToken = useSelector(
     (state: RootState) => state.authenSlice.accessToken
   );
 
-  const cartItems = useSelector(
-    (state: RootState) => state.showCart.infoProduct
-  );
   const lengthCart = cartItems?.length || 0;
   const { data: infoAcc } = useGetCurrentUser(accessToken || "");
+
   useEffect(() => {
     if (infoAcc) {
       dispatch(
@@ -46,46 +40,70 @@ export default function MainHeader() {
     setShowSearchBar(true);
   };
 
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const handleClickMenu = () => {
+    setOpenMenu(!openMenu);
+  };
+
   return (
-    <>
-      <header className="page-header h-12 md:h-16 shadow-lg lg:shadow-none">
-        <AddToCartMenu />
-        {showSearchBar && (
-          <SearchBar
-            onClose={() => setShowSearchBar(false)}
-            autoFocus={showSearchBar ? true : false}
-          />
-        )}
-        <div className="container mx-auto px-4 pt-2">
-          <div className="flex flex-row">
-            <div className="flex basis-1/3 justify-start items-center gap-10 ">
-              <HotLine />
-              <div className="hidden lg:block">
-                <SocialBtn2 />
-              </div>
-            </div>
-            <div className="flex basis-1/3 justify-center items-center">
-              <Link href="/">
-                <p
-                  className={`${playfairDisplay.className} font-bold text-base lg:text-3xl`}
-                  style={{ color: "#A99A70" }}
+    <div className="bg-white">
+      {showSearchBar && (
+        <SearchBar
+          onClose={() => setShowSearchBar(false)}
+          autoFocus={showSearchBar ? true : false}
+        />
+      )}
+      <header className="container mx-auto px-2 py-2 flex flex-row">
+        <div className="flex justify-start  items-center basis-1/3 ">
+          <div className="hidden lg:flex">
+            <HotLine />
+          </div>
+        </div>
+        <div className="basis-1/3  flex justify-center items-center">
+          <Link href="/">
+            <span
+              className={`${playfairDisplay.className} font-bold text-base lg:text-3xl tracking-wider text-logo whitespace-nowrap`}
+            >
+              Medi Fast Links JSC
+            </span>
+          </Link>
+        </div>
+        <div className="flex basis-1/3 justify-end items-center gap-3">
+          <div className="justify-end items-center gap-3 hidden lg:flex">
+            <div
+              className="border border-solid border-black rounded-full p-2 text-black hover:cursor-pointer"
+              onClick={handleFocusSearch}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 48 48"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinejoin="round"
+                  strokeWidth="4"
                 >
-                  Medi Fast Links JSC
-                </p>
-              </Link>
+                  <path d="M21 38c9.389 0 17-7.611 17-17S30.389 4 21 4S4 11.611 4 21s7.611 17 17 17Z" />
+                  <path
+                    strokeLinecap="round"
+                    d="M26.657 14.343A7.975 7.975 0 0 0 21 12a7.975 7.975 0 0 0-5.657 2.343m17.879 18.879l8.485 8.485"
+                  />
+                </g>
+              </svg>
             </div>
-            <div className="flex basis-1/3 justify-end items-center gap-4 sm:gap-10">
-              <div className="hidden lg:flex">
-                <SearchInput onFocusSearch={handleFocusSearch} />
-              </div>
-              <Link href={"/cart"} className="relative">
+            <Divider width={"2"} height={"5"} />
+            <Link href={"/cart"} className="relative">
+              <div className="border border-solid border-black rounded-full p-2 text-black">
                 <span className="bg-red-500 absolute -right-2 -top-1 text-white rounded-full w-5 h-5 text-center text-sm">
                   {lengthCart}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="2em"
-                  height="2em"
+                  width="1em"
+                  height="1em"
                   viewBox="0 0 24 24"
                 >
                   <g
@@ -101,58 +119,29 @@ export default function MainHeader() {
                     />
                   </g>
                 </svg>
-              </Link>
-              <Tooltip placement="bottom" title={infoAcc?.email}>
-                <MenuAccount nameAcc={infoAcc?.email} />
-                {/* <div className="hidden lg:block">
-                    {" "}
-                    {infoAcc?.email ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1.7em"
-                        height="1.7em"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M19 4c-.6 0-1 .4-1 1v1h-1.5l-1.4-3c-.1-.2-.2-.4-.4-.5c-.5-.5-1.3-.6-2-.3l-.7.2l-.7-.3c-.7-.3-1.5-.2-2 .3c-.2.2-.3.4-.4.6L7.5 6H6V5c0-.6-.4-1-1-1s-1 .4-1 1v1c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-.5-.4-1-1-1M4 22v-3c0-2.67 5.33-4 8-4s8 1.33 8 4v3zm14.1-1.9V19c0-.64-3.13-2.1-6.1-2.1S5.9 18.36 5.9 19v1.1zM16 9v1c0 2.21-1.79 4-4 4s-4-1.79-4-4V9h2v1a2 2 0 1 0 4 0V9z"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1.7em"
-                        height="1.7em"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
-                        />
-                      </svg>
-                    )}
-                  </div> */}
-              </Tooltip>
-
-              <div className="block lg:hidden" onClick={handleClickMenu}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1.8em"
-                  height="1.8em"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1m0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1m0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1"
-                  />
-                </svg>
               </div>
-
-              {openMenu && <MenuBar onClickClose={handleClickMenu} />}
-            </div>
+            </Link>
+            <Divider width={"2"} height={"5"} />
+            <MenuAccount nameAcc={infoAcc?.email} />
           </div>
+
+          <div className="block lg:hidden" onClick={handleClickMenu}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.8em"
+              height="1.8em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1m0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1m0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1"
+              />
+            </svg>
+          </div>
+
+          {openMenu && <MenuBar onClickClose={handleClickMenu} />}
         </div>
       </header>
-    </>
+    </div>
   );
 }

@@ -1,22 +1,21 @@
 import { getData } from "@/lib/api";
 import imgBackground from "@/public/images/background.jpg";
 import eukyBearImg from "@/public/images/euky-bear.jpg";
+import imgNutiForEveryOne from "@/public/images/ozfarm-home-nutrition-everybody.webp";
 import pentaviteImg from "@/public/images/pentavite.png";
 import imgCate from "@/public/images/third.png";
 import Image from "next/image";
-import Banner from "./banner/Banner";
+import BannerHome from "./banner/BannerHome";
 import CategoryCards from "./category-cards/CategoryCards";
+import BrandList from "./components/BrandList";
+import EukyBear from "./components/EukyBear";
+import Pentavite from "./components/Pentavite";
+import HotSale from "./components/hot-sale/HotSale";
 import InfoCard from "./info-card/InfoCard";
 import ModalAds from "./pop-up-ads/ModalAds";
 import ProductCarosel from "./product-carousel/ProductCarosel";
 import ProductList from "./product-list/ProductList";
 import { IBanner, IProductListResponse } from "./type";
-import imgNutiForEveryOne from "@/public/images/ozfarm-home-nutrition-everybody.webp";
-import BrandList from "./components/BrandList";
-import Pentavite from "./components/Pentavite";
-import HotSale from "./components/hot-sale/HotSale";
-import EukyBear from "./components/EukyBear";
-import FollowUs from "./components/FollowUs";
 
 export default async function HomePage() {
   const dataImg: IBanner[] = await getData("customer/banner");
@@ -49,6 +48,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col items-center relative bg-white z-10">
       <ModalAds />
+
       <Image
         src={imgBackground}
         alt="back"
@@ -56,7 +56,8 @@ export default async function HomePage() {
       />
 
       <div className="w-full bg-white z-20 flex flex-col justify-center items-center pb-20">
-        <Banner dataImg={dataImg} />
+        <BannerHome dataImg={dataImg} />
+
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
           <div style={{ height: "300px" }}>
             <HotSale />

@@ -1,4 +1,4 @@
-import { comfortaa, marhey } from "@/fonts/font";
+import { kanit } from "@/fonts/font";
 
 export default function HotLine() {
   return (
@@ -102,11 +102,8 @@ export default function HotLine() {
         </g>
       </svg>
       <div className="flex flex-col">
-        <span className={`${comfortaa.className} text-xs sm:text-sm`}>
-          Hotline
-        </span>
-        <span className={`${marhey.className} text-xs sm:text-lg text-nowrap`}>
-          0973.02.22.82
+        <span className={`${kanit.className} text-xs sm:text-xl text-nowrap`}>
+          0973.022.282
         </span>
       </div>
     </div>
