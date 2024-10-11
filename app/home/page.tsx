@@ -47,7 +47,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col items-center relative bg-white z-10">
-      <ModalAds />
+      {/* <ModalAds /> */}
 
       <Image
         src={imgBackground}
@@ -59,9 +59,9 @@ export default async function HomePage() {
         <BannerHome dataImg={dataImg} />
 
         <div className="container px-4 flex flex-col justify-center items-center gap-14">
-          <div style={{ height: "300px" }}>
+          {/* <div style={{ height: "300px" }}>
             <HotSale />
-          </div>
+          </div> */}
           <div className="w-full mb-10" style={{ height: "500px" }}>
             <ProductCarosel
               linkMore={`/list-product/hot-sale`}

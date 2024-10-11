@@ -107,9 +107,11 @@ const CardProduct = ({
               {convertMoney(salePrice)} vnđ
             </span> */}
             <span className="text-rose-600 text-lg">
-              {title.includes("Oz Farm")
+              {/* {title.includes("Oz Farm")
                 ? `${convertMoney(price)} vnđ `
-                : "Giá: Liên Hệ"}
+                : "Giá: Liên Hệ"} */}
+
+              {title.includes("Oz Farm") ? `Giá: Liên Hệ` : "Giá: Liên Hệ"}
             </span>
           </div>
           <button className="card-btn" onClick={handleClickAddCart}>

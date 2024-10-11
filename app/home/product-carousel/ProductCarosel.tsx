@@ -94,8 +94,6 @@ export default function CardProductCarousel({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log("dataProduct", dataProduct);
-
   return (
     <>
       <div className="card-product-container">
@@ -110,7 +108,7 @@ export default function CardProductCarousel({
           {dataProduct.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="slide w-48 lg:w-72 shadow-lg relative rounded-lg">
-                <div className="ribbon-product">
+                {/* <div className="ribbon-product">
                   {(
                     ((item.productVariant[0].price -
                       item.productVariant[0].salePrice) /
@@ -118,7 +116,7 @@ export default function CardProductCarousel({
                     100
                   ).toFixed(0)}
                   %
-                </div>
+                </div> */}
 
                 <Link
                   href={`detail-product/${item.slug}`}
@@ -159,13 +157,14 @@ export default function CardProductCarousel({
                     <p
                       className={`${martel.className} real-price text-base lg:text-xl`}
                     >
-                      {convertMoney(item.productVariant[0].price)}đ
+                      {/* {convertMoney(item.productVariant[0].price)}đ */}
+                      Giá: Liên hệ
                     </p>
-                    <p
+                    {/* <p
                       className={`${martel.className} sub-price text-base lg:text-xl`}
                     >
                       {convertMoney(item.productVariant[0].salePrice)}đ
-                    </p>
+                    </p> */}
                   </div>
                   <span className="name-product leading-6">{item.name}</span>
                   <div className="absolute bottom-1 flex items-center right-2/4 translate-x-2/4">
